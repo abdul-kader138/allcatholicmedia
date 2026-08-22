@@ -1,0 +1,299 @@
+/* ═══════════════════════════════════════════════════════════
+   Hero Intro — cinematic full-width banner
+   ═══════════════════════════════════════════════════════════ */
+
+.hi-section {
+    display: block;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* ── Main hero image area ── */
+.hi-hero {
+    position: relative;
+    width: 100%;
+    min-height: 560px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.hi-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg,
+            rgba(4, 9, 22, 0.08) 0%,
+            rgba(4, 9, 22, 0.18) 40%,
+            rgba(4, 9, 22, 0.78) 72%,
+            rgba(4, 9, 22, 0.94) 100%
+        );
+    pointer-events: none;
+    transition: opacity 0.40s;
+    z-index: 1;
+}
+
+.hi-hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding-bottom: 56px;
+    transition: opacity 0.35s;
+}
+
+.hi-hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+/* ── Background video iframe ── */
+.hi-bg-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s;
+    z-index: 3;
+    background: #000;
+}
+
+/* ── Close button (top-right corner) ── */
+.hi-video-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    z-index: 5;
+    width: 38px;
+    height: 38px;
+    border: 1.5px solid rgba(255, 255, 255, 0.50);
+    border-radius: 50%;
+    background: rgba(4, 9, 22, 0.55);
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.20s, background 0.20s;
+    padding: 0;
+    line-height: 1;
+}
+
+.hi-video-close:hover {
+    border-color: #c9a227;
+    background: rgba(201, 162, 39, 0.20);
+    color: #c9a227;
+}
+
+/* ── Playing state ── */
+.hi-hero--playing .hi-bg-video {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hi-hero--playing .hi-hero-overlay {
+    opacity: 0;
+}
+
+.hi-hero--playing .hi-hero-content {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.hi-hero--playing .hi-video-close {
+    display: flex;
+}
+
+/* ── Gold-ringed play button ── */
+.hi-play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    border: 2px solid rgba(201, 162, 39, 0.65);
+    border-radius: 50%;
+    flex-shrink: 0;
+    text-decoration: none;
+    background: rgba(201, 162, 39, 0.08);
+    cursor: pointer;
+    transition: background 0.28s, border-color 0.28s, box-shadow 0.28s;
+}
+
+.hi-play-btn:hover {
+    background: rgba(201, 162, 39, 0.22);
+    border-color: #c9a227;
+    box-shadow: 0 0 28px rgba(201, 162, 39, 0.35);
+    text-decoration: none;
+}
+
+.hi-play-btn svg {
+    margin-left: 3px;
+}
+
+/* ── Hero title ── */
+.hi-title {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    font-size: clamp(2.8rem, 4.4vw, 5.4rem) !important;
+    font-weight: 700 !important;
+    color: #f8fafc !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.022em !important;
+    border: none !important;
+    background: transparent !important;
+    text-shadow: 0 2px 36px rgba(0, 0, 0, 0.55);
+}
+
+/* ── Four cards grid ── */
+.hi-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+}
+
+.hi-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: #0d1524;
+}
+
+.hi-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, #c9a227 50%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.30s;
+    z-index: 4;
+}
+
+.hi-card:hover::before {
+    opacity: 1;
+}
+
+.hi-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hi-card:hover .hi-card-img {
+    transform: scale(1.07);
+}
+
+.hi-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(4, 9, 22, 0.02) 25%,
+        rgba(4, 9, 22, 0.58) 65%,
+        rgba(4, 9, 22, 0.90) 100%
+    );
+    transition: background 0.30s;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hi-card:hover .hi-card-overlay {
+    background: linear-gradient(
+        180deg,
+        rgba(4, 9, 22, 0.10) 15%,
+        rgba(4, 9, 22, 0.68) 58%,
+        rgba(4, 9, 22, 0.94) 100%
+    );
+}
+
+.hi-card-body {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 16px 18px;
+    z-index: 2;
+}
+
+.hi-card-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    text-decoration: none;
+    width: 100%;
+}
+
+.hi-card-link:hover { text-decoration: none; }
+
+.hi-card-nolink {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.hi-card-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #c9a227;
+    opacity: 0.90;
+    transition: opacity 0.25s, transform 0.25s;
+}
+
+.hi-card:hover .hi-card-icon {
+    opacity: 1;
+    transform: scale(1.18);
+}
+
+.hi-card-text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.78rem, 1.05vw, 0.98rem);
+    font-weight: 500;
+    color: rgba(240, 244, 255, 0.92);
+    line-height: 1.35;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+    transition: color 0.25s;
+}
+
+.hi-card:hover .hi-card-text { color: #ffffff; }
+
+/* ── Tablet (≤ 991px) ── */
+@media (max-width: 991px) {
+    .hi-hero { min-height: 420px; }
+    .hi-hero-content { padding-bottom: 40px; }
+    .hi-hero-inner { padding: 0 28px; }
+    .hi-cards { grid-template-columns: repeat(2, 1fr); }
+    .hi-card { aspect-ratio: 16 / 10; }
+}
+
+/* ── Mobile (≤ 576px) ── */
+@media (max-width: 576px) {
+    .hi-hero { min-height: 300px; }
+    .hi-hero-content { padding-bottom: 28px; }
+    .hi-hero-inner { padding: 0 20px; gap: 16px; }
+    .hi-play-btn { width: 52px; height: 52px; }
+    .hi-cards { grid-template-columns: repeat(2, 1fr); }
+    .hi-card { aspect-ratio: 1 / 1; }
+    .hi-card-text { font-size: 0.80rem; }
+}

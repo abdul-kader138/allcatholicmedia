@@ -1,0 +1,252 @@
+<style>
+/* ── ACM Mobile Sidebar — echo-politics ── */
+
+/* Force dark background so white text is readable */
+#side-bar {
+    background:
+        radial-gradient(circle at top left, rgba(236, 201, 92, 0.18), transparent 24%),
+        radial-gradient(circle at 85% 18%, rgba(129, 168, 255, 0.16), transparent 26%),
+        linear-gradient(180deg, #244aa8 0%, #1d3f97 38%, #17347d 72%, #11285f 100%) !important;
+    padding: 0 0 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    overflow-y: auto !important;
+    width: min(340px, 88vw) !important;
+    max-width: 88vw !important;
+    left: 0 !important;
+    right: auto !important;
+    top: 0 !important;
+    z-index: 99999 !important;
+    box-shadow: 24px 0 60px rgba(0, 0, 0, 0.45) !important;
+    transform: translateX(-100%) !important;
+    transition: transform .35s ease, opacity .25s ease !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+#side-bar.show {
+    left: 0 !important;
+    right: auto !important;
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#side-bar .menu-sidebar-loading-wrapper {
+    display: none !important;
+}
+
+#side-bar .inner,
+#side-bar .acm-sb-menu-wrap,
+#side-bar .mobile-menu,
+#side-bar .mobile-menu nav,
+#side-bar .mainmenu {
+    width: 100% !important;
+}
+
+/* Logo banner at top */
+.acm-sb-logo-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 18px 18px 14px;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    margin-bottom: 0;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: linear-gradient(180deg, rgba(8, 19, 43, 0.96), rgba(8, 19, 43, 0.88));
+    backdrop-filter: blur(12px);
+}
+
+.acm-sb-logo-strip .echo-site-logo img,
+.acm-sb-logo-strip img {
+    height: 32px !important;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Close button */
+.acm-sb-close-wrap {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#side-bar .close-icon-menu,
+#side-bar button.close-icon-menu {
+    background: rgba(255,255,255,.06) !important;
+    border-radius: 6px !important;
+    border: 1px solid rgba(255,255,255,.12) !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+#side-bar .close-icon-menu i {
+    color: #e2e8f0 !important;
+    font-size: 16px !important;
+}
+
+/* ── Nav items ── */
+.acm-sb-menu-wrap .mobile-menu {
+    display: block !important;
+    margin: 0;
+}
+
+.acm-sb-menu-wrap .nav-main {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+}
+
+.acm-sb-menu-wrap {
+    padding: 14px 14px 0;
+}
+
+.acm-sb-menu-wrap .mobile-menu nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Top-level links */
+.acm-sb-menu-wrap .mobile-menu nav > ul > li > a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 15px 16px !important;
+    color: #e2e8f0 !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    border: 1px solid rgba(255,255,255,.07) !important;
+    border-radius: 16px !important;
+    background: rgba(255,255,255,.03) !important;
+    margin-bottom: 10px !important;
+    position: relative;
+    transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+
+.acm-sb-menu-wrap .mobile-menu nav > ul > li,
+.acm-sb-menu-wrap .mobile-menu nav ul ul li {
+    margin: 0 !important;
+}
+.acm-sb-menu-wrap .mobile-menu nav > ul > li > a:hover {
+    background: rgba(255,255,255,.06) !important;
+    border-color: rgba(201,162,39,.22) !important;
+    color: #fff !important;
+    transform: translateX(2px);
+}
+
+.acm-sb-menu-wrap .mobile-menu nav > ul > li.mm-active > a {
+    background: linear-gradient(180deg, rgba(201,162,39,.14), rgba(255,255,255,.04)) !important;
+    border-color: rgba(201,162,39,.3) !important;
+    color: #fff !important;
+}
+
+/* Hide the base ::after arrow on all links, add our own for parents */
+.acm-sb-menu-wrap .mobile-menu nav ul li a::after {
+    display: none !important;
+}
+.acm-sb-menu-wrap .mobile-menu nav ul li.has-droupdown > a .acm-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 999px;
+    font-size: .7rem;
+    color: rgba(201,162,39,.88);
+    background: rgba(255,255,255,.03);
+    transition: transform .22s;
+    flex-shrink: 0;
+}
+.acm-sb-menu-wrap .mobile-menu nav ul li.has-droupdown.mm-active > a .acm-arrow {
+    transform: rotate(180deg);
+}
+
+/* Sub-menu */
+.acm-sb-menu-wrap .mobile-menu nav ul ul {
+    background: rgba(255,255,255,.03);
+    border: 1px solid rgba(255,255,255,.06);
+    border-radius: 14px;
+    margin: 0 4px 10px;
+    overflow: hidden;
+    padding-left: 0;
+}
+.acm-sb-menu-wrap .mobile-menu nav ul ul li a {
+    padding: 11px 16px 11px 36px !important;
+    color: #cbd5e1 !important;
+    font-size: .85rem !important;
+    border-bottom: 1px solid rgba(255,255,255,.04) !important;
+    display: block !important;
+}
+.acm-sb-menu-wrap .mobile-menu nav ul ul li a:hover {
+    color: #fff !important;
+    background: rgba(255,255,255,.04) !important;
+}
+
+@media (max-width: 479px) {
+    #side-bar {
+        width: min(300px, 90vw) !important;
+        max-width: 90vw !important;
+    }
+
+    .acm-sb-logo-strip {
+        padding: 16px 14px 12px;
+    }
+
+    .acm-sb-menu-wrap .mobile-menu nav > ul > li > a {
+        padding: 13px 14px !important;
+        font-size: .9rem !important;
+    }
+
+    .acm-sb-menu-wrap .mobile-menu nav ul ul li a {
+        padding: 10px 14px 10px 28px !important;
+    }
+}
+</style>
+
+{{-- Logo --}}
+<div class="acm-sb-logo-strip">
+    {!! Theme::partial('header.partials.logo', ['onlyLogoLight' => true]) !!}
+
+    <div class="inner acm-sb-close-wrap">
+        <button class="close-icon-menu" type="button">
+            <span class="sr-only">{{ __('Close') }}</span>
+            <i class="far fa-times"></i>
+        </button>
+    </div>
+</div>
+
+{{-- Navigation --}}
+<div class="acm-sb-menu-wrap" style="flex:1; overflow-y:auto;">
+    <div class="mobile-menu">
+        <nav class="nav-main mainmenu-nav d-flex flex-column justify-content-center">
+            {!!
+               Menu::renderMenuLocation('main-menu', [
+                   'options' => ['class' => 'mainmenu', 'id' => 'mobile-menu-active'],
+                    'view' => 'main-menu-mobile',
+                ])
+            !!}
+        </nav>
+    </div>
+</div>
+
+<script>
+// Re-init metisMenu after AJAX injection (id no longer used — target by class)
+(function() {
+    var el = document.querySelector('#side-bar .mainmenu');
+    if (el && typeof jQuery !== 'undefined' && jQuery.fn.metisMenu) {
+        jQuery(el).metisMenu();
+    }
+})();
+</script>

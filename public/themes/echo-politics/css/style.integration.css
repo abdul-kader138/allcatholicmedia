@@ -1,0 +1,588 @@
+/* ============================================================
+   AllCatholicMedia – Member Dashboard Integration Overrides
+   ============================================================ */
+
+/* ── Design tokens ─────────────────────────────────────────── */
+:root {
+    --acm-navy-deep:  #050c18;
+    --acm-navy:       #0a417a;
+    --acm-navy-mid:   #0d1f3c;
+    --acm-navy-card:  #0e2244;
+    --acm-navy-soft:  #112952;
+    --acm-border:     rgba(255,255,255,.07);
+    --acm-gold:       #c9a227;
+    --acm-gold-dim:   rgba(201,162,39,.15);
+    --acm-text:       rgba(255,255,255,.88);
+    --acm-text-muted: rgba(255,255,255,.45);
+    --acm-radius:     14px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   1.  SIDEBAR
+   ══════════════════════════════════════════════════════════════ */
+.ps-main .ps-main__sidebar {
+    background: linear-gradient(180deg, #0a417a 0%, #0d1f3c 55%, #050c18 100%) !important;
+    border-right: none !important;
+    box-shadow: 4px 0 32px rgba(5,12,24,.45) !important;
+    position: relative !important;
+}
+.ps-main .ps-main__sidebar::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 1px; height: 100%;
+    background: linear-gradient(180deg, transparent, rgba(201,162,39,.35) 40%, rgba(201,162,39,.35) 60%, transparent);
+    pointer-events: none;
+}
+
+/* User welcome */
+.ps-block--user-wellcome {
+    background: rgba(255,255,255,.06) !important;
+    border: 1px solid rgba(201,162,39,.2) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    margin-bottom: 6px !important;
+}
+.ps-block--user-wellcome .ps-block__right p  { color: rgba(255,255,255,.95) !important; font-weight: 600 !important; font-size: 14px !important; }
+.ps-block--user-wellcome .ps-block__right small { color: rgba(255,255,255,.5) !important; font-size: 11px !important; }
+.ps-block--user-wellcome .ps-block__left img {
+    border: 2px solid var(--acm-gold) !important;
+    border-radius: 50% !important;
+    width: 46px !important; height: 46px !important;
+    object-fit: cover !important;
+}
+.ps-block--user-wellcome .ps-block__action a { color: rgba(255,255,255,.45) !important; transition: color .2s !important; }
+.ps-block--user-wellcome .ps-block__action a:hover { color: var(--acm-gold) !important; }
+
+/* Posts count */
+.ps-block--earning-count {
+    border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    padding-bottom: 24px !important;
+    margin-top: 16px !important;
+}
+.ps-block--earning-count small { color: rgba(255,255,255,.5) !important; font-size: 11px !important; letter-spacing: .5px !important; text-transform: uppercase !important; }
+.ps-block--earning-count h3    { color: var(--acm-gold) !important; font-size: 2.2rem !important; font-weight: 800 !important; line-height: 1 !important; margin-top: 4px !important; }
+
+/* Navigation menu */
+.ps-sidebar .menu > li > a {
+    color: rgba(255,255,255,.65) !important;
+    font-size: 14px !important; font-weight: 500 !important;
+    padding: 11px 12px !important;
+    border-radius: 10px !important;
+    margin-bottom: 2px !important;
+    transition: all .2s ease !important;
+    display: flex !important; align-items: center !important; gap: 10px !important;
+}
+.ps-sidebar .menu > li > a:hover { color: #fff !important; background: rgba(255,255,255,.08) !important; }
+.ps-sidebar .menu > li > a.active { color: var(--acm-gold) !important; background: var(--acm-gold-dim) !important; font-weight: 600 !important; }
+.ps-sidebar .menu > li > a::after { display: none !important; }
+.ps-sidebar .menu > li > a.active::before {
+    content: '' !important; display: block !important;
+    width: 3px !important; height: 18px !important;
+    background: var(--acm-gold) !important; border-radius: 2px !important;
+    flex-shrink: 0 !important; position: static !important;
+    transform: none !important; visibility: visible !important; opacity: 1 !important;
+}
+.ps-sidebar .menu > li > a i,
+.ps-sidebar .menu > li > a svg { color: inherit !important; opacity: .7 !important; font-size: 18px !important; flex-shrink: 0 !important; }
+.ps-sidebar .menu > li > a.active i,
+.ps-sidebar .menu > li > a.active svg { opacity: 1 !important; }
+
+/* Sidebar section label */
+.ps-sidebar__content::before {
+    content: 'NAVIGATION';
+    display: block;
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+    color: rgba(255,255,255,.28);
+    padding: 0 12px 8px;
+    text-transform: uppercase;
+}
+
+/* Copyright */
+.ps-copyright a, .ps-copyright p, .ps-copyright { color: rgba(255,255,255,.28) !important; font-size: 11px !important; }
+.ps-copyright img { filter: brightness(0) invert(1) !important; opacity: .45 !important; }
+
+/* Sidebar scrollbar */
+.ps-main__sidebar::-webkit-scrollbar { width: 3px; }
+.ps-main__sidebar::-webkit-scrollbar-track { background: transparent; }
+.ps-main__sidebar::-webkit-scrollbar-thumb { background: rgba(201,162,39,.25); border-radius: 4px; }
+.ps-main__sidebar::-webkit-scrollbar-thumb:hover { background: rgba(201,162,39,.55); }
+
+/* Mobile header */
+.header--mobile {
+    background: linear-gradient(90deg, #0a417a, #0d1f3c) !important;
+    border-bottom: 1px solid rgba(201,162,39,.25) !important;
+}
+.header--mobile a, .header--mobile i { color: rgba(255,255,255,.85) !important; }
+
+/* Mobile drawer */
+.ps-drawer--mobile { background: linear-gradient(180deg, #0a417a 0%, #0d1f3c 100%) !important; border-right: none !important; }
+.ps-drawer--mobile .ps-drawer__header { border-bottom: 1px solid rgba(255,255,255,.1) !important; }
+.ps-drawer--mobile .ps-drawer__header h4 { color: #fff !important; }
+.ps-drawer--mobile .ps-drawer__close { color: rgba(255,255,255,.55) !important; }
+.ps-drawer--mobile .menu > li > a { color: rgba(255,255,255,.7) !important; }
+.ps-drawer--mobile .menu > li > a.active,
+.ps-drawer--mobile .menu > li > a:hover { color: var(--acm-gold) !important; background: rgba(255,255,255,.08) !important; }
+
+/* Overlay */
+.ps-site-overlay { background: rgba(5,12,24,.78) !important; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   2.  MAIN WRAPPER  –  dark background
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper {
+    background: #070f1d !important;
+}
+
+#vendor-dashboard {
+    padding: 28px 32px !important;
+}
+@media (max-width: 768px) {
+    #vendor-dashboard { padding: 20px 16px !important; }
+}
+
+/* Fade-in for sections */
+#vendor-dashboard > * {
+    animation: acm-fadein .3s ease both;
+}
+@keyframes acm-fadein {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   3.  PAGE TITLE ROW
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper > header,
+#vendor-dashboard > header {
+    background: #0e2244 !important;
+    border: 1px solid rgba(255,255,255,.07) !important;
+    border-radius: 14px !important;
+    padding: 18px 28px !important;
+    margin-bottom: 24px !important;
+    box-shadow: 0 4px 20px rgba(5,12,24,.35) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.ps-main__wrapper > header h3.fs-1,
+#vendor-dashboard > header h3.fs-1 {
+    color: #fff !important;
+    font-weight: 800 !important;
+    font-size: 1.25rem !important;
+    margin: 0 !important;
+    position: relative !important;
+    padding-left: 16px !important;
+}
+.ps-main__wrapper > header h3.fs-1::before,
+#vendor-dashboard > header h3.fs-1::before {
+    content: '' !important;
+    position: absolute !important; left: 0 !important; top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 4px !important; height: 20px !important;
+    background: var(--acm-gold) !important; border-radius: 3px !important;
+}
+
+.ps-main__wrapper > header a,
+#vendor-dashboard > header a {
+    font-size: .8rem !important; font-weight: 600 !important;
+    color: rgba(255,255,255,.45) !important;
+    display: flex !important; align-items: center !important; gap: 6px !important;
+    text-decoration: none !important; transition: color .2s !important;
+}
+.ps-main__wrapper > header a:hover,
+#vendor-dashboard > header a:hover { color: var(--acm-gold) !important; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   4.  STAT WIDGETS
+   Bootstrap uses background-color:…!important so we must
+   override BOTH background-image and background-color.
+   ══════════════════════════════════════════════════════════════ */
+
+/* Container row */
+.ps-main__wrapper .row-cards { row-gap: 20px !important; }
+
+/* Card shell */
+.ps-main__wrapper .dashboard-widget-item > div,
+.ps-main__wrapper .dashboard-widget-item > a {
+    border-radius: 16px !important;
+    min-height: 128px !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(255,255,255,.07) !important;
+    box-shadow: 0 8px 28px rgba(5,12,24,.45) !important;
+    transition: transform .2s ease, box-shadow .2s ease !important;
+}
+.ps-main__wrapper .dashboard-widget-item > div:hover,
+.ps-main__wrapper .dashboard-widget-item > a:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 14px 36px rgba(5,12,24,.55) !important;
+}
+
+/* Published Posts – navy/gold */
+.ps-main__wrapper .dashboard-widget-item .bg-primary {
+    background-color: #0a2e5a !important;
+    background-image: linear-gradient(135deg, #0a417a 0%, #061d3d 100%) !important;
+    border-left: 4px solid var(--acm-gold) !important;
+}
+.ps-main__wrapper .dashboard-widget-item .bg-primary::after {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(201,162,39,.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Pending Posts – emerald */
+.ps-main__wrapper .dashboard-widget-item .bg-success {
+    background-color: #083d2e !important;
+    background-image: linear-gradient(135deg, #0c5c43 0%, #052b20 100%) !important;
+    border-left: 4px solid #34d399 !important;
+}
+.ps-main__wrapper .dashboard-widget-item .bg-success::after {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(52,211,153,.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Draft Posts – crimson */
+.ps-main__wrapper .dashboard-widget-item .bg-danger {
+    background-color: #4a0e18 !important;
+    background-image: linear-gradient(135deg, #7a1525 0%, #380810 100%) !important;
+    border-left: 4px solid #f87171 !important;
+}
+.ps-main__wrapper .dashboard-widget-item .bg-danger::after {
+    content: '';
+    position: absolute; top: -20px; right: -20px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(248,113,113,.18) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Widget text */
+.ps-main__wrapper .dashboard-widget-item .details {
+    padding: 22px 22px 18px !important;
+    position: relative !important; z-index: 1 !important;
+}
+.ps-main__wrapper .dashboard-widget-item .details .desc {
+    font-size: .7rem !important; font-weight: 700 !important;
+    letter-spacing: 1.2px !important; text-transform: uppercase !important;
+    opacity: .65 !important; margin-bottom: 10px !important;
+    color: #fff !important;
+}
+.ps-main__wrapper .dashboard-widget-item .details .number {
+    font-size: 2.5rem !important; font-weight: 800 !important;
+    line-height: 1 !important; letter-spacing: -1px !important;
+    color: #fff !important;
+}
+
+/* Background icon */
+.ps-main__wrapper .dashboard-widget-item .visual { opacity: .1 !important; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   5.  CARDS  (Activity Log, settings, etc.)
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .card {
+    background: #0e2244 !important;
+    border: 1px solid rgba(255,255,255,.07) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 6px 28px rgba(5,12,24,.4) !important;
+    overflow: hidden !important;
+    color: var(--acm-text) !important;
+}
+
+/* Card header */
+.ps-main__wrapper .card .card-header,
+.ps-main__wrapper .card-header {
+    background: rgba(255,255,255,.04) !important;
+    border-bottom: 1px solid rgba(255,255,255,.07) !important;
+    padding: 18px 24px !important;
+    border-radius: 0 !important;
+    position: relative !important;
+}
+.ps-main__wrapper .card .card-header::after {
+    content: '';
+    position: absolute; bottom: 0; left: 24px;
+    width: 36px; height: 3px;
+    background: var(--acm-gold); border-radius: 2px;
+}
+
+/* Card title */
+.ps-main__wrapper .card .card-title,
+.ps-main__wrapper .card-title {
+    font-size: .95rem !important; font-weight: 700 !important;
+    color: #fff !important; margin: 0 !important;
+}
+
+/* Card body */
+.ps-main__wrapper .card .card-body,
+.ps-main__wrapper .card-body {
+    padding: 24px !important;
+}
+
+/* Card footer */
+.ps-main__wrapper .card .card-footer,
+.ps-main__wrapper .card-footer {
+    background: rgba(255,255,255,.03) !important;
+    border-top: 1px solid rgba(255,255,255,.07) !important;
+    padding: 14px 24px !important;
+    text-align: center !important;
+}
+.ps-main__wrapper .card .card-footer a {
+    display: inline-block !important;
+    background: var(--acm-gold-dim) !important;
+    border: 1px solid rgba(201,162,39,.3) !important;
+    color: var(--acm-gold) !important;
+    font-weight: 600 !important; font-size: .84rem !important;
+    padding: 8px 24px !important; border-radius: 8px !important;
+    text-decoration: none !important; transition: all .2s !important;
+}
+.ps-main__wrapper .card .card-footer a:hover {
+    background: rgba(201,162,39,.25) !important;
+    color: var(--acm-gold) !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   6.  ACTIVITY LOG LIST
+   ══════════════════════════════════════════════════════════════ */
+
+/* Loading spinner */
+.ps-main__wrapper .card-body .loading-spinner {
+    width: 34px !important; height: 34px !important;
+    border: 3px solid rgba(255,255,255,.1) !important;
+    border-top-color: var(--acm-gold) !important;
+    border-radius: 50% !important;
+    animation: acm-spin .8s linear infinite !important;
+    margin: 56px auto !important;
+    display: block !important;
+    background: transparent !important;
+}
+@keyframes acm-spin { to { transform: rotate(360deg); } }
+
+/* Empty state */
+.ps-main__wrapper .card .empty { padding: 48px 24px !important; text-align: center !important; }
+.ps-main__wrapper .card .empty-icon {
+    width: 60px !important; height: 60px !important; border-radius: 50% !important;
+    background: rgba(255,255,255,.06) !important;
+    border: 1px solid rgba(255,255,255,.1) !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    margin: 0 auto 16px !important;
+}
+.ps-main__wrapper .card .empty-icon svg { width: 26px !important; height: 26px !important; stroke: var(--acm-gold) !important; opacity: .7 !important; }
+.ps-main__wrapper .card .empty-title    { font-weight: 700 !important; color: #fff !important; font-size: .95rem !important; margin-bottom: 4px !important; }
+.ps-main__wrapper .card .empty-subtitle { color: rgba(255,255,255,.4) !important; font-size: .85rem !important; }
+
+/* List items */
+.ps-main__wrapper .card .list-group-flush { background: transparent !important; }
+.ps-main__wrapper .card .list-group-item {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(255,255,255,.06) !important;
+    padding: 14px 24px !important;
+    transition: background .15s !important;
+    color: var(--acm-text) !important;
+}
+.ps-main__wrapper .card .list-group-item:last-child { border-bottom: none !important; }
+.ps-main__wrapper .card .list-group-item:hover { background: rgba(255,255,255,.04) !important; }
+
+/* Clock icon */
+.ps-main__wrapper .card .list-group-item .icon { color: var(--acm-gold) !important; font-size: 1rem !important; }
+
+/* Description text */
+.ps-main__wrapper .card .list-group-item .text-reset {
+    font-size: .875rem !important; color: rgba(255,255,255,.82) !important; line-height: 1.5 !important;
+}
+/* IP address */
+.ps-main__wrapper .card .list-group-item a[href*="whatismyipaddress"] {
+    color: rgba(255,255,255,.35) !important; font-size: .76rem !important; text-decoration: none !important;
+}
+.ps-main__wrapper .card .list-group-item a[href*="whatismyipaddress"]:hover { color: var(--acm-gold) !important; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   7.  TABLES
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .table {
+    color: rgba(255,255,255,.82) !important;
+    --bs-table-bg: transparent !important;
+    --bs-table-striped-bg: rgba(255,255,255,.03) !important;
+    --bs-table-hover-bg: rgba(255,255,255,.05) !important;
+}
+.ps-main__wrapper .table thead th {
+    background: rgba(255,255,255,.04) !important;
+    color: rgba(255,255,255,.4) !important;
+    font-size: .7rem !important; font-weight: 700 !important;
+    letter-spacing: 1px !important; text-transform: uppercase !important;
+    border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    padding: 14px 16px !important;
+    white-space: nowrap !important;
+}
+.ps-main__wrapper .table tbody td {
+    border-bottom: 1px solid rgba(255,255,255,.05) !important;
+    padding: 14px 16px !important;
+    vertical-align: middle !important;
+    color: rgba(255,255,255,.82) !important;
+}
+.ps-main__wrapper .table tbody tr:hover td { background: rgba(255,255,255,.04) !important; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   8.  FORMS  (Settings page)
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .form-control,
+.ps-main__wrapper .form-select {
+    background: rgba(255,255,255,.06) !important;
+    border-color: rgba(255,255,255,.12) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+}
+.ps-main__wrapper .form-control::placeholder { color: rgba(255,255,255,.3) !important; }
+.ps-main__wrapper .form-control:focus,
+.ps-main__wrapper .form-select:focus {
+    background: rgba(255,255,255,.09) !important;
+    border-color: var(--acm-gold) !important;
+    box-shadow: 0 0 0 3px rgba(201,162,39,.15) !important;
+    color: #fff !important;
+}
+.ps-main__wrapper .form-label {
+    color: rgba(255,255,255,.7) !important;
+    font-weight: 600 !important; font-size: .85rem !important;
+}
+.ps-main__wrapper .form-text { color: rgba(255,255,255,.35) !important; }
+
+/* Input groups */
+.ps-main__wrapper .input-group-text {
+    background: rgba(255,255,255,.08) !important;
+    border-color: rgba(255,255,255,.12) !important;
+    color: rgba(255,255,255,.7) !important;
+}
+
+/* Textarea */
+.ps-main__wrapper textarea.form-control { resize: vertical !important; }
+
+
+/* ══════════════════════════════════════════════════════════════
+   9.  BUTTONS
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .btn-primary {
+    background-image: linear-gradient(135deg, #0a417a, #0d1f3c) !important;
+    background-color: #0a417a !important;
+    border-color: transparent !important;
+    color: #fff !important;
+    font-weight: 600 !important; border-radius: 8px !important;
+    transition: opacity .2s !important;
+}
+.ps-main__wrapper .btn-primary:hover { opacity: .85 !important; }
+
+.ps-main__wrapper .btn-outline-secondary {
+    border-color: rgba(255,255,255,.2) !important;
+    color: rgba(255,255,255,.65) !important;
+}
+.ps-main__wrapper .btn-outline-secondary:hover {
+    background: rgba(255,255,255,.08) !important;
+    color: #fff !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   10. TABS  (Settings page)
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .nav-tabs {
+    border-bottom: 1px solid rgba(255,255,255,.08) !important;
+    gap: 2px !important;
+}
+.ps-main__wrapper .nav-tabs .nav-link {
+    border: none !important;
+    border-bottom: 3px solid transparent !important;
+    border-radius: 0 !important;
+    padding: 12px 18px !important;
+    font-size: .875rem !important; font-weight: 600 !important;
+    color: rgba(255,255,255,.45) !important;
+    background: transparent !important;
+    transition: all .2s !important;
+}
+.ps-main__wrapper .nav-tabs .nav-link:hover { color: rgba(255,255,255,.75) !important; }
+.ps-main__wrapper .nav-tabs .nav-link.active {
+    color: #fff !important;
+    border-bottom-color: var(--acm-gold) !important;
+    background: transparent !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   11. BADGES & PILLS
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .badge.bg-success {
+    background: rgba(52,211,153,.15) !important;
+    color: #34d399 !important; font-weight: 600 !important; border-radius: 20px !important;
+}
+.ps-main__wrapper .badge.bg-warning {
+    background: var(--acm-gold-dim) !important;
+    color: var(--acm-gold) !important; font-weight: 600 !important; border-radius: 20px !important;
+}
+.ps-main__wrapper .badge.bg-danger {
+    background: rgba(248,113,113,.15) !important;
+    color: #f87171 !important; font-weight: 600 !important; border-radius: 20px !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   12. PAGINATION
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .page-link {
+    background: rgba(255,255,255,.05) !important;
+    border-color: rgba(255,255,255,.1) !important;
+    color: rgba(255,255,255,.6) !important;
+    border-radius: 8px !important;
+    transition: all .2s !important;
+}
+.ps-main__wrapper .page-link:hover {
+    background: rgba(255,255,255,.1) !important;
+    color: #fff !important;
+}
+.ps-main__wrapper .page-item.active .page-link {
+    background-image: linear-gradient(135deg, #0a417a, #0d1f3c) !important;
+    background-color: #0a417a !important;
+    border-color: transparent !important;
+    color: var(--acm-gold) !important; font-weight: 700 !important;
+}
+
+
+/* ══════════════════════════════════════════════════════════════
+   13. ALERTS inside content
+   ══════════════════════════════════════════════════════════════ */
+.ps-main__wrapper .alert-danger {
+    background: rgba(248,113,113,.1) !important;
+    border-color: rgba(248,113,113,.25) !important;
+    color: #fca5a5 !important; border-radius: 10px !important;
+}
+.ps-main__wrapper .alert-info {
+    background: rgba(201,162,39,.1) !important;
+    border-color: rgba(201,162,39,.25) !important;
+    color: var(--acm-gold) !important; border-radius: 10px !important;
+}
+
+/* ── Fix: static page content hidden by homepage layout rules ── */
+main .container .main .ck-content p,
+main .container .main .ck-content li,
+main .container .main .ck-content h1,
+main .container .main .ck-content h2,
+main .container .main .ck-content h3,
+main .container .main .ck-content h4,
+main .container .main .ck-content h5,
+main .container .main .ck-content h6 {
+    display: block !important;
+    height: auto !important;
+    line-height: 1.8 !important;
+    margin-bottom: 1rem !important;
+    color: inherit !important;
+}

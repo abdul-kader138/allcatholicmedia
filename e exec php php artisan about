@@ -1,0 +1,1493 @@
+[90m= [39m[34;4mIlluminate\Http\Response[39;24m {#9108
+    +[1mheaders[22m: [34;4mSymfony\Component\HttpFoundation\ResponseHeaderBag[39;24m {#9595},
+    +[1moriginal[22m: """
+      [32m<!doctype html>[39m\n
+      [32m<html lang="en" data-theme="dark">[39m\n
+      [32m<head>[39m\n
+      [32m    <meta charset="UTF-8">[39m\n
+      [32m    <meta content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5, user-scalable=1" name="viewport" />[39m\n
+      [32m    <meta http-equiv="X-UA-Compatible" content="ie=edge">[39m\n
+      \n
+      [32m        <style >[39m\n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Cutive';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/scutivev24napzcz-fhohv3iplrvjcgsm1zpzh.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Cutive';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/scutivev24napzcz-fhohv3iplspjcgsm1za.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtvojgmgsyuukbzkslpc2t-1eeyac7f.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtvojgmgsyuukbzkslpamt-1eeyac7f.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtvojgmgsyuukbzkslpcgt-1eeyac7f.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtvojgmgsyuukbzkslpbmt-1eeyaa.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtqojgmgsyuukbzkslhvu5q9gmvqhtmmggn.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtqojgmgsyuukbzkslhvu5q-wmvqhtmmggn.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtqojgmgsyuukbzkslhvu5q92mvqhtmmggn.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/199651483e/sistokwebv263qtqojgmgsyuukbzkslhvu5q-wmvqhtmmg.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;[39m\n
+      [32m}[39m\n
+      [32m</style>[39m\n
+      \n
+      [32m    <style>[39m\n
+      [32m    :root {[39m\n
+      [32m        --primary-color: rgb(30, 58, 138) !important;[39m\n
+      [32m        --secondary-color: rgb(30, 58, 138) !important;[39m\n
+      [32m        --tertiary-color: inerit !important;[39m\n
+      [32m        --header-text-color: #ffffff !important;[39m\n
+      [32m        --color-primary: rgb(30, 58, 138) !important;[39m\n
+      [32m        --color-heading: rgb(201, 162, 39) !important;[39m\n
+      [32m        --text-color: #475569 !important;[39m\n
+      [32m        --footer-background-color: rgb(30, 58, 138) !important;[39m\n
+      [32m        --footer-heading-color: #f8fafc !important;[39m\n
+      [32m        --footer-text-color: #94a3b8 !important;[39m\n
+      [32m        --primary-font: 'Istok Web', sans-serif;[39m\n
+      [32m        --heading-font: 'Cutive', sans-serif;[39m\n
+      [32m        --primary-heading: 'Cutive', sans-serif;[39m\n
+      [32m        --gradient-color: linear-gradient(126deg, #9F68F5 14.85%, #BEE44F 86.39%) !important;[39m\n
+      [32m    }[39m\n
+      [32m    }[39m\n
+      [32m    .ck-content p, .ck-content li,[39m\n
+      [32m    .ck-content h1, .ck-content h2, .ck-content h3,[39m\n
+      [32m    .ck-content h4, .ck-content h5, .ck-content h6 {[39m\n
+      [32m        display: block !important;[39m\n
+      [32m        height: auto !important;[39m\n
+      [32m        line-height: inherit !important;[39m\n
+      [32m        margin-bottom: 1rem !important;[39m\n
+      [32m    }[39m\n
+      [32m</style>[39m\n
+      \n
+      \n
+      [32m    <title>All Catholic Media â€” Founded by Morson Livingston</title>[39m\n
+      [32m<meta name="description" content="All Catholic Media is a digital Catholic ministry â€” Watch, Listen, and Pray. Founded by Fr. Morson Livingston, Catholic priest, Odessa, Florida. One Faith. One Family. One Place.">[39m\n
+      [32m<link rel="canonical" href="http://localhost">[39m\n
+      [32m<meta name="robots" content="index, follow">[39m\n
+      [32m<meta property="og:site_name" content="All Catholic Media">[39m\n
+      [32m<meta property="og:type" content="article">[39m\n
+      [32m<meta property="og:title" content="All Catholic Media â€” Founded by Morson Livingston">[39m\n
+      [32m<meta property="og:description" content="All Catholic Media is a digital Catholic ministry â€” Watch, Listen, and Pray. Founded by Fr. Morson Livingston, Catholic priest, Odessa, Florida. One Faith. One Family. One Place.">[39m\n
+      [32m<meta property="og:url" content="http://localhost">[39m\n
+      [32m<meta property="og:image" content="http://acm.2.29.0.164.nip.io/storage/header-2.png">[39m\n
+      [32m<meta name="twitter:title" content="All Catholic Media â€” Founded by Morson Livingston">[39m\n
+      [32m<meta name="twitter:description" content="All Catholic Media is a digital Catholic ministry â€” Watch, Listen, and Pray. Founded by Fr. Morson Livingston, Catholic priest, Odessa, Florida. One Faith. One Family. One Place.">[39m\n
+      [32m<link[39m\n
+      [32m    rel="sitemap"[39m\n
+      [32m    title="Sitemap"[39m\n
+      [32m    href="http://localhost/sitemap.xml"[39m\n
+      [32m    type="application/xml"[39m\n
+      [32m>[39m\n
+      \n
+      [32m    <link rel="icon" type="image/png" href="http://acm.2.29.0.164.nip.io/storage/header.png">[39m\n
+      \n
+      \n
+      [32m<link rel="preload" as="image" href="http://acm.2.29.0.164.nip.io/storage/trending-1.png" /><link rel="preload" as="image" href="http://acm.2.29.0.164.nip.io/storage/trending-1.png" /><link rel="preload" as="image" href="http://acm.2.29.0.164.nip.io/storage/trending-1.png" />[39m\n
+      \n
+      [32m    <style >[39m\n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtvojgmgsyuukbzkslpc2t-1eeyac7f.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtvojgmgsyuukbzkslpamt-1eeyac7f.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtvojgmgsyuukbzkslpcgt-1eeyac7f.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 400;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtvojgmgsyuukbzkslpbmt-1eeyaa.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtqojgmgsyuukbzkslhvu5q9gmvqhtmmggn.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtqojgmgsyuukbzkslhvu5q-wmvqhtmmggn.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtqojgmgsyuukbzkslhvu5q92mvqhtmmggn.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@font-face {[39m\n
+      [32m  font-family: 'Istok Web';[39m\n
+      [32m  font-style: normal;[39m\n
+      [32m  font-weight: 700;[39m\n
+      [32m  font-display: swap;[39m\n
+      [32m  src: url(http://localhost/storage/fonts/31497c9a8a/sistokwebv263qtqojgmgsyuukbzkslhvu5q-wmvqhtmmg.woff2) format('woff2');[39m\n
+      [32m  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;[39m\n
+      [32m}[39m\n
+      [32m</style><style>:root{--primary-font: "Istok Web", sans-serif;}</style>[39m\n
+      \n
+      \n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/vendor/core/core/base/libraries/ckeditor/content-styles.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo/plugins/bootstrap/bootstrap.min.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo/plugins/magnific-popup/magnific-popup.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo/plugins/magnify-popup/magnify-popup.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo/plugins/metismenu/metismenu.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo/plugins/swiper/swiper.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo/css/fontawesome-5.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo/css/style.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo-politics/css/style.css">[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo-politics/css/home-sections.css">[39m\n
+      \n
+      \n
+      [32m<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"WebSite","name":"All Catholic Media","url":"http:\/\/localhost"}</script>[39m\n
+      \n
+      [32m<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Organization","name":"All Catholic Media","url":"http:\/\/localhost","logo":{"@type":"ImageObject","url":"http:\/\/acm.2.29.0.164.nip.io\/storage\/header-2.png"}}</script>[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/themes/echo-politics/css/style.integration.css?v=1787407940"><style>[39m\n
+      [32m    .preloader {[39m\n
+      [32m        position: fixed;[39m\n
+      [32m        top: 0;[39m\n
+      [32m        left: 0;[39m\n
+      [32m        width: 100%;[39m\n
+      [32m        height: 100%;[39m\n
+      [32m        z-index: 99999;[39m\n
+      [32m        background-color: rgba(255, 255, 255, .82);[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .preloader.fade-in {[39m\n
+      [32m        display: none;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .preloader-loading {[39m\n
+      [32m        position: absolute;[39m\n
+      [32m        top: 50%;[39m\n
+      [32m        left: 50%;[39m\n
+      [32m        transform: translate(-50%, -50%);[39m\n
+      [32m        display: block;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .preloader-loading::after {[39m\n
+      [32m        content: " ";[39m\n
+      [32m        display: block;[39m\n
+      [32m        border-radius: 50%;[39m\n
+      [32m        border-width: 1px;[39m\n
+      [32m        border-style: solid;[39m\n
+      [32m        animation: preloader-dual-ring .5s linear infinite;[39m\n
+      [32m        width: 40px;[39m\n
+      [32m        height: 40px;[39m\n
+      [32m        border-color: var(--primary-color, #aa0909) transparent var(--primary-color, #aa0909) transparent;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    @keyframes preloader-dual-ring {[39m\n
+      [32m        0% {[39m\n
+      [32m            transform: rotate(0deg)[39m\n
+      [32m        }[39m\n
+      \n
+      [32m        100% {[39m\n
+      [32m            transform: rotate(360deg)[39m\n
+      [32m        }[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    @-webkit-keyframes preloader-dual-ring {[39m\n
+      [32m        0% {[39m\n
+      [32m            transform: rotate(0deg)[39m\n
+      [32m        }[39m\n
+      \n
+      [32m        100% {[39m\n
+      [32m            transform: rotate(360deg)[39m\n
+      [32m        }[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    @-o-keyframes preloader-dual-ring {[39m\n
+      [32m        0% {[39m\n
+      [32m            transform: rotate(0deg)[39m\n
+      [32m        }[39m\n
+      \n
+      [32m        100% {[39m\n
+      [32m            transform: rotate(360deg)[39m\n
+      [32m        }[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    @-ms-keyframes preloader-dual-ring {[39m\n
+      [32m        0% {[39m\n
+      [32m            transform: rotate(0deg)[39m\n
+      [32m        }[39m\n
+      \n
+      [32m        100% {[39m\n
+      [32m            transform: rotate(360deg)[39m\n
+      [32m        }[39m\n
+      [32m    }[39m\n
+      [32m</style>[39m\n
+      \n
+      [32m<script>[39m\n
+      [32m    window.addEventListener('load', function() {[39m\n
+      [32m        document.getElementById('preloader').classList.add('fade-in');[39m\n
+      [32m    });[39m\n
+      [32m</script>[39m\n
+      \n
+      [32m<div[39m\n
+      [32m    class="preloader"[39m\n
+      [32m    id="preloader"[39m\n
+      [32m>[39m\n
+      [32m    <div class="preloader-loading">[39m[32m</div>[39m\n
+      [32m</div>[39m\n
+      [32m<link media="all" type="text/css" rel="stylesheet" href="http://localhost/vendor/core/plugins/announcement/css/announcement.css?v=1.5.1"><link rel="stylesheet" href="http://localhost/themes/echo-politics/css/hero-intro.css?ver=1">[39m\n
+      [32m<link rel="stylesheet" href="http://localhost/themes/echo-politics/css/watch-learn-pray.css?ver=2">[39m\n
+      [32m<link rel="stylesheet" href="http://localhost/themes/echo-politics/css/blog.css?ver=1">[39m\n
+      [32m<link rel="preconnect" href="https://fonts.googleapis.com">[39m\n
+      [32m<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>[39m\n
+      [32m<link rel="dns-prefetch" href="https://www.youtube.com">[39m\n
+      [32m<link rel="dns-prefetch" href="https://player.vimeo.com">[39m\n
+      [32m<meta name="theme-color" content="#0f172a">[39m\n
+      [32m<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap">[39m\n
+      [32m<link[39m\n
+      [32m    href="http://localhost"[39m\n
+      [32m    hreflang="x-default"[39m\n
+      [32m    rel="alternate"[39m\n
+      [32m/>[39m\n
+      \n
+      [32m    <link[39m\n
+      [32m        href="http://localhost"[39m\n
+      [32m        hreflang="en"[39m\n
+      [32m        rel="alternate"[39m\n
+      [32m    />[39m\n
+      [32m    <link[39m\n
+      [32m        href="http://localhost"[39m\n
+      [32m        hreflang="en-us"[39m\n
+      [32m        rel="alternate"[39m\n
+      [32m    />[39m\n
+      [32m<style>[39m\n
+      [32m/* ── Inner-page breadcrumb hero — Saints Directory style ── */[39m\n
+      [32m.echo-breadcrumb-area{[39m\n
+      [32m    position:relative!important;[39m\n
+      [32m    background:linear-gradient(158deg,#060e1d 0%,#0d1f3c 42%,#0b1a35 72%,#050c18 100%)!important;[39m\n
+      [32m    background-image:none!important;[39m\n
+      [32m    padding:48px 0 40px!important;[39m\n
+      [32m    text-align:center!important;[39m\n
+      [32m    overflow:hidden!important;[39m\n
+      [32m}[39m\n
+      [32m.echo-breadcrumb-area::before{[39m\n
+      [32m    content:""!important;[39m\n
+      [32m    position:absolute!important;[39m\n
+      [32m    top:-100px;left:50%;transform:translateX(-50%)!important;[39m\n
+      [32m    width:800px;height:500px!important;[39m\n
+      [32m    background:radial-gradient(ellipse at 50% 30%,rgba(201,162,39,.20) 0%,rgba(4,107,210,.06) 48%,transparent 68%)!important;[39m\n
+      [32m    pointer-events:none!important;[39m\n
+      [32m    z-index:0!important;[39m\n
+      [32m}[39m\n
+      [32m.echo-breadcrumb-area::after{[39m\n
+      [32m    content:""!important;[39m\n
+      [32m    position:absolute!important;[39m\n
+      [32m    bottom:0;left:0;right:0;height:1px!important;[39m\n
+      [32m    background:linear-gradient(90deg,transparent 5%,rgba(201,162,39,.45) 50%,transparent 95%)!important;[39m\n
+      [32m}[39m\n
+      [32m.echo-breadcrumb-area .breadcrumb-inner{position:relative!important;z-index:2!important;}[39m\n
+      [32m.echo-breadcrumb-area .breadcrumb-inner .meta{[39m\n
+      [32m    display:flex!important;align-items:center!important;[39m\n
+      [32m    justify-content:center!important;gap:8px!important;margin-bottom:14px!important;[39m\n
+      [32m}[39m\n
+      [32m.echo-breadcrumb-area .breadcrumb-inner .meta .next,[39m\n
+      [32m.echo-breadcrumb-area .breadcrumb-inner a.next{[39m\n
+      [32m    font-family:"Inter",sans-serif!important;[39m\n
+      [32m    font-size:.72rem!important;font-weight:700!important;[39m\n
+      [32m    letter-spacing:.18em!important;text-transform:uppercase!important;[39m\n
+      [32m    color:rgba(201,162,39,.85)!important;text-decoration:none!important;[39m\n
+      [32m}[39m\n
+      [32m.echo-breadcrumb-area .breadcrumb-inner a.next:hover{color:#e5c76b!important;}[39m\n
+      [32m.echo-breadcrumb-area .breadcrumb-inner .meta span{color:rgba(201,162,39,.40)!important;font-size:.70rem!important;}[39m\n
+      [32m.echo-breadcrumb-area .breadcrumb-inner .title{[39m\n
+      [32m    font-family:"Playfair Display",Georgia,serif!important;[39m\n
+      [32m    font-size:clamp(2.2rem,5vw,3.8rem)!important;[39m\n
+      [32m    font-weight:700!important;line-height:1.10!important;[39m\n
+      [32m    color:#f8fafc!important;letter-spacing:-.02em!important;[39m\n
+      [32m    margin:0!important;text-shadow:0 2px 24px rgba(0,0,0,.30)!important;[39m\n
+      [32m}[39m\n
+      [32m@media(max-width:768px){[39m\n
+      [32m    .echo-breadcrumb-area{padding:30px 0 26px!important;}[39m\n
+      [32m    .echo-breadcrumb-area .breadcrumb-inner .title{font-size:2rem!important;}[39m\n
+      [32m}[39m\n
+      [32m</style>[39m\n
+      [32m<link type="application/atom+xml" rel="alternate" title="Posts feed" href="http://localhost/feed/posts">[39m\n
+      \n
+      \n
+      \n
+      \n
+      [32m<script>[39m\n
+      [32m    window.siteUrl = "http://localhost";[39m\n
+      [32m</script>[39m\n
+      \n
+      [32m</head>[39m\n
+      \n
+      [32m<body  id="page-home" class="home-eight inner-page">[39m\n
+      [32m    <div[39m\n
+      [32m    class="modal fade newsletter-popup"[39m\n
+      [32m    id="newsletter-popup"[39m\n
+      [32m    tabindex="-1"[39m\n
+      [32m    aria-hidden="true"[39m\n
+      [32m    data-delay="5"[39m\n
+      [32m    title="Get newsletters from us !"[39m\n
+      [32m    data-url="http://localhost/ajax/newsletter/popup"[39m\n
+      [32m>[39m\n
+      [32m</div>[39m\n
+      \n
+      \n
+      [32m<div[39m\n
+      [32m    id="side-bar"[39m\n
+      [32m    class="side-bar header-one"[39m\n
+      [32m    data-bb-toggle="menu-sidebar-content"[39m\n
+      [32m    data-url="http://localhost/ajax/menu-sidebar"[39m\n
+      [32m>[39m\n
+      [32m    <style>[39m\n
+      [32m/* ── ACM Mobile Sidebar — echo-politics ── */[39m\n
+      \n
+      [32m/* Force dark background so white text is readable */[39m\n
+      [32m#side-bar {[39m\n
+      [32m    background:[39m\n
+      [32m        radial-gradient(circle at top left, rgba(236, 201, 92, 0.18), transparent 24%),[39m\n
+      [32m        radial-gradient(circle at 85% 18%, rgba(129, 168, 255, 0.16), transparent 26%),[39m\n
+      [32m        linear-gradient(180deg, #244aa8 0%, #1d3f97 38%, #17347d 72%, #11285f 100%) !important;[39m\n
+      [32m    padding: 0 0 18px !important;[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    flex-direction: column !important;[39m\n
+      [32m    overflow: hidden !important;[39m\n
+      [32m    overflow-y: auto !important;[39m\n
+      [32m    width: min(340px, 88vw) !important;[39m\n
+      [32m    max-width: 88vw !important;[39m\n
+      [32m    left: 0 !important;[39m\n
+      [32m    right: auto !important;[39m\n
+      [32m    top: 0 !important;[39m\n
+      [32m    z-index: 99999 !important;[39m\n
+      [32m    box-shadow: 24px 0 60px rgba(0, 0, 0, 0.45) !important;[39m\n
+      [32m    transform: translateX(-100%) !important;[39m\n
+      [32m    transition: transform .35s ease, opacity .25s ease !important;[39m\n
+      [32m    opacity: 0 !important;[39m\n
+      [32m    visibility: hidden !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m#side-bar.show {[39m\n
+      [32m    left: 0 !important;[39m\n
+      [32m    right: auto !important;[39m\n
+      [32m    transform: translateX(0) !important;[39m\n
+      [32m    opacity: 1 !important;[39m\n
+      [32m    visibility: visible !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m#side-bar .menu-sidebar-loading-wrapper {[39m\n
+      [32m    display: none !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m#side-bar .inner,[39m\n
+      [32m#side-bar .acm-sb-menu-wrap,[39m\n
+      [32m#side-bar .mobile-menu,[39m\n
+      [32m#side-bar .mobile-menu nav,[39m\n
+      [32m#side-bar .mainmenu {[39m\n
+      [32m    width: 100% !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m/* Logo banner at top */[39m\n
+      [32m.acm-sb-logo-strip {[39m\n
+      [32m    display: flex;[39m\n
+      [32m    align-items: center;[39m\n
+      [32m    justify-content: space-between;[39m\n
+      [32m    gap: 14px;[39m\n
+      [32m    padding: 18px 18px 14px;[39m\n
+      [32m    border-bottom: 1px solid rgba(255,255,255,.08);[39m\n
+      [32m    margin-bottom: 0;[39m\n
+      [32m    position: sticky;[39m\n
+      [32m    top: 0;[39m\n
+      [32m    z-index: 5;[39m\n
+      [32m    background: linear-gradient(180deg, rgba(8, 19, 43, 0.96), rgba(8, 19, 43, 0.88));[39m\n
+      [32m    backdrop-filter: blur(12px);[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-sb-logo-strip .echo-site-logo img,[39m\n
+      [32m.acm-sb-logo-strip img {[39m\n
+      [32m    height: 32px !important;[39m\n
+      [32m    width: auto;[39m\n
+      [32m    object-fit: contain;[39m\n
+      [32m}[39m\n
+      \n
+      [32m/* Close button */[39m\n
+      [32m.acm-sb-close-wrap {[39m\n
+      [32m    padding: 0 !important;[39m\n
+      [32m    margin: 0 !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m#side-bar .close-icon-menu,[39m\n
+      [32m#side-bar button.close-icon-menu {[39m\n
+      [32m    background: rgba(255,255,255,.06) !important;[39m\n
+      [32m    border-radius: 6px !important;[39m\n
+      [32m    border: 1px solid rgba(255,255,255,.12) !important;[39m\n
+      [32m    position: static !important;[39m\n
+      [32m    top: auto !important;[39m\n
+      [32m    left: auto !important;[39m\n
+      [32m    width: 36px !important;[39m\n
+      [32m    height: 36px !important;[39m\n
+      [32m    display: inline-flex !important;[39m\n
+      [32m    align-items: center !important;[39m\n
+      [32m    justify-content: center !important;[39m\n
+      [32m}[39m\n
+      [32m#side-bar .close-icon-menu i {[39m\n
+      [32m    color: #e2e8f0 !important;[39m\n
+      [32m    font-size: 16px !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m/* ── Nav items ── */[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu {[39m\n
+      [32m    display: block !important;[39m\n
+      [32m    margin: 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-sb-menu-wrap .nav-main {[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    flex-direction: column !important;[39m\n
+      [32m    width: 100% !important;[39m\n
+      [32m    margin-top: 0 !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-sb-menu-wrap {[39m\n
+      [32m    padding: 14px 14px 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul {[39m\n
+      [32m    list-style: none;[39m\n
+      [32m    padding: 0;[39m\n
+      [32m    margin: 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32m/* Top-level links */[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav > ul > li > a {[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    align-items: center !important;[39m\n
+      [32m    justify-content: space-between !important;[39m\n
+      [32m    padding: 15px 16px !important;[39m\n
+      [32m    color: #e2e8f0 !important;[39m\n
+      [32m    font-size: 1rem !important;[39m\n
+      [32m    font-weight: 600 !important;[39m\n
+      [32m    text-decoration: none !important;[39m\n
+      [32m    border: 1px solid rgba(255,255,255,.07) !important;[39m\n
+      [32m    border-radius: 16px !important;[39m\n
+      [32m    background: rgba(255,255,255,.03) !important;[39m\n
+      [32m    margin-bottom: 10px !important;[39m\n
+      [32m    position: relative;[39m\n
+      [32m    transition: transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-sb-menu-wrap .mobile-menu nav > ul > li,[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul ul li {[39m\n
+      [32m    margin: 0 !important;[39m\n
+      [32m}[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav > ul > li > a:hover {[39m\n
+      [32m    background: rgba(255,255,255,.06) !important;[39m\n
+      [32m    border-color: rgba(201,162,39,.22) !important;[39m\n
+      [32m    color: #fff !important;[39m\n
+      [32m    transform: translateX(2px);[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-sb-menu-wrap .mobile-menu nav > ul > li.mm-active > a {[39m\n
+      [32m    background: linear-gradient(180deg, rgba(201,162,39,.14), rgba(255,255,255,.04)) !important;[39m\n
+      [32m    border-color: rgba(201,162,39,.3) !important;[39m\n
+      [32m    color: #fff !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m/* Hide the base ::after arrow on all links, add our own for parents */[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul li a::after {[39m\n
+      [32m    display: none !important;[39m\n
+      [32m}[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul li.has-droupdown > a .acm-arrow {[39m\n
+      [32m    display: inline-flex;[39m\n
+      [32m    align-items: center;[39m\n
+      [32m    justify-content: center;[39m\n
+      [32m    width: 22px;[39m\n
+      [32m    height: 22px;[39m\n
+      [32m    border: 1px solid rgba(255,255,255,.16);[39m\n
+      [32m    border-radius: 999px;[39m\n
+      [32m    font-size: .7rem;[39m\n
+      [32m    color: rgba(201,162,39,.88);[39m\n
+      [32m    background: rgba(255,255,255,.03);[39m\n
+      [32m    transition: transform .22s;[39m\n
+      [32m    flex-shrink: 0;[39m\n
+      [32m}[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul li.has-droupdown.mm-active > a .acm-arrow {[39m\n
+      [32m    transform: rotate(180deg);[39m\n
+      [32m}[39m\n
+      \n
+      [32m/* Sub-menu */[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul ul {[39m\n
+      [32m    background: rgba(255,255,255,.03);[39m\n
+      [32m    border: 1px solid rgba(255,255,255,.06);[39m\n
+      [32m    border-radius: 14px;[39m\n
+      [32m    margin: 0 4px 10px;[39m\n
+      [32m    overflow: hidden;[39m\n
+      [32m    padding-left: 0;[39m\n
+      [32m}[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul ul li a {[39m\n
+      [32m    padding: 11px 16px 11px 36px !important;[39m\n
+      [32m    color: #cbd5e1 !important;[39m\n
+      [32m    font-size: .85rem !important;[39m\n
+      [32m    border-bottom: 1px solid rgba(255,255,255,.04) !important;[39m\n
+      [32m    display: block !important;[39m\n
+      [32m}[39m\n
+      [32m.acm-sb-menu-wrap .mobile-menu nav ul ul li a:hover {[39m\n
+      [32m    color: #fff !important;[39m\n
+      [32m    background: rgba(255,255,255,.04) !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m@media (max-width: 479px) {[39m\n
+      [32m    #side-bar {[39m\n
+      [32m        width: min(300px, 90vw) !important;[39m\n
+      [32m        max-width: 90vw !important;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .acm-sb-logo-strip {[39m\n
+      [32m        padding: 16px 14px 12px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .acm-sb-menu-wrap .mobile-menu nav > ul > li > a {[39m\n
+      [32m        padding: 13px 14px !important;[39m\n
+      [32m        font-size: .9rem !important;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .acm-sb-menu-wrap .mobile-menu nav ul ul li a {[39m\n
+      [32m        padding: 10px 14px 10px 28px !important;[39m\n
+      [32m    }[39m\n
+      [32m}[39m\n
+      [32m</style>[39m\n
+      \n
+      \n
+      [32m<div class="acm-sb-logo-strip">[39m\n
+      [32m    <div class="echo-site-logo ">[39m\n
+      [32m                    <a href="http://localhost">[39m\n
+      [32m                <img src="http://acm.2.29.0.164.nip.io/storage/header-2.png" data-bb-lazy="true" style="height: 60px !important" alt="All Catholic Media">[39m\n
+      [32m            </a>[39m\n
+      [32m            </div>[39m\n
+      \n
+      \n
+      [32m    <div class="inner acm-sb-close-wrap">[39m\n
+      [32m        <button class="close-icon-menu" type="button">[39m\n
+      [32m            <span class="sr-only">Close</span>[39m\n
+      [32m            <i class="far fa-times">[39m[32m</i>[39m\n
+      [32m        </button>[39m\n
+      [32m    </div>[39m\n
+      [32m</div>[39m\n
+      \n
+      \n
+      [32m<div class="acm-sb-menu-wrap" style="flex:1; overflow-y:auto;">[39m\n
+      [32m    <div class="mobile-menu">[39m\n
+      [32m        <nav class="nav-main mainmenu-nav d-flex flex-column justify-content-center">[39m\n
+      [32m            <ul  class="mainmenu" id="mobile-menu-active">[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost"[39m\n
+      [32m                title="Home"[39m\n
+      [32m                            >[39m\n
+      [32m                Home[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost/watch"[39m\n
+      [32m                title="Channels"[39m\n
+      [32m                            >[39m\n
+      [32m                Channels[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost/live"[39m\n
+      [32m                title="Live Now"[39m\n
+      [32m                            >[39m\n
+      [32m                Live Now[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost/listen"[39m\n
+      [32m                title="Listen"[39m\n
+      [32m                            >[39m\n
+      [32m                Listen[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost/blog"[39m\n
+      [32m                title="Read"[39m\n
+      [32m                            >[39m\n
+      [32m                Read[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost/saints"[39m\n
+      [32m                title="Saints"[39m\n
+      [32m                            >[39m\n
+      [32m                Saints[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost/donate"[39m\n
+      [32m                title="Donate"[39m\n
+      [32m                            >[39m\n
+      [32m                Donate[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m            <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="main mobile-menu-link"[39m\n
+      [32m                href="http://localhost/about"[39m\n
+      [32m                title="About us"[39m\n
+      [32m                            >[39m\n
+      [32m                About us[39m\n
+      [32m            </a>[39m\n
+      \n
+      [32m                    </li>[39m\n
+      [32m    [39m\n
+      [32m    <li class="menu-item">[39m\n
+      [32m        <a[39m\n
+      [32m            class="main mobile-menu-link"[39m\n
+      [32m            href="http://localhost/prayer-request"[39m\n
+      [32m            title="Prayer request"[39m\n
+      [32m        >[39m\n
+      [32m            Prayer request[39m\n
+      [32m        </a>[39m\n
+      [32m    </li>[39m\n
+      [32m</ul>[39m\n
+      \n
+      [32m        </nav>[39m\n
+      [32m    </div>[39m\n
+      [32m</div>[39m\n
+      \n
+      [32m<script>[39m\n
+      [32m// Re-init metisMenu after AJAX injection (id no longer used — target by class)[39m\n
+      [32m(function() {[39m\n
+      [32m    var el = document.querySelector('#side-bar .mainmenu');[39m\n
+      [32m    if (el && typeof jQuery !== 'undefined' && jQuery.fn.metisMenu) {[39m\n
+      [32m        jQuery(el).metisMenu();[39m\n
+      [32m    }[39m\n
+      [32m})();[39m\n
+      [32m</script>[39m\n
+      \n
+      [32m</div>[39m\n
+      \n
+      [32m<header class="echo-header-area header-eight">[39m\n
+      [32m    <style>[39m\n
+      [32m/* Hide dark/light toggle from navbar */[39m\n
+      [32m.header-action .rts-darkmode {[39m\n
+      [32m    display: none !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m/* Ensure hamburger button is visible and styled on mobile */[39m\n
+      [32m.echo-header-top-menu-bar button {[39m\n
+      [32m    background: none;[39m\n
+      [32m    border: none;[39m\n
+      [32m    cursor: pointer;[39m\n
+      [32m    display: flex;[39m\n
+      [32m    align-items: center;[39m\n
+      [32m    justify-content: center;[39m\n
+      [32m    padding: 6px;[39m\n
+      [32m    color: var(--color-heading-1, #1e293b);[39m\n
+      [32m}[39m\n
+      \n
+      [32mhtml[data-theme='dark'] .echo-header-top-menu-bar button {[39m\n
+      [32m    color: #ffffff;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions {[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    flex-wrap: nowrap !important;[39m\n
+      [32m    align-items: center !important;[39m\n
+      [32m    flex-shrink: 0;[39m\n
+      [32m    gap: 12px;[39m\n
+      [32m    padding-right: 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .sign-in-area,[39m\n
+      [32m.acm-header-actions .action-buttons-content,[39m\n
+      [32m.acm-header-actions .action-buttons-inner,[39m\n
+      [32m.acm-header-actions .header-action,[39m\n
+      [32m.acm-header-actions .echo-header-top-social-media {[39m\n
+      [32m    margin: 0 !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .action-buttons-content,[39m\n
+      [32m.acm-header-actions .action-buttons-inner,[39m\n
+      [32m.acm-header-actions .echo-header-top-social-media {[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    flex-wrap: nowrap !important;[39m\n
+      [32m    align-items: center !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .action-buttons-content,[39m\n
+      [32m.acm-header-actions .action-buttons-inner {[39m\n
+      [32m    gap: 0 !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .header-action {[39m\n
+      [32m    margin-left: 8px !important;[39m\n
+      [32m    margin-inline-start: 8px !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-row {[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    position: relative;[39m\n
+      [32m    align-items: center !important;[39m\n
+      [32m    gap: 12px;[39m\n
+      [32m    flex-wrap: nowrap !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-row .echo-home-1-menu {[39m\n
+      [32m    min-width: 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.echo-desktop-menu {[39m\n
+      [32m    flex-wrap: nowrap !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.echo-desktop-menu li.menu-item {[39m\n
+      [32m    flex-shrink: 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.echo-desktop-menu li.menu-item > a {[39m\n
+      [32m    padding: 0 10px !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .sign-in-area {[39m\n
+      [32m    flex-shrink: 0 !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .sign-in-area a.sign-in-btn {[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    align-items: center;[39m\n
+      [32m    gap: 8px !important;[39m\n
+      [32m    white-space: nowrap !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .sign-in-area .wrapper-avatar,[39m\n
+      [32m.acm-header-actions .sign-in-area span.wrapper-avatar {[39m\n
+      [32m    display: flex !important;[39m\n
+      [32m    align-items: center;[39m\n
+      [32m    justify-content: center;[39m\n
+      [32m    width: 32px !important;[39m\n
+      [32m    height: 32px !important;[39m\n
+      [32m    min-width: 32px !important;[39m\n
+      [32m    max-width: 32px !important;[39m\n
+      [32m    max-height: 32px !important;[39m\n
+      [32m    flex-shrink: 0 !important;[39m\n
+      [32m    border-radius: 50% !important;[39m\n
+      [32m    overflow: hidden !important;[39m\n
+      [32m    background: rgba(255, 255, 255, 0.12);[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .sign-in-area .wrapper-avatar img.avatar {[39m\n
+      [32m    display: block !important;[39m\n
+      [32m    width: 100% !important;[39m\n
+      [32m    height: 100% !important;[39m\n
+      [32m    max-width: 100% !important;[39m\n
+      [32m    max-height: 100% !important;[39m\n
+      [32m    min-width: 0 !important;[39m\n
+      [32m    object-fit: cover !important;[39m\n
+      [32m    position: static !important;[39m\n
+      [32m    inset: auto !important;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .sign-in-area .wrapper-avatar.acm-avatar-fallback::before {[39m\n
+      [32m    content: "\f007";[39m\n
+      [32m    font-family: "Font Awesome 6 Pro", "Font Awesome 6 Free";[39m\n
+      [32m    font-weight: 400;[39m\n
+      [32m    font-size: 14px;[39m\n
+      [32m    color: currentColor;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-header-actions .sign-in-area .user-name {[39m\n
+      [32m    max-width: 110px !important;[39m\n
+      [32m    overflow: hidden;[39m\n
+      [32m    text-overflow: ellipsis;[39m\n
+      [32m    white-space: nowrap;[39m\n
+      [32m}[39m\n
+      \n
+      [32m#acm-suggest-box {[39m\n
+      [32m    position: absolute;[39m\n
+      [32m    top: calc(100% + 6px);[39m\n
+      [32m    left: 0;[39m\n
+      [32m    right: 0;[39m\n
+      [32m    background: var(--bg-card, #fff);[39m\n
+      [32m    border: 1px solid var(--border-color, #e2e8f0);[39m\n
+      [32m    border-radius: 8px;[39m\n
+      [32m    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);[39m\n
+      [32m    z-index: 9999;[39m\n
+      [32m    overflow: hidden;[39m\n
+      [32m    display: none;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-suggest-item {[39m\n
+      [32m    display: flex;[39m\n
+      [32m    align-items: center;[39m\n
+      [32m    gap: 10px;[39m\n
+      [32m    padding: 10px 14px;[39m\n
+      [32m    font-size: .88rem;[39m\n
+      [32m    color: var(--color-heading-1, #1e293b);[39m\n
+      [32m    text-decoration: none;[39m\n
+      [32m    border-bottom: 1px solid var(--border-color, #e2e8f0);[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-suggest-item:last-child {[39m\n
+      [32m    border-bottom: none;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-suggest-item:hover,[39m\n
+      [32m.acm-suggest-item.highlighted {[39m\n
+      [32m    background: var(--bg-light, #f0f5fa);[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-suggest-icon {[39m\n
+      [32m    font-size: 1rem;[39m\n
+      [32m    flex-shrink: 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-suggest-label {[39m\n
+      [32m    flex: 1;[39m\n
+      [32m    overflow: hidden;[39m\n
+      [32m    text-overflow: ellipsis;[39m\n
+      [32m    white-space: nowrap;[39m\n
+      [32m}[39m\n
+      \n
+      [32m.acm-suggest-type {[39m\n
+      [32m    font-size: .72rem;[39m\n
+      [32m    color: #94a3b8;[39m\n
+      [32m    flex-shrink: 0;[39m\n
+      [32m}[39m\n
+      \n
+      [32mhtml[data-theme='dark'] #acm-suggest-box {[39m\n
+      [32m    background: #1a1d2e;[39m\n
+      [32m    border-color: rgba(255, 255, 255, .1);[39m\n
+      [32m}[39m\n
+      \n
+      [32mhtml[data-theme='dark'] .acm-suggest-item {[39m\n
+      [32m    color: #f1f5f9;[39m\n
+      [32m    border-color: rgba(255, 255, 255, .06);[39m\n
+      [32m}[39m\n
+      \n
+      [32mhtml[data-theme='dark'] .acm-suggest-item:hover,[39m\n
+      [32m.acm-suggest-item.highlighted {[39m\n
+      [32m    background: #0f172a;[39m\n
+      [32m}[39m\n
+      [32m</style>[39m\n
+      [32m<script>[39m\n
+      [32m(function() {[39m\n
+      [32m    'use strict';[39m\n
+      [32m    var SUGGEST_URL = 'http://localhost/api/search-suggest';[39m\n
+      [32m    var timer = null;[39m\n
+      [32m    var activeIdx = -1;[39m\n
+      \n
+      [32m    function initAutocomplete(input) {[39m\n
+      [32m        if (!input) return;[39m\n
+      \n
+      [32m        // Wrap relative to the input's own container, NOT .search-input-area[39m\n
+      [32m        // (that element is the full-screen overlay panel and must stay position:fixed)[39m\n
+      [32m        var area = input.closest('.input-div') || input.parentElement;[39m\n
+      [32m        area.style.position = 'relative';[39m\n
+      \n
+      [32m        var box = document.createElement('div');[39m\n
+      [32m        box.id = 'acm-suggest-box';[39m\n
+      [32m        area.appendChild(box);[39m\n
+      \n
+      [32m        function showResults(items) {[39m\n
+      [32m            box.innerHTML = '';[39m\n
+      [32m            activeIdx = -1;[39m\n
+      [32m            if (!items.length) {[39m\n
+      [32m                box.style.display = 'none';[39m\n
+      [32m                return;[39m\n
+      [32m            }[39m\n
+      [32m            items.forEach(function(item, i) {[39m\n
+      [32m                var a = document.createElement('a');[39m\n
+      [32m                a.href = item.url;[39m\n
+      [32m                a.className = 'acm-suggest-item';[39m\n
+      [32m                a.dataset.idx = i;[39m\n
+      [32m                a.innerHTML = '<span class="acm-suggest-icon">' + item.icon + '</span>' +[39m\n
+      [32m                    '<span class="acm-suggest-label">' + item.label + '</span>' +[39m\n
+      [32m                    '<span class="acm-suggest-type">' + item.type + '</span>';[39m\n
+      [32m                box.appendChild(a);[39m\n
+      [32m            });[39m\n
+      [32m            box.style.display = 'block';[39m\n
+      [32m        }[39m\n
+      \n
+      [32m        function fetch_suggest(q) {[39m\n
+      [32m            if (q.length < 2) {[39m\n
+      [32m                box.style.display = 'none';[39m\n
+      [32m                return;[39m\n
+      [32m            }[39m\n
+      [32m            fetch(SUGGEST_URL + '?q=' + encodeURIComponent(q), {[39m\n
+      [32m                    headers: {[39m\n
+      [32m                        'Accept': 'application/json'[39m\n
+      [32m                    }[39m\n
+      [32m                })[39m\n
+      [32m                .then(function(r) {[39m\n
+      [32m                    return r.json();[39m\n
+      [32m                })[39m\n
+      [32m                .then(function(data) {[39m\n
+      [32m                    showResults(data.results || []);[39m\n
+      [32m                })[39m\n
+      [32m                .catch(function() {[39m\n
+      [32m                    box.style.display = 'none';[39m\n
+      [32m                });[39m\n
+      [32m        }[39m\n
+      \n
+      [32m        input.addEventListener('input', function() {[39m\n
+      [32m            clearTimeout(timer);[39m\n
+      [32m            var q = this.value.trim();[39m\n
+      [32m            timer = setTimeout(function() {[39m\n
+      [32m                fetch_suggest(q);[39m\n
+      [32m            }, 260);[39m\n
+      [32m        });[39m\n
+      \n
+      \n
+      [32m        input.addEventListener('keydown', function(e) {[39m\n
+      [32m            var items = box.querySelectorAll('.acm-suggest-item');[39m\n
+      [32m            if (!items.length) return;[39m\n
+      [32m            if (e.key === 'ArrowDown') {[39m\n
+      [32m                e.preventDefault();[39m\n
+      [32m                activeIdx = Math.min(activeIdx + 1, items.length - 1);[39m\n
+      [32m                items.forEach(function(el, i) {[39m\n
+      [32m                    el.classList.toggle('highlighted', i === activeIdx);[39m\n
+      [32m                });[39m\n
+      [32m            } else if (e.key === 'ArrowUp') {[39m\n
+      [32m                e.preventDefault();[39m\n
+      [32m                activeIdx = Math.max(activeIdx - 1, -1);[39m\n
+      [32m                items.forEach(function(el, i) {[39m\n
+      [32m                    el.classList.toggle('highlighted', i === activeIdx);[39m\n
+      [32m                });[39m\n
+      [32m            } else if (e.key === 'Enter' && activeIdx >= 0) {[39m\n
+      [32m                e.preventDefault();[39m\n
+      [32m                items[activeIdx].click();[39m\n
+      [32m            } else if (e.key === 'Escape') {[39m\n
+      [32m                box.style.display = 'none';[39m\n
+      [32m            }[39m\n
+      [32m        });[39m\n
+      \n
+      [32m        document.addEventListener('click', function(e) {[39m\n
+      [32m            if (!area.contains(e.target)) box.style.display = 'none';[39m\n
+      [32m        });[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    // Init on the header search input (may not exist until search overlay opens)[39m\n
+      [32m    document.addEventListener('DOMContentLoaded', function() {[39m\n
+      [32m        initAutocomplete(document.getElementById('searchInput1'));[39m\n
+      [32m    });[39m\n
+      [32m}());[39m\n
+      [32m</script>[39m\n
+      \n
+      [32m<div class="echo-home-1-menu header-three">[39m\n
+      [32m    <div class="echo-site-main-logo-menu-social">[39m\n
+      [32m        <div class="hm-7-container">[39m\n
+      [32m            <div class="d-flex align-items-center justify-content-between acm-header-row">[39m\n
+      [32m                <div class="logo-header-sidebar" style="margin-right: 18px;">[39m\n
+      [32m                    <div class="echo-site-logo ">[39m\n
+      [32m                    <a href="http://localhost">[39m\n
+      [32m                <img src="http://acm.2.29.0.164.nip.io/storage/header-2.png" data-bb-lazy="true" style="height: 60px !important" alt="All Catholic Media">[39m\n
+      [32m            </a>[39m\n
+      [32m            </div>[39m\n
+      \n
+      [32m                </div>[39m\n
+      \n
+      [32m                <div class="echo-home-1-menu d-none d-lg-flex justify-content-center">[39m\n
+      [32m                    <ul  class="list-unstyled echo-desktop-menu">[39m\n
+      [32m                    <li class="menu-item active current-menu-item current current_page_item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost"[39m\n
+      [32m                title="Home"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                Home[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m                    <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost/watch"[39m\n
+      [32m                title="Channels"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                Channels[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m                    <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost/live"[39m\n
+      [32m                title="Live Now"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                Live Now[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m                    <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost/listen"[39m\n
+      [32m                title="Listen"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                Listen[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m                    <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost/blog"[39m\n
+      [32m                title="Read"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                Read[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m                    <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost/saints"[39m\n
+      [32m                title="Saints"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                Saints[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m                    <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost/donate"[39m\n
+      [32m                title="Donate"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                Donate[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m                    <li class="menu-item">[39m\n
+      [32m            <a[39m\n
+      [32m                class="echo-dropdown-main-element"[39m\n
+      [32m                href="http://localhost/about"[39m\n
+      [32m                title="About us"[39m\n
+      [32m                            >[39m\n
+      [32m                [39m\n
+      \n
+      [32m                About us[39m\n
+      [32m            </a>[39m\n
+      [32m                    </li>[39m\n
+      [32m    [39m\n
+      [32m    [39m\n
+      [32m    <li class="menu-item">[39m\n
+      [32m        <a class="echo-dropdown-main-element" href="http://localhost/prayer-request" title="Prayer request">[39m\n
+      [32m            Prayer request[39m\n
+      [32m        </a>[39m\n
+      [32m    </li>[39m\n
+      [32m</ul>[39m\n
+      \n
+      [32m                </div>[39m\n
+      \n
+      [32m                <div class="d-flex align-items-center acm-header-actions">[39m\n
+      [32m                                        [39m\n
+      [32m                    [39m\n
+      [32m                    <div class="d-flex action-buttons-content gap-4 justify-content-end">[39m\n
+      [32m        [39m\n
+      [32m        <div class="action-buttons-inner d-flex align-items-center">[39m\n
+      [32m                            <div class="position-relative header-action">[39m\n
+      [32m                    <div class="echo-header-top-social-media">[39m\n
+      [32m                        <a id="search" class="echo-header-top-search-btn search-icon action-item icon">[39m\n
+      [32m                            <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">[39m\n
+      [32m                                <path[39m\n
+      [32m                                    d="M9.11544 16.961C13.3484 16.961 16.7798 13.5296 16.7798 9.29665C16.7798 5.06373 13.3484 1.63226 9.11544 1.63226C4.88251 1.63226 1.45105 5.06373 1.45105 9.29665C1.45105 13.5296 4.88251 16.961 9.11544 16.961Z"[39m\n
+      [32m                                    stroke="currentColor" stroke-width="1.5" stroke-linecap="round"[39m\n
+      [32m                                    stroke-linejoin="round"/>[39m\n
+      [32m                                <path d="M14.4461 15.0254L17.451 18.0225" stroke="currentColor" stroke-width="1.5"[39m\n
+      [32m                                      stroke-linecap="round" stroke-linejoin="round"/>[39m\n
+      [32m                            </svg>[39m\n
+      [32m                        </a>[39m\n
+      \n
+      [32m                        <div class="search-input-area">[39m\n
+      [32m                            <div class="container">[39m\n
+      [32m                                <form action="http://localhost/search" class="search-input-inner">[39m\n
+      [32m                                    <div class="input-div">[39m\n
+      [32m                                        <input id="searchInput1" class="search-input" name="q" type="text" placeholder="Search by keyword">[39m\n
+      [32m                                    </div>[39m\n
+      [32m                                    <div class="search-close-icon"><i class="fa-regular fa-xmark-large rt-xmark">[39m[32m</i>[39m[32m</div>[39m\n
+      [32m                                </form>[39m\n
+      [32m                            </div>[39m\n
+      [32m                        </div>[39m\n
+      [32m                    </div>[39m\n
+      [32m                </div>[39m\n
+      [32m            [39m\n
+      [32m                            <div class="position-relative echo-header-top-menu-bar-wrapper d-lg-none">[39m\n
+      [32m    <div class="echo-header-top-menu-bar menu-btn">[39m\n
+      [32m        <button data-bb-toggle="menu-sidebar" type="button" aria-label="Toggle Sidebar Menu">[39m\n
+      [32m            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">[39m\n
+      [32m                <path[39m\n
+      [32m                    d="M0.526001 0.953461H20V3.11724H0.526001V0.953461ZM7.01733 8.52668H20V10.6905H7.01733V8.52668ZM0.526001 16.0999H20V18.2637H0.526001V16.0999Z"[39m\n
+      [32m                    fill="currentColor"[39m\n
+      [32m                />[39m\n
+      [32m            </svg>[39m\n
+      [32m        </button>[39m\n
+      [32m    </div>[39m\n
+      [32m</div>[39m\n
+      [32m                    </div>[39m\n
+      [32m    </div>[39m\n
+      \n
+      \n
+      [32m                    <div class="sign-in-area">[39m\n
+      [32m                    <a href="http://localhost/login" class="sign-in-btn">[39m\n
+      [32m                <i class="fa-regular fa-user">[39m[32m</i>[39m\n
+      [32m                Login[39m\n
+      [32m            </a>[39m\n
+      [32m            </div>[39m\n
+      \n
+      \n
+      [32m                    [39m\n
+      [32m                    <div class="echo-header-top-menu-bar menu-btn d-lg-none d-block ms-2">[39m\n
+      [32m                        <button data-bb-toggle="menu-sidebar" type="button"[39m\n
+      [32m                            aria-label="Toggle Sidebar Menu">[39m\n
+      [32m                            <svg width="20" height="19" viewBox="0 0 20 19" fill="none"[39m\n
+      [32m                                xmlns="http://www.w3.org/2000/svg">[39m\n
+      [32m                                <path[39m\n
+      [32m                                    d="M0.526001 0.953461H20V3.11724H0.526001V0.953461ZM7.01733 8.52668H20V10.6905H7.01733V8.52668ZM0.526001 16.0999H20V18.2637H0.526001V16.0999Z"[39m\n
+      [32m                                    fill="currentColor" />[39m\n
+      [32m                            </svg>[39m\n
+      [32m                        </button>[39m\n
+      [32m                    </div>[39m\n
+      [32m                </div>[39m\n
+      [32m            </div>[39m\n
+      [32m        </div>[39m\n
+      [32m    </div>[39m\n
+      [32m</div>[39m\n
+      \n
+      [32m</header>[39m\n
+      \n
+      \n
+      \n
+      [32m<main>[39m\n
+      [32m        [39m\n
+      \n
+      [32m    <style>.ck-content p,.ck-content li,.ck-content h1,.ck-content h2,.ck-content h3,.ck-content h4,.ck-content h5,.ck-content h6{display:block!important;height:auto!important;line-height:inherit!important;margin-bottom:1rem!important;}</style>[39m\n
+      [32m    <div class="main" style="min-height: 300px">[39m\n
+      [32m        <div class=""><section class="hi-section">[39m\n
+      \n
+      [32m    [39m\n
+      [32m    <div class="hi-hero" id="hi-hero" style="background-image: url('http://acm.2.29.0.164.nip.io/storage/whatsapp-image-2026-06-06-at-194501.jpeg');">[39m\n
+      \n
+      [32m        <div class="hi-hero-overlay" aria-hidden="true">[39m[32m</div>[39m\n
+      \n
+      [32m        [39m\n
+      [32m        [39m\n
+      [32m        <div class="hi-hero-content">[39m\n
+      [32m            <div class="hi-hero-inner">[39m\n
+      \n
+      [32m                [39m\n
+      [32m                <h1 class="hi-title">[39m[32m</h1>[39m\n
+      \n
+      [32m            </div>[39m\n
+      [32m        </div>[39m\n
+      [32m    </div>[39m\n
+      \n
+      [32m    [39m\n
+      [32m    [39m\n
+      [32m    [39m\n
+      [32m</section>[39m\n
+      \n
+      \n
+      [32m<style>[39m\n
+      [32m    .rosary-spotlight-section {[39m\n
+      [32m        padding: 72px 0;[39m\n
+      [32m        background:[39m\n
+      [32m            radial-gradient(circle at top left, rgba(201, 162, 39, 0.12), transparent 28%),[39m\n
+      [32m            linear-gradient(135deg, #081524 0%, #0d223a 50%, #081524 100%);[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-card {[39m\n
+      [32m        background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));[39m\n
+      [32m        border: 1px solid rgba(255,255,255,.08);[39m\n
+      [32m        border-radius: 28px;[39m\n
+      [32m        overflow: hidden;[39m\n
+      [32m        box-shadow: 0 24px 60px rgba(0,0,0,.22);[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-media {[39m\n
+      [32m        min-height: 340px;[39m\n
+      [32m        position: relative;[39m\n
+      [32m        height: 100%;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-media img {[39m\n
+      [32m        display: block;[39m\n
+      [32m        height: 100%;[39m\n
+      [32m        object-fit: cover;[39m\n
+      [32m        width: 100%;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-embed {[39m\n
+      [32m        aspect-ratio: 16/9;[39m\n
+      [32m        background: #020617;[39m\n
+      [32m        height: 100%;[39m\n
+      [32m        min-height: 340px;[39m\n
+      [32m        position: relative;[39m\n
+      [32m        width: 100%;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-embed iframe {[39m\n
+      [32m        border: 0;[39m\n
+      [32m        display: block;[39m\n
+      [32m        height: 100%;[39m\n
+      [32m        width: 100%;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-badge,[39m\n
+      [32m    .rosary-spotlight-media-type {[39m\n
+      [32m        align-items: center;[39m\n
+      [32m        background: rgba(7, 17, 29, 0.76);[39m\n
+      [32m        border: 1px solid rgba(201,162,39,.28);[39m\n
+      [32m        border-radius: 999px;[39m\n
+      [32m        color: #f2da89;[39m\n
+      [32m        display: inline-flex;[39m\n
+      [32m        font-size: .78rem;[39m\n
+      [32m        font-weight: 700;[39m\n
+      [32m        gap: 8px;[39m\n
+      [32m        letter-spacing: .08em;[39m\n
+      [32m        padding: 8px 14px;[39m\n
+      [32m        position: absolute;[39m\n
+      [32m        text-transform: uppercase;[39m\n
+      [32m        z-index: 2;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-badge {[39m\n
+      [32m        left: 20px;[39m\n
+      [32m        top: 20px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-media-type {[39m\n
+      [32m        right: 20px;[39m\n
+      [32m        top: 20px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-body {[39m\n
+      [32m        display: flex;[39m\n
+      [32m        flex-direction: column;[39m\n
+      [32m        height: 100%;[39m\n
+      [32m        justify-content: center;[39m\n
+      [32m        padding: 34px 34px 36px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-label {[39m\n
+      [32m        color: #c9a227;[39m\n
+      [32m        font-size: .78rem;[39m\n
+      [32m        font-weight: 700;[39m\n
+      [32m        letter-spacing: .22em;[39m\n
+      [32m        margin-bottom: 12px;[39m\n
+      [32m        text-transform: uppercase;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-title {[39m\n
+      [32m        color: #fff;[39m\n
+      [32m        font-family: 'Playfair Display', serif;[39m\n
+      [32m        font-size: clamp(2rem, 4vw, 3.2rem);[39m\n
+      [32m        line-height: 1.06;[39m\n
+      [32m        margin-bottom: 14px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-title a {[39m\n
+      [32m        color: inherit;[39m\n
+      [32m        text-decoration: none;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-subtitle {[39m\n
+      [32m        color: rgba(220,232,244,.82);[39m\n
+      [32m        font-size: 1.02rem;[39m\n
+      [32m        line-height: 1.85;[39m\n
+      [32m        margin-bottom: 16px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-excerpt {[39m\n
+      [32m        color: rgba(220,232,244,.68);[39m\n
+      [32m        font-size: 1rem;[39m\n
+      [32m        line-height: 1.9;[39m\n
+      [32m        margin-bottom: 26px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-actions {[39m\n
+      [32m        align-items: center;[39m\n
+      [32m        display: flex;[39m\n
+      [32m        flex-wrap: wrap;[39m\n
+      [32m        gap: 14px;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-btn {[39m\n
+      [32m        align-items: center;[39m\n
+      [32m        border-radius: 999px;[39m\n
+      [32m        display: inline-flex;[39m\n
+      [32m        font-weight: 700;[39m\n
+      [32m        gap: 8px;[39m\n
+      [32m        padding: 13px 22px;[39m\n
+      [32m        text-decoration: none;[39m\n
+      [32m        transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-btn-primary {[39m\n
+      [32m        background: linear-gradient(135deg, #c9a227, #a07818);[39m\n
+      [32m        box-shadow: 0 12px 28px rgba(201,162,39,.22);[39m\n
+      [32m        color: #08111c;[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-btn-primary:hover {[39m\n
+      [32m        color: #08111c;[39m\n
+      [32m        transform: translateY(-2px);[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-btn-secondary {[39m\n
+      [32m        background: rgba(255,255,255,.03);[39m\n
+      [32m        border: 1px solid rgba(255,255,255,.14);[39m\n
+      [32m        color: rgba(255,255,255,.84);[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    .rosary-spotlight-btn-secondary:hover {[39m\n
+      [32m        border-color: rgba(201,162,39,.36);[39m\n
+      [32m        color: #e8cf7b;[39m\n
+      [32m        transform: translateY(-2px);[39m\n
+      [32m    }[39m\n
+      \n
+      [32m    @media (max-width: 991px) {[39m\n
+      [32m        .rosary-spotlight-body {[39m\n
+      [32m            padding: 26px 22px 28px;[39m\n
+      [32m        }[39m\n
+      \n
+      [32m        .rosary-spotlight-media,[39m\n
+      [32m        .rosary-spotlight-embed {[39m\n
+      [32m            min-height: 280px;[39m\n
+      [32m        }[39m\n
+      [32m    }[39m\n
+      [32m</style>[39m\n
+      \n
+      \n
+      [32m<section class="rosary-spotlight-section">[39m\n
+      [32m    <div class="container">[39m\n
+      [32m        <div class="row g-0 rosary-spotlight-card">[39m\n
+      [32m            <div class="col-lg-5">[39m\n
+      [32m                <div class="rosary-spotlight-media">[39m\n
+      [32m                    <span class="rosary-spotlight-badge">Daily Rosary</span>[39m\n
+      [32m                                            <span class="rosary-spotlight-media-type">Video</span>[39m\n

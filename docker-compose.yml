@@ -1,0 +1,8 @@
+services:
+  php:
+    build: .
+    container_name: acm-php-fpm
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - .:/var/www/html

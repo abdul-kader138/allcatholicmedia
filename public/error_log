@@ -1,0 +1,245 @@
+[25-Apr-2026 17:01:34 UTC] PHP Warning:  require(/home/allcyowk/public_html/dev/public/../dev/vendor/autoload.php): Failed to open stream: No such file or directory in /home/allcyowk/public_html/dev/public/index.php on line 14
+[25-Apr-2026 17:01:34 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/allcyowk/public_html/dev/public/../dev/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/allcyowk/public_html/dev/public/index.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/allcyowk/public_html/dev/public/index.php on line 14
+[25-Apr-2026 17:01:38 UTC] PHP Warning:  require(/home/allcyowk/public_html/dev/public/../dev/vendor/autoload.php): Failed to open stream: No such file or directory in /home/allcyowk/public_html/dev/public/index.php on line 14
+[25-Apr-2026 17:01:38 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home/allcyowk/public_html/dev/public/../dev/vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home/allcyowk/public_html/dev/public/index.php:14
+Stack trace:
+#0 {main}
+  thrown in /home/allcyowk/public_html/dev/public/index.php on line 14
+[10-May-2026 20:48:16 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "files" does not exist in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1122
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1122): ReflectionClass->__construct()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#16 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#17 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#18 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#19 /home/allcyowk/public_html/dev/public/acm-donatetest.php(20): Illuminate\Foundation\Application->boot()
+#20 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [files] does not exist. in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1124
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#16 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#17 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#18 /home/allcyowk/public_html/dev/public/acm-donatetest.php(20): Illuminate\Foundation\Application->boot()
+#19 {main}
+  thrown in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1124
+[10-May-2026 22:18:49 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "files" does not exist in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1122
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1122): ReflectionClass->__construct()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#16 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#17 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#18 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#19 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#20 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [files] does not exist. in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1124
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#16 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#17 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#18 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#19 {main}
+  thrown in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1124
+[11-May-2026 22:53:40 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "files" does not exist in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1122
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1122): ReflectionClass->__construct()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#16 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#17 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#18 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#19 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#20 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [files] does not exist. in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1124
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#16 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#17 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#18 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#19 {main}
+  thrown in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1124
+[12-May-2026 19:55:20 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "files" does not exist in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1122
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1122): ReflectionClass->__construct()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#16 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#17 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#18 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#19 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#20 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [files] does not exist. in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1124
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#16 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#17 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#18 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#19 {main}
+  thrown in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1124
+[12-May-2026 20:00:34 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "files" does not exist in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1122
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1122): ReflectionClass->__construct()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#16 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#17 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#18 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#19 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#20 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [files] does not exist. in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php:1124
+Stack trace:
+#0 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(933): Illuminate\Container\Container->build()
+#1 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#2 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(864): Illuminate\Foundation\Application->resolve()
+#3 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#4 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(1801): Illuminate\Foundation\Application->make()
+#5 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1358): Illuminate\Container\Container->offsetGet()
+#6 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(107): Illuminate\Foundation\Application->eventsAreCached()
+#7 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Support/Providers/EventServiceProvider.php(58): Illuminate\Foundation\Support\Providers\EventServiceProvider->getEvents()
+#8 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\Foundation\Support\Providers\EventServiceProvider->Illuminate\Foundation\Support\Providers\{closure}()
+#9 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\Container\BoundMethod::Illuminate\Container\{closure}()
+#10 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(84): Illuminate\Container\Util::unwrapIfClosure()
+#11 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\Container\BoundMethod::callBoundMethod()
+#12 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate\Container\BoundMethod::call()
+#13 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Support/ServiceProvider.php(134): Illuminate\Container\Container->call()
+#14 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1148): Illuminate\Support\ServiceProvider->callBootingCallbacks()
+#15 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1132): Illuminate\Foundation\Application->bootProvider()
+#16 [internal function]: Illuminate\Foundation\Application->Illuminate\Foundation\{closure}()
+#17 /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1131): array_walk()
+#18 /home/allcyowk/public_html/dev/public/acm-routecheck.php(17): Illuminate\Foundation\Application->boot()
+#19 {main}
+  thrown in /home/allcyowk/public_html/dev/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1124

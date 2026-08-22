@@ -1,0 +1,9 @@
+{
+    "id": "archielite/echo-politics",
+    "name": "Catholic Media",
+    "namespace": "Theme\\EchoPolitics\\",
+    "author": "CoveLover",
+    "url": "https://allcatholicmedia.com/dev/public/",
+    "version": "1.0.0",
+    "required_plugins": []
+}

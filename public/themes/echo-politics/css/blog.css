@@ -1,0 +1,237 @@
+/* ═══════════════════════════════════════════════════════════
+   Blog listing — dark cinematic style
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page section background ── */
+.echo-hero-section.inner.echo-feature-area.blog-list-content,
+.echo-hero-section.inner.echo-feature-area {
+    background: #060e1d !important;
+    padding: 56px 0 80px !important;
+    min-height: 60vh;
+}
+
+.echo-hero-section.inner .echo-hero {
+    background: transparent !important;
+}
+
+/* ── Posts grid: 2 columns in content area ── */
+.acm-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 767px) {
+    .acm-posts-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}
+
+/* ── Post card ── */
+.acm-post-card {
+    background: #0d1524;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.32s, transform 0.32s;
+    height: 100%;
+}
+
+.acm-post-card:hover {
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55);
+    transform: translateY(-4px);
+}
+
+/* ── Image ── */
+.acm-post-img {
+    position: relative !important;
+    overflow: hidden !important;
+    aspect-ratio: 16 / 9;
+    background: #060e1d;
+    flex-shrink: 0;
+}
+
+/* Image link fills the container */
+.acm-post-img > a:first-child {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: none !important;
+    line-height: 0;
+}
+
+.acm-post-img img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+    transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.acm-post-card:hover .acm-post-img img {
+    transform: scale(1.07);
+}
+
+/* Gold category badge — strictly sized, absolutely positioned */
+.acm-post-cat {
+    position: absolute !important;
+    top: 12px !important;
+    left: 12px !important;
+    z-index: 3 !important;
+    display: inline-block !important;
+    width: auto !important;
+    max-width: 140px !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.62rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    color: #060e1d !important;
+    background: #c9a227 !important;
+    padding: 4px 10px !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    line-height: 1.4 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background 0.20s;
+}
+
+.acm-post-cat:hover {
+    background: #e5c76b !important;
+    text-decoration: none !important;
+}
+
+/* ── Card body ── */
+.acm-post-body {
+    padding: 18px 20px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.acm-post-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.10em;
+    color: rgba(201, 162, 39, 0.65);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.acm-post-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.05rem, 1.4vw, 1.28rem);
+    font-weight: 700;
+    line-height: 1.32;
+    color: #f0f4ff !important;
+    margin-bottom: 10px;
+    text-decoration: none !important;
+    display: block;
+    transition: color 0.20s;
+}
+
+.acm-post-title:hover {
+    color: #c9a227 !important;
+    text-decoration: none !important;
+}
+
+.acm-post-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.86rem;
+    line-height: 1.68;
+    color: rgba(180, 200, 230, 0.60);
+    margin-bottom: 16px;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.acm-post-read {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #c9a227 !important;
+    text-decoration: none !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+    transition: gap 0.22s, color 0.22s;
+}
+
+.acm-post-read:hover {
+    color: #e5c76b !important;
+    gap: 10px;
+    text-decoration: none !important;
+}
+
+/* ── Sidebar dark styling ── */
+.echo-right-ct-1 {
+    background: #0d1524 !important;
+    border-radius: 12px !important;
+    padding: 24px !important;
+    border: 1px solid rgba(201, 162, 39, 0.08) !important;
+}
+
+.echo-right-ct-1 .widget-title,
+.echo-right-ct-1 .widgettitle {
+    font-family: 'Playfair Display', Georgia, serif !important;
+    color: #f0f4ff !important;
+    font-size: 1.1rem !important;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.20) !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 16px !important;
+}
+
+.echo-right-ct-1 a {
+    color: rgba(180, 200, 230, 0.80) !important;
+    transition: color 0.20s !important;
+}
+
+.echo-right-ct-1 a:hover {
+    color: #c9a227 !important;
+    text-decoration: none !important;
+}
+
+/* ── Pagination ── */
+.blog-list-content .pagination .page-link,
+.echo-feature-area .pagination .page-link {
+    background: #0d1524 !important;
+    border-color: rgba(201, 162, 39, 0.18) !important;
+    color: rgba(200, 215, 235, 0.70) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.88rem !important;
+    transition: background 0.20s, color 0.20s, border-color 0.20s !important;
+}
+
+.blog-list-content .pagination .page-item.active .page-link,
+.echo-feature-area .pagination .page-item.active .page-link {
+    background: #c9a227 !important;
+    border-color: #c9a227 !important;
+    color: #060e1d !important;
+    font-weight: 700 !important;
+}
+
+.blog-list-content .pagination .page-link:hover,
+.echo-feature-area .pagination .page-link:hover {
+    background: rgba(201, 162, 39, 0.15) !important;
+    border-color: rgba(201, 162, 39, 0.40) !important;
+    color: #c9a227 !important;
+}
+
+.blog-list-content .pagination .page-item.disabled .page-link,
+.echo-feature-area .pagination .page-item.disabled .page-link {
+    background: #080f1e !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    color: rgba(200, 215, 235, 0.22) !important;
+}
