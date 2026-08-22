@@ -121,7 +121,7 @@
     'url' => 'http://acm.2.29.0.164.nip.io',
     'frontend_url' => 'http://localhost:3000',
     'asset_url' => NULL,
-    'timezone' => 'UTC',
+    'timezone' => 'America/New_York',
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',
@@ -666,7 +666,7 @@
       'public' => 
       array (
         'driver' => 'local',
-        'root' => '/var/www/html/public/storage',
+        'root' => '/var/www/html/storage/app/public',
         'url' => 'http://acm.2.29.0.164.nip.io/storage',
         'visibility' => 'public',
         'throw' => true,
@@ -4602,7 +4602,7 @@
   array (
     'offline' => true,
     'enable_version' => false,
-    'version' => 1787410361,
+    'version' => 1787439020,
     'scripts' => 
     array (
       0 => 'modernizr',
