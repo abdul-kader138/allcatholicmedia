@@ -9,6 +9,7 @@ use Botble\ACL\Models\User;
 use Botble\Blog\Models\Category;
 use Botble\Blog\Models\Post;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -21,6 +22,10 @@ class RssFeedImporter
 
     public function sync(FeedSource $source): array
     {
+        // Fetching the feed and downloading images for each item is network-bound and
+        // can easily exceed the default execution-time limit on a long feed.
+        @set_time_limit(600);
+
         $results = ['imported' => 0, 'skipped' => 0, 'errors' => 0];
 
         try {
@@ -374,36 +379,38 @@ class RssFeedImporter
 
         $authorId = User::query()->orderBy('id')->value('id') ?? 1;
 
-        $post = Post::query()->create([
-            'name'        => $title,
-            'description' => $description,
-            'content'     => $content,
-            'image'       => $localImage ?? $imageUrl,
-            'status'      => $source->auto_publish ? 'published' : 'draft',
-            'author_id'   => $authorId,
-            'author_type' => User::class,
-            'created_at'  => $pubDate,
-            'updated_at'  => $pubDate,
-        ]);
+        return DB::transaction(function () use ($title, $description, $content, $localImage, $imageUrl, $source, $authorId, $pubDate) {
+            $post = Post::query()->create([
+                'name'        => $title,
+                'description' => $description,
+                'content'     => $content,
+                'image'       => $localImage ?? $imageUrl,
+                'status'      => $source->auto_publish ? 'published' : 'draft',
+                'author_id'   => $authorId,
+                'author_type' => User::class,
+                'created_at'  => $pubDate,
+                'updated_at'  => $pubDate,
+            ]);
 
-        SlugHelper::createSlug($post);
+            SlugHelper::createSlug($post);
 
-        if ($source->category) {
-            $category = $this->resolveCategory($source->category);
+            if ($source->category) {
+                $category = $this->resolveCategory($source->category);
 
-            if ($category) {
-                $post->categories()->attach($category->id);
-            } else {
-                Log::warning(sprintf(
-                    'Feed import category not found. Source #%d (%s), category value: %s',
-                    $source->id,
-                    $source->name,
-                    $source->category
-                ));
+                if ($category) {
+                    $post->categories()->attach($category->id);
+                } else {
+                    Log::warning(sprintf(
+                        'Feed import category not found. Source #%d (%s), category value: %s',
+                        $source->id,
+                        $source->name,
+                        $source->category
+                    ));
+                }
             }
-        }
 
-        return $post;
+            return $post;
+        });
     }
 
     private function resolveCategory(string $categoryValue): ?Category
