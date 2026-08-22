@@ -166,7 +166,7 @@ app()->booted(function (): void {
     add_filter(THEME_FRONT_HEADER, function (?string $html): string {
         $html = (string) $html;
         $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/hero-intro.css') . '?ver=1">' . PHP_EOL;
-        $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/watch-learn-pray.css') . '?ver=3">' . PHP_EOL;
+        $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/watch-learn-pray.css') . '?ver=4">' . PHP_EOL;
         $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/blog.css') . '?ver=1">' . PHP_EOL;
         $html .= '<link rel="preconnect" href="https://fonts.googleapis.com">' . PHP_EOL;
         $html .= '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . PHP_EOL;
@@ -374,7 +374,7 @@ app()->booted(function (): void {
             ->add('subtext', TextareaField::class,
                 TextareaFieldOption::make()
                     ->label(__('Subtitle Text'))
-                    ->defaultValue(theme_option('watch_learn_pray_subtext', 'OnlyCatholic.org is your digital home for everything Catholic. From live Mass and news to videos, podcasts, and prayer resources — we unite faithful voices in one trusted space. Join us in celebrating our one faith, one family, one place'))
+                    ->defaultValue(theme_option('watch_learn_pray_subtext', 'allcatholicmedia.com is your digital home for everything Catholic. From live Mass and news to videos, podcasts, and prayer resources — we unite faithful voices in one trusted space. Join us in celebrating our one faith, one family, one place'))
                     ->toArray()
             )
             ->add('motto_word_1', TextField::class,

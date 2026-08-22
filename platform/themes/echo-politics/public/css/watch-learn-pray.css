@@ -2,7 +2,10 @@
 
 .wlp-section {
     position: relative;
-    padding: 120px 0;
+    padding: 180px 0;
+    min-height: 620px;
+    display: flex;
+    align-items: center;
     background-color: #0b0c10;
     background-image: var(--wlp-bg);
     background-size: cover;
@@ -15,13 +18,14 @@
 .wlp-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(6, 7, 10, 0.88) 0%, rgba(6, 7, 10, 0.72) 45%, rgba(6, 7, 10, 0.88) 100%);
+    background: linear-gradient(180deg, rgba(6, 7, 10, 0.78) 0%, rgba(6, 7, 10, 0.6) 45%, rgba(6, 7, 10, 0.78) 100%);
     z-index: 1;
 }
 
 .wlp-container {
     position: relative;
     z-index: 2;
+    width: 100%;
 }
 
 .wlp-grid {
@@ -151,7 +155,8 @@
 
 @media (max-width: 991px) {
     .wlp-section {
-        padding: 90px 0;
+        padding: 100px 0;
+        min-height: 0;
     }
 
     .wlp-grid {
@@ -194,6 +199,7 @@
 @media (max-width: 575px) {
     .wlp-section {
         padding: 64px 0;
+        min-height: 0;
     }
 
     .wlp-heading {

@@ -78,7 +78,7 @@ class AppServiceProvider extends ServiceProvider
                     'label' => __('Watch Learn Pray: Subtitle Text'),
                     'attributes' => [
                         'name' => 'watch_learn_pray_subtext',
-                        'value' => 'OnlyCatholic.org is your digital home for everything Catholic. From live Mass and news to videos, podcasts, and prayer resources — we unite faithful voices in one trusted space. Join us in celebrating our one faith, one family, one place',
+                        'value' => 'allcatholicmedia.com is your digital home for everything Catholic. From live Mass and news to videos, podcasts, and prayer resources — we unite faithful voices in one trusted space. Join us in celebrating our one faith, one family, one place',
                         'options' => [
                             'class' => 'form-control',
                             'rows' => 4,
