@@ -2,10 +2,7 @@
 
 .wlp-section {
     position: relative;
-    padding: 180px 0;
-    min-height: 620px;
-    display: flex;
-    align-items: center;
+    padding: 120px 0;
     background-color: #0b0c10;
     background-image: var(--wlp-bg);
     background-size: cover;
@@ -25,7 +22,6 @@
 .wlp-container {
     position: relative;
     z-index: 2;
-    width: 100%;
 }
 
 .wlp-grid {
@@ -155,8 +151,7 @@
 
 @media (max-width: 991px) {
     .wlp-section {
-        padding: 100px 0;
-        min-height: 0;
+        padding: 90px 0;
     }
 
     .wlp-grid {
@@ -199,7 +194,6 @@
 @media (max-width: 575px) {
     .wlp-section {
         padding: 64px 0;
-        min-height: 0;
     }
 
     .wlp-heading {

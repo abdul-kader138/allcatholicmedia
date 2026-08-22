@@ -166,7 +166,7 @@ app()->booted(function (): void {
     add_filter(THEME_FRONT_HEADER, function (?string $html): string {
         $html = (string) $html;
         $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/hero-intro.css') . '?ver=1">' . PHP_EOL;
-        $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/watch-learn-pray.css') . '?ver=4">' . PHP_EOL;
+        $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/watch-learn-pray.css') . '?ver=5">' . PHP_EOL;
         $html .= '<link rel="stylesheet" href="' . asset('themes/echo-politics/css/blog.css') . '?ver=1">' . PHP_EOL;
         $html .= '<link rel="preconnect" href="https://fonts.googleapis.com">' . PHP_EOL;
         $html .= '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' . PHP_EOL;
