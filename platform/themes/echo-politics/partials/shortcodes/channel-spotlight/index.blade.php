@@ -157,7 +157,26 @@
 </style>
 
 @php
-    $embedUrl = 'https://www.youtube.com/embed/' . $video['video_id'] . '?autoplay=0&rel=0&modestbranding=1';
+    // Follow the visitor's current site language for the player UI and captions.
+    // YouTube shows an auto-translated caption track when cc_lang_pref is set and
+    // the video has captions (Vatican News videos are captioned).
+    $ytLang = null;
+
+    if (is_plugin_active('language') && class_exists(\Botble\Language\Facades\Language::class)) {
+        $ytLang = \Botble\Language\Facades\Language::getCurrentLocale();
+    }
+
+    $ytLang = preg_replace('/[_-].*/', '', (string) ($ytLang ?: app()->getLocale())) ?: 'en';
+
+    $embedUrl = 'https://www.youtube.com/embed/' . $video['video_id'] . '?' . http_build_query([
+        'autoplay' => 0,
+        'rel' => 0,
+        'modestbranding' => 1,
+        'hl' => $ytLang,
+        'cc_load_policy' => 1,
+        'cc_lang_pref' => $ytLang,
+    ]);
+
     $description = $shortcode->description ?: $channel->description;
 @endphp
 
