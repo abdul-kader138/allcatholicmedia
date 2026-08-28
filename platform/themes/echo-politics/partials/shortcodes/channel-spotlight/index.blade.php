@@ -157,16 +157,25 @@
 </style>
 
 @php
-    // Follow the visitor's current site language for the player UI and captions.
-    // YouTube shows an auto-translated caption track when cc_lang_pref is set and
-    // the video has captions (Vatican News videos are captioned).
-    $ytLang = null;
+    // Caption language for the embedded player. $captionLang comes from the
+    // shortcode (default "en"); "auto" means follow the visitor's site language.
+    // YouTube serves an auto-translated caption track when cc_lang_pref is set
+    // and the video has captions (Vatican News videos are captioned).
+    $captionLang = $captionLang ?? 'en';
 
-    if (is_plugin_active('language') && class_exists(\Botble\Language\Facades\Language::class)) {
-        $ytLang = \Botble\Language\Facades\Language::getCurrentLocale();
+    if ($captionLang === 'auto') {
+        $ytLang = null;
+
+        if (is_plugin_active('language') && class_exists(\Botble\Language\Facades\Language::class)) {
+            $ytLang = \Botble\Language\Facades\Language::getCurrentLocale();
+        }
+
+        $ytLang = $ytLang ?: app()->getLocale();
+    } else {
+        $ytLang = $captionLang;
     }
 
-    $ytLang = preg_replace('/[_-].*/', '', (string) ($ytLang ?: app()->getLocale())) ?: 'en';
+    $ytLang = preg_replace('/[_-].*/', '', (string) $ytLang) ?: 'en';
 
     $embedUrl = 'https://www.youtube.com/embed/' . $video['video_id'] . '?' . http_build_query([
         'autoplay' => 0,

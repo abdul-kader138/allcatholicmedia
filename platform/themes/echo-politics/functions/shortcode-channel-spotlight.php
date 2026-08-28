@@ -135,6 +135,11 @@ app('events')->listen(RouteMatched::class, function (): void {
             $showAllLabel = $shortcode->show_all_label ?: __('Show all');
             $showAllUrl = route('public.watch.channel', $channel->slug);
 
+            // Caption/subtitle language for the embedded player. Defaults to
+            // English (Vatican News often publishes in Italian). Use "auto" to
+            // follow the visitor's current site language instead.
+            $captionLang = $shortcode->caption_lang ?: 'en';
+
             return Theme::partial('shortcodes.channel-spotlight.index', compact(
                 'shortcode',
                 'channel',
@@ -142,7 +147,8 @@ app('events')->listen(RouteMatched::class, function (): void {
                 'title',
                 'subtitle',
                 'showAllLabel',
-                'showAllUrl'
+                'showAllUrl',
+                'captionLang'
             ));
         }
     );
@@ -180,6 +186,15 @@ app('events')->listen(RouteMatched::class, function (): void {
                 TextFieldOption::make()
                     ->label('Show all button label')
                     ->defaultValue('Show all')
+                    ->toArray()
+            )
+            ->add(
+                'caption_lang',
+                TextField::class,
+                TextFieldOption::make()
+                    ->label('Caption language')
+                    ->helperText('2-letter code for the embedded video captions/subtitles (e.g. en, it, es). Use "auto" to follow the visitor\'s site language. Default: en')
+                    ->defaultValue('en')
                     ->toArray()
             )
             ->add(
