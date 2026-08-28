@@ -1,10 +1,12 @@
 <?php
 
 use App\Models\FeedSource;
+use App\Models\YouTubeChannel;
 use App\Services\RssFeedImporter;
 use App\YouTubeChannelService;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schedule;
 
@@ -102,7 +104,84 @@ Artisan::command('feeds:sync {--source= : Sync a specific feed source ID}', func
     $this->info('Done.');
 })->purpose('Sync all active RSS feed sources (posts & podcast episodes)');
 
-Schedule::command('feeds:sync')->everySixHours();
+/*
+|--------------------------------------------------------------------------
+| homepage:refresh-sections
+|--------------------------------------------------------------------------
+| Pulls fresh content for the three dynamic homepage sections and clears
+| their cached output so the next visitor sees the latest:
+|   • Vatican News  — [channel-spotlight] latest video from the Vatican News
+|                     YouTube channel
+|   • Daily Rosary  — [latest-daily-rosary] newest rosary post
+|   • Daily Saint   — [latest-daily-saint] newest saint post
+|
+| Rosary & Saint posts arrive via RSS — only the feed sources whose category
+| is listed in config('feeds.homepage_categories') are synced here, not every
+| feed. The section output is cached with a version suffix that we bump at the
+| end. Scheduled four times a day: 00:00, 06:00, 12:00, 18:00.
+*/
+Artisan::command('homepage:refresh-sections', function (YouTubeChannelService $youtube, RssFeedImporter $importer) {
+    $this->info('Refreshing homepage sections...');
+
+    // 1. Vatican News — pull the latest video for the Vatican News channel.
+    try {
+        $channel = YouTubeChannel::query()->where('slug', 'vatican-news')->first();
+
+        if ($channel) {
+            $youtube->syncChannel($channel);
+            $this->line('  ✓ Synced Vatican News YouTube channel');
+        } else {
+            $this->warn('  ✗ Vatican News channel not found (slug: vatican-news)');
+        }
+    } catch (\Throwable $e) {
+        $this->warn('  ✗ Vatican News sync failed: ' . $e->getMessage());
+        Log::warning('homepage:refresh-sections Vatican News sync failed: ' . $e->getMessage());
+    }
+
+    // 2. Daily Rosary + Saints & Feast Days — sync only the feed sources that
+    //    feed those two homepage sections (not the full feeds:sync run).
+    //    Matched on either the feed source name or its category.
+    $names = config('feeds.homepage_categories', ['Daily Rosary', 'Saints and Feast Days']);
+
+    try {
+        $sources = FeedSource::query()
+            ->active()
+            ->where('type', 'post')
+            ->where(fn ($query) => $query->whereIn('category', $names)->orWhereIn('name', $names))
+            ->get();
+
+        if ($sources->isEmpty()) {
+            $this->warn('  ✗ No active feed sources found matching: ' . implode(', ', $names));
+        }
+
+        foreach ($sources as $source) {
+            try {
+                $results = $importer->sync($source);
+                $this->line("  ✓ {$source->name} [{$source->category}] — imported {$results['imported']}, skipped {$results['skipped']}, errors {$results['errors']}");
+            } catch (\Throwable $e) {
+                $this->warn("  ✗ {$source->name} sync failed: " . $e->getMessage());
+                Log::warning("homepage:refresh-sections feed sync failed for #{$source->id}: " . $e->getMessage());
+            }
+        }
+    } catch (\Throwable $e) {
+        $this->warn('  ✗ Feed source lookup failed: ' . $e->getMessage());
+        Log::warning('homepage:refresh-sections feed source lookup failed: ' . $e->getMessage());
+    }
+
+    // 3. Bump the section cache version so the homepage rebuilds with fresh data
+    //    on the next request (store-agnostic — no cache tagging required).
+    try {
+        $version = (int) Cache::get('acm_homepage_cache_version', 1) + 1;
+        Cache::forever('acm_homepage_cache_version', $version);
+        $this->line("  ✓ Homepage section cache version bumped to {$version}");
+    } catch (\Throwable $e) {
+        $this->warn('  ✗ Cache version bump failed: ' . $e->getMessage());
+    }
+
+    $this->info('Homepage sections refreshed.');
+})->purpose('Refresh homepage sections: Vatican News, Daily Rosary, Daily Saint');
+
+Schedule::command('homepage:refresh-sections')->everySixHours();
 
 Artisan::command('feeds:fix-images', function (App\Services\ImageDownloader $downloader) {
     $disk  = \Illuminate\Support\Facades\Storage::disk('public');

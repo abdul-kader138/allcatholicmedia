@@ -265,7 +265,7 @@ app('events')->listen(RouteMatched::class, function (): void {
 
             $cacheKey = 'echo_politics.latest_daily_saint.' . implode('_', $categoryIds);
 
-            $saint = Cache::remember($cacheKey, now()->addMinutes(10), function () use ($categoryIds) {
+            $saint = Cache::remember(acm_homepage_cache_key($cacheKey), now()->addMinutes(10), function () use ($categoryIds) {
                 return Post::query()
                     ->with(['slugable', 'categories.slugable'])
                     ->wherePublished()
@@ -350,7 +350,7 @@ app('events')->listen(RouteMatched::class, function (): void {
 
             $cacheKey = 'echo_politics.latest_daily_rosary.' . (empty($categoryIds) ? 'all' : implode('_', $categoryIds));
 
-            $rosary = Cache::remember($cacheKey, now()->addMinutes(10), function () use ($categoryIds) {
+            $rosary = Cache::remember(acm_homepage_cache_key($cacheKey), now()->addMinutes(10), function () use ($categoryIds) {
                 return Post::query()
                     ->with(['slugable', 'categories.slugable'])
                     ->wherePublished()

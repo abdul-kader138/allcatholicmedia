@@ -4,6 +4,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Homepage section feed categories
+    |--------------------------------------------------------------------------
+    | The `homepage:refresh-sections` command only syncs feed sources whose
+    | "category" matches one of these names (instead of syncing every feed).
+    | These must match the blog category names the homepage shortcodes point
+    | at: [latest-daily-saint] and [latest-daily-rosary].
+    */
+
+    'homepage_categories' => [
+        'Daily Rosary',
+        'Saints and Feast Days',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Pre-configured Catholic RSS feed sources
     |--------------------------------------------------------------------------
     | Seeded via Admin → Feed Sources → "Seed Catholic Feeds" button or

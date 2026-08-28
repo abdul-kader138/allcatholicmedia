@@ -14,6 +14,27 @@ use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
+if (! function_exists('acm_homepage_cache_key')) {
+    /**
+     * Version-namespaced cache key for the dynamic homepage sections
+     * (Vatican News / Daily Rosary / Daily Saint).
+     *
+     * The `homepage:refresh-sections` scheduled command bumps
+     * `acm_homepage_cache_version`, which invalidates every section key at once
+     * without relying on cache tagging (works on any cache store).
+     */
+    function acm_homepage_cache_key(string $base): string
+    {
+        try {
+            $version = (int) Cache::get('acm_homepage_cache_version', 1);
+        } catch (\Throwable) {
+            $version = 1;
+        }
+
+        return $base . ':v' . $version;
+    }
+}
+
 if (! function_exists('echo_politics_channel_latest_video')) {
     /**
      * Latest video for a YouTube channel (looked up by slug).
@@ -27,7 +48,7 @@ if (! function_exists('echo_politics_channel_latest_video')) {
     function echo_politics_channel_latest_video(YouTubeChannel $channel): ?array
     {
         return Cache::remember(
-            "echo_politics.channel_latest_video.{$channel->id}",
+            acm_homepage_cache_key("echo_politics.channel_latest_video.{$channel->id}"),
             now()->addMinutes(30),
             function () use ($channel): ?array {
                 $video = YouTubeChannelVideo::query()
