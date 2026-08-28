@@ -111,7 +111,6 @@ app('events')->listen(RouteMatched::class, function (): void {
 
             $title = $shortcode->title ?: $channel->name;
             $subtitle = $shortcode->subtitle ?: 'Latest from the ' . $channel->name . ' channel';
-            $watchLabel = $shortcode->button_label ?: __('Watch on YouTube');
             $showAllLabel = $shortcode->show_all_label ?: __('Show all');
             $showAllUrl = route('public.watch.channel', $channel->slug);
 
@@ -121,7 +120,6 @@ app('events')->listen(RouteMatched::class, function (): void {
                 'video',
                 'title',
                 'subtitle',
-                'watchLabel',
                 'showAllLabel',
                 'showAllUrl'
             ));
@@ -153,14 +151,6 @@ app('events')->listen(RouteMatched::class, function (): void {
                 TextFieldOption::make()
                     ->label('Subtitle')
                     ->defaultValue('Latest from the Vatican News channel')
-                    ->toArray()
-            )
-            ->add(
-                'button_label',
-                TextField::class,
-                TextFieldOption::make()
-                    ->label('Primary button label')
-                    ->defaultValue('Watch on YouTube')
                     ->toArray()
             )
             ->add(

@@ -199,10 +199,7 @@
                     @endif
 
                     <div class="channel-spotlight-actions">
-                        <a href="{{ $video['url'] }}" target="_blank" rel="noopener noreferrer" class="channel-spotlight-btn channel-spotlight-btn-primary">
-                            {{ $watchLabel }}
-                        </a>
-                        <a href="{{ $showAllUrl }}" class="channel-spotlight-btn channel-spotlight-btn-secondary">
+                        <a href="{{ $showAllUrl }}" class="channel-spotlight-btn channel-spotlight-btn-primary">
                             {{ $showAllLabel }}
                         </a>
                     </div>
