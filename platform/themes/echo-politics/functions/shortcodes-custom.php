@@ -263,15 +263,31 @@ app('events')->listen(RouteMatched::class, function (): void {
 
             sort($categoryIds);
 
-            $cacheKey = 'echo_politics.latest_daily_saint.' . implode('_', $categoryIds);
+            $cacheKey = 'echo_politics.latest_daily_saint.' . now()->format('Y-m-d') . '.' . implode('_', $categoryIds);
 
             $saint = Cache::remember(acm_homepage_cache_key($cacheKey), now()->addMinutes(10), function () use ($categoryIds) {
-                return Post::query()
+                $today = now()->format('m-d');
+
+                $baseQuery = Post::query()
                     ->with(['slugable', 'categories.slugable'])
                     ->wherePublished()
-                    ->whereHas('categories', fn ($q) => $q->whereIn('id', $categoryIds))
+                    ->whereHas('categories', fn ($q) => $q->whereIn('id', $categoryIds));
+
+                // Prefer a post explicitly tagged with today's feast date. The
+                // fallback keeps existing installations working until feast_date
+                // metadata has been added to their Saint posts.
+                $datedSaint = (clone $baseQuery)
+                    ->whereHas('metadata', function ($query) use ($today): void {
+                        $query->whereIn('meta_key', ['feast_date', 'saint_feast_date'])
+                            ->where(function ($dateQuery) use ($today): void {
+                                $dateQuery->where('meta_value', $today)
+                                    ->orWhere('meta_value', 'like', "%-{$today}");
+                            });
+                    })
                     ->latest()
                     ->first();
+
+                return $datedSaint ?: $baseQuery->latest()->first();
             });
 
             if (! $saint) {

@@ -1,6 +1,7 @@
 @php
     $heading  = $shortcode->heading  ?: theme_option('watch_learn_pray_heading',  'Watch, Learn, Pray.');
-    $subtext  = $shortcode->subtext  ?: theme_option('watch_learn_pray_subtext',  'AllCatholicMedia.com is your digital home for everything Catholic. From live Mass and news to videos, podcasts, and prayer resources — we unite faithful voices in one trusted space. Join us in celebrating our one faith, one family, one place.');
+    $subtext  = $shortcode->subtext  ?: theme_option('watch_learn_pray_subtext',  'All Catholic Media is one trusted Catholic platform bringing together prayer, formation, news, original programming, and faithful voices from around the world.');
+    $subtext  = str_replace(['OnlyCatholic.org', 'OnlyCatholic'], 'All Catholic Media', $subtext);
     $prefix   = $shortcode->motto_prefix ?: theme_option('watch_learn_pray_motto_prefix', 'One');
     $word1    = $shortcode->motto_word_1  ?: theme_option('watch_learn_pray_motto_word_1', 'faith');
     $color1   = $shortcode->motto_color_1 ?: theme_option('watch_learn_pray_motto_color_1', '#7bb8f0');
@@ -16,6 +17,50 @@
             : 'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?q=80&w=2000&auto=format&fit=crop');
 @endphp
 
+<style>
+    .wlp-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 24px;
+    }
+
+    .wlp-action {
+        display: inline-flex;
+        align-items: center;
+        min-height: 42px;
+        padding: 0 15px;
+        border: 1px solid rgba(201, 162, 39, .35);
+        border-radius: 999px;
+        color: #f3d46d;
+        font: 700 .78rem/1 Inter, system-ui, sans-serif;
+        text-decoration: none;
+        transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+    }
+
+    .wlp-action:hover {
+        background: #c9a227;
+        border-color: #c9a227;
+        color: #060e1d;
+        transform: translateY(-1px);
+        text-decoration: none;
+    }
+
+    .wlp-action-primary {
+        background: #c9a227;
+        color: #060e1d;
+    }
+
+    @media (max-width: 575px) {
+        .wlp-actions { gap: 8px; }
+        .wlp-action { flex: 1 1 auto; justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .wlp-action { transition: none; }
+    }
+</style>
+
 <section class="wlp-section" style="--wlp-bg: url('{{ $bgImage }}');">
     <div class="wlp-overlay" aria-hidden="true"></div>
 
@@ -27,6 +72,14 @@
                 <span class="wlp-eyebrow">Our Mission</span>
                 <h2 class="wlp-heading">{{ $heading }}</h2>
                 <p class="wlp-subtext">{{ $subtext }}</p>
+                <div class="wlp-actions" aria-label="Quick links">
+                    <a class="wlp-action wlp-action-primary" href="{{ route('public.live') }}">Watch Live</a>
+                    <a class="wlp-action" href="{{ route('public.prayer-request') }}">Submit a Prayer</a>
+                    @if (is_plugin_active('newsletter'))
+                        <a class="wlp-action" href="#newsletter">Subscribe Free</a>
+                    @endif
+                    <a class="wlp-action" href="{{ route('donation.guest.form') }}">Support the Mission</a>
+                </div>
             </div>
 
             {{-- Vertical gold cross divider --}}

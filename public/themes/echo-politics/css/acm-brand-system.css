@@ -279,6 +279,21 @@ body.inner-page .acm-result-img {
     object-fit: cover;
 }
 
+/* Keep third-party attribution visible and consistent wherever imported
+ * article content is rendered. */
+.acm-content-source {
+    margin-top: 28px;
+    padding-top: 12px;
+    border-top: 1px solid var(--acm-border);
+    color: var(--acm-text-muted);
+    font: .82rem/1.6 var(--acm-font-body);
+}
+
+.acm-content-source a {
+    color: var(--acm-brand-blue);
+    font-weight: 600;
+}
+
 /* Semantic live status: readable without depending on color alone. */
 body.home-eight .badge-live,
 body.home-eight .live-indicator {

@@ -352,7 +352,9 @@ class RssFeedImporter
         // Download & rewrite every external image in the body to a local copy
         $content = $this->rewriteContentImages($rawContent);
         if ($sourceUrl) {
-            $content .= "\n\n<p><em>Source: <a href=\"{$sourceUrl}\" target=\"_blank\" rel=\"noopener\">{$sourceUrl}</a></em></p>";
+            $sourceLabel = e($source->name);
+            $safeSourceUrl = e($sourceUrl);
+            $content .= "\n\n<p class=\"acm-content-source\"><em>Source: {$sourceLabel} — <a href=\"{$safeSourceUrl}\" target=\"_blank\" rel=\"noopener noreferrer\">View original publication</a></em></p>";
         }
 
         // Featured image: try feed image first, then the first image inside the content.

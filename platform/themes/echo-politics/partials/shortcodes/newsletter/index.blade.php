@@ -1,5 +1,5 @@
 @if (is_plugin_active('newsletter'))
-<section class="catholic-newsletter-section" @style($variableStyles ?? [])>
+<section id="newsletter" class="catholic-newsletter-section" @style($variableStyles ?? [])>
     <div class="container">
         <div class="catholic-newsletter-inner">
 
