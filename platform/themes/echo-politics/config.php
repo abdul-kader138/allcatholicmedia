@@ -43,6 +43,7 @@ return [
         // this event should call to assign some assets,
         // breadcrumb template.
         'beforeRenderTheme' => function (Theme $theme): void {
+            $theme->asset()->usePath()->add('acm-brand-system', 'css/acm-brand-system.css');
             $theme->asset()->usePath()->add('style-gaming', 'css/style.css');
             $theme->asset()->usePath()->add('home-sections', 'css/home-sections.css');
 

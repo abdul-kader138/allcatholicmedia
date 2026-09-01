@@ -9,8 +9,8 @@
     --acm-brand-navy-mid: #172b49;
     --acm-brand-gold: #c9a227;
     --acm-brand-gold-hover: #a88520;
-    --acm-brand-blue: #1769aa;
-    --acm-brand-blue-hover: #125585;
+    --acm-brand-blue: #046bd2;
+    --acm-brand-blue-hover: #0358b0;
     --acm-brand-crimson: #9b1c1c;
     --acm-surface: #ffffff;
     --acm-surface-muted: #f0f4fb;
@@ -354,4 +354,15 @@ body.inner-page .rd-filter-cat {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+/* Shared baseline for readable editorial copy across the child theme. */
+body.home-eight,
+body.inner-page {
+    text-rendering: optimizeLegibility;
+}
+
+body.home-eight :where(p, li),
+body.inner-page :where(p, li) {
+    text-wrap: pretty;
 }

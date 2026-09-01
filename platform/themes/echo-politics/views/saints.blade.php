@@ -8,13 +8,13 @@ the Church, and holy men and women throughout history.');
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap"
     rel="stylesheet">
 
 <style>
 /* ═══════════════════════════════════════════════════════════
    SAINTS DIRECTORY  ·  AllCatholicMedia  (v3 — 2026)
-   Gold #c9a227  ·  Navy #0d1f3c  ·  Crimson #9b1c1c
+   Gold #c9a227  ·  Navy #0d1f3c  ·  Blue #046bd2
 ═══════════════════════════════════════════════════════════ */
 :root {
     --sg: #c9a227;
@@ -26,16 +26,16 @@ the Church, and holy men and women throughout history.');
     --sn-deep: #060e1d;
     --sn-mid: #172b49;
     --sb: #1a56db;
-    --sc: #9b1c1c;
+    --sc: #046bd2;
     --s-card: #ffffff;
     --s-bg: #f0f4fb;
     --s-border: #dce4f0;
     --s-head: #0d1f3c;
     --s-body: #4a5568;
     --s-muted: #8898aa;
-    --tf: 'Cinzel', 'Playfair Display', Georgia, serif;
+    --tf: 'Playfair Display', Georgia, serif;
     --hf: 'Playfair Display', Georgia, serif;
-    --ff: 'IM Fell English', Georgia, serif;
+    --ff: 'Playfair Display', Georgia, serif;
     --bf: 'Inter', system-ui, sans-serif;
     --rad: 18px;
     --rad-sm: 10px;
@@ -193,7 +193,7 @@ html[data-theme='dark'] {
 .sdir-hero {
     position: relative;
     background: linear-gradient(158deg, #060e1d 0%, #0d1f3c 42%, #0b1a35 72%, #050c18 100%);
-    padding: 52px 0 44px;
+    padding: 56px 0 48px;
     text-align: center;
     overflow: hidden;
 }
@@ -208,7 +208,7 @@ html[data-theme='dark'] {
     width: 1100px;
     height: 760px;
     background: radial-gradient(ellipse at 50% 32%,
-            rgba(201, 162, 39, .26) 0%, rgba(155, 28, 28, .07) 36%,
+            rgba(201, 162, 39, .26) 0%, rgba(4, 107, 210, .07) 36%,
             rgba(4, 107, 210, .05) 56%, transparent 70%);
     pointer-events: none;
 }
@@ -297,13 +297,13 @@ html[data-theme='dark'] {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 22px;
+    gap: 18px;
     margin-bottom: 18px;
 }
 
 .sdir-orn-l {
     flex: 1;
-    max-width: 160px;
+    max-width: 140px;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(201, 162, 39, .52));
 }
@@ -313,14 +313,14 @@ html[data-theme='dark'] {
 }
 
 .sdir-orn-ico {
-    width: 64px;
-    height: 64px;
+    width: 52px;
+    height: 52px;
     border: 1.5px solid rgba(201, 162, 39, .44);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.7rem;
+    font-size: 1.4rem;
     color: var(--sg);
     background: radial-gradient(ellipse at center, rgba(201, 162, 39, .16) 0%, transparent 70%);
     animation: haloGlow 3.5s ease-in-out infinite;
@@ -332,17 +332,17 @@ html[data-theme='dark'] {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: rgba(201, 162, 39, .13);
-    border: 1px solid rgba(201, 162, 39, .52);
-    color: #fde68a;
+    background: rgba(4, 107, 210, .14);
+    border: 1px solid rgba(4, 107, 210, .44);
+    color: #93c5fd;
     font-family: var(--bf);
-    font-size: 1.5rem;
+    font-size: .68rem;
     font-weight: 700;
     letter-spacing: .16em;
     text-transform: uppercase;
-    padding: 6px 20px;
+    padding: 7px 22px;
     border-radius: 100px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
     backdrop-filter: blur(6px);
 }
 
@@ -366,13 +366,13 @@ html[data-theme='dark'] {
 
 .sdir-ttl {
     font-family: var(--hf);
-    font-size: clamp(3.4rem, 6vw, 5.6rem);
+    font-size: clamp(3rem, 5.8vw, 4.8rem);
     font-weight: 700;
     color: #f8fafc;
     margin: 0 0 4px;
     letter-spacing: -.030em;
     line-height: 1.02;
-    text-shadow: 0 6px 32px rgba(0, 0, 0, .34);
+    text-shadow: 0 6px 28px rgba(0, 0, 0, .28);
 }
 
 .sdir-ttl em {
@@ -385,13 +385,13 @@ html[data-theme='dark'] {
 
 .sdir-dsc {
     font-family: var(--ff);
-    font-size: clamp(1.45rem, 2.6vw, 1.75rem);
+    font-size: clamp(.94rem, 1.6vw, 1.08rem);
     font-style: italic;
     font-weight: 400;
     color: rgba(226, 232, 240, .80);
-    max-width: 590px;
-    margin: 10px auto 26px;
-    line-height: 1.80;
+    max-width: 560px;
+    margin: 10px auto 30px;
+    line-height: 1.82;
     letter-spacing: .01em;
 }
 
@@ -409,8 +409,8 @@ html[data-theme='dark'] {
 .sdir-stat {
     padding: 12px 30px;
     font-family: var(--bf);
-    font-size: .90rem;
-    color: rgba(220, 232, 255, .62);
+    font-size: .72rem;
+    color: rgba(226, 232, 240, .65);
     border-right: 1px solid rgba(201, 162, 39, .18);
     text-align: center;
     line-height: 1.3;
@@ -422,7 +422,7 @@ html[data-theme='dark'] {
 
 .sdir-stat strong {
     display: block;
-    font-size: 1.60rem;
+    font-size: 1.18rem;
     font-weight: 700;
     color: var(--sg-lt);
     font-family: var(--hf);
@@ -761,6 +761,72 @@ html[data-theme='dark'] {
     z-index: 1;
 }
 
+.sdir-search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 560px;
+    margin: 0 auto 34px;
+    position: relative;
+    z-index: 1;
+}
+
+.sdir-search-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.sdir-search-input {
+    min-width: 0;
+    flex: 1;
+    height: 48px;
+    padding: 0 16px;
+    border: 1px solid var(--s-border);
+    border-radius: 10px;
+    background: var(--s-card);
+    color: var(--s-head);
+    font-family: var(--bf);
+    font-size: .88rem;
+    box-shadow: 0 2px 12px rgba(13, 31, 60, .05);
+    transition: border-color var(--tr), box-shadow var(--tr);
+}
+
+.sdir-search-input::placeholder { color: var(--s-muted); }
+
+.sdir-search-input:focus {
+    outline: none;
+    border-color: rgba(4, 107, 210, .58);
+    box-shadow: 0 0 0 3px rgba(4, 107, 210, .10);
+}
+
+.sdir-search-submit {
+    height: 48px;
+    padding: 0 20px;
+    border: 1px solid var(--sn);
+    border-radius: 10px;
+    background: var(--sn);
+    color: #f8fafc;
+    font-family: var(--bf);
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    cursor: pointer;
+    transition: background var(--tr), transform var(--tr), box-shadow var(--tr);
+}
+
+.sdir-search-submit:hover {
+    background: var(--sb);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(4, 107, 210, .22);
+}
+
 .sdir-result-count {
     font-family: var(--bf);
     font-size: .82rem;
@@ -794,8 +860,8 @@ html[data-theme='dark'] {
 
 .sdir-clear-link:hover {
     color: var(--sc);
-    border-color: rgba(155, 28, 28, .30);
-    background: rgba(155, 28, 28, .04);
+    border-color: rgba(4, 107, 210, .30);
+    background: rgba(4, 107, 210, .04);
     text-decoration: none;
 }
 
@@ -913,7 +979,7 @@ html[data-theme='dark'] {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #9b1c1c, #c9a227 35%, #e5c76b 50%, #c9a227 65%, #9b1c1c);
+    background: linear-gradient(90deg, var(--sc), #c9a227 35%, #e5c76b 50%, #c9a227 65%, var(--sc));
     opacity: 0;
     transition: opacity .28s ease;
     z-index: 5;
@@ -1084,7 +1150,7 @@ html[data-theme='dark'] {
     inset: 0;
     background:
         radial-gradient(circle at 35% 40%, rgba(201, 162, 39, .09) 0%, transparent 50%),
-        radial-gradient(circle at 65% 60%, rgba(155, 28, 28, .06) 0%, transparent 50%);
+        radial-gradient(circle at 65% 60%, rgba(4, 107, 210, .06) 0%, transparent 50%);
 }
 
 /* Central glow orb */
@@ -1382,7 +1448,7 @@ html[data-theme='dark'] {
 ══════════════════════════════════════════════════════════ */
 @media(max-width:768px) {
     .sdir-hero {
-        padding: 36px 0 28px;
+        padding: 40px 0 32px;
     }
 
     .sdir-cross,
@@ -1431,17 +1497,22 @@ html[data-theme='dark'] {
         padding: 0 18px;
         font-size: .70rem;
     }
+
+    .sdir-search { margin-bottom: 28px; }
+}
+
+@media(max-width:639px) {
+    .sdir-grid { grid-template-columns: 1fr; }
+    .sdir-card,
+    .sdir-featured { grid-column: auto; }
 }
 
 @media(max-width:480px) {
     .sdir-ttl {
-        font-size: 2.6rem;
+        font-size: 2.4rem;
     }
 
-    .sdir-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-    }
+    .sdir-grid { gap: 16px; }
 
     .sdir-ciw,
     .sdir-cph {
@@ -1466,6 +1537,13 @@ html[data-theme='dark'] {
         font-size: .74rem;
     }
 
+    .sdir-search {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .sdir-search-submit { width: 100%; }
+
     .sdir-featured .sdir-ciw,
     .sdir-featured .sdir-cph {
         height: 188px;
@@ -1476,6 +1554,23 @@ html[data-theme='dark'] {
     .sdir-grid {
         grid-template-columns: 1fr;
     }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    .sdir-card,
+    .sdir-orn-ico,
+    .sdir-stats,
+    .sdir-cph-glow,
+    .sdir-ring,
+    .sdir-feast-icon,
+    .sdir-scroll-cue span {
+        animation: none !important;
+    }
+
+    .sdir-card,
+    .sdir-cimg,
+    .sdir-phx,
+    .sdir-search-submit { transition: none !important; }
 }
 </style>
 
@@ -1503,16 +1598,14 @@ html[data-theme='dark'] {
     <div class="container">
         <div class="sdir-hi">
 
+            <div><span class="sdir-ew"><span class="sdir-ew-dot"></span>{{ __('Catholic Saints') }}</span></div>
+
             {{-- Ornament --}}
             <div class="sdir-orn" aria-hidden="true">
                 <span class="sdir-orn-l"></span>
                 <span class="sdir-orn-ico">✝</span>
                 <span class="sdir-orn-l r"></span>
             </div>
-
-            <div><span class="sdir-ew"><span class="sdir-ew-dot"></span>{{ __('AllCatholicMedia') }}</span></div>
-
-            <p class="sdir-lbl">{{ __('Communion of Saints') }}</p>
 
             <h1 class="sdir-ttl">{{ __('Saints') }} <em>{{ __('Directory') }}</em></h1>
 
@@ -1579,7 +1672,7 @@ html[data-theme='dark'] {
             <a href="{{ route('public.saints', ['letter' => $l]) }}"
                 class="sdir-az-letter @if($letter === $l) active @endif"
                 aria-label="{{ __('Saints starting with') }} {{ $l }}"
-                aria-current="{{ $letter === $l ? 'page' : 'false' }}">
+                @if($letter === $l) aria-current="page" @endif>
                 {{ $l }}
                 <span class="sdir-az-dot" aria-hidden="true"></span>
             </a>
@@ -1620,6 +1713,14 @@ html[data-theme='dark'] {
             @endif
         </div>
 
+        <form class="sdir-search" action="{{ route('public.saints') }}" method="get" role="search">
+            <label class="sdir-search-label" for="saints-search">{{ __('Search saints') }}</label>
+            <input id="saints-search" class="sdir-search-input" type="search" name="q"
+                value="{{ $query }}" placeholder="{{ __('Search by saint name…') }}" autocomplete="off">
+            @if($letter)<input type="hidden" name="letter" value="{{ $letter }}">@endif
+            <button class="sdir-search-submit" type="submit">{{ __('Search') }}</button>
+        </form>
+
         {{-- Section heading --}}
         <div class="sdir-sh">
             <span class="sdir-shl"></span>
@@ -1651,9 +1752,6 @@ html[data-theme='dark'] {
                     <div class="sdir-cov-corner"></div>
                     <div class="sdir-cov-warm"></div>
                     @if($cat)<span class="sdir-cat">{{ $cat->name }}</span>@endif
-                    <div class="sdir-img-name">
-                        <div class="sdir-img-name-text">{{ $saint->name }}</div>
-                    </div>
                 </div>
                 @else
                 <div class="sdir-cph">
@@ -1670,11 +1768,9 @@ html[data-theme='dark'] {
 
                 <div class="sdir-cb">
 
-                    @if(!$saint->image)
-                    <a href="{{ $saint->url }}" class="sdir-ttl-body @if($isFeatured) sdir-ttl-body @endif">
+                    <a href="{{ $saint->url }}" class="sdir-ttl-body">
                         {{ $saint->name }}
                     </a>
-                    @endif
 
                     @if($cat)
                     <span class="sdir-cm">

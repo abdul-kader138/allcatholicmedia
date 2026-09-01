@@ -730,6 +730,70 @@ $founderRoles = [
         padding-right: 22px;
     }
 }
+
+/* ACM brand/readability refinement: keep the contemplative dark treatment,
+   but use the same type scale, hero rhythm, and contrast as the media pages. */
+.about-elegant {
+    --gold: #f0d060;
+    --gold-deep: #c9a227;
+    --muted: rgba(232, 238, 244, 0.86);
+    --soft: rgba(232, 238, 244, 0.72);
+}
+
+.about-elegant p {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.82;
+}
+
+.about-elegant h1,
+.about-elegant h2,
+.about-elegant h3,
+.about-elegant blockquote {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.about-hero {
+    padding: 56px 0 48px;
+}
+
+.about-hero-copy h1 {
+    font-size: clamp(3rem, 5.8vw, 4.8rem);
+    line-height: 1.03;
+}
+
+.about-hero-lead,
+.about-hero-sub {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.82;
+}
+
+.about-hero-sub { color: var(--soft); }
+
+.about-founder-copy p,
+.about-section-copy p,
+.about-offer p,
+.about-quote-panel p,
+.about-cta-panel p {
+    color: var(--muted);
+}
+
+@media (max-width: 768px) {
+    .about-hero { padding: 40px 0 32px; }
+    .about-hero-copy h1 { font-size: 2.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .about-elegant *,
+    .about-elegant *::before,
+    .about-elegant *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
 </style>
 
 <div class="about-elegant">

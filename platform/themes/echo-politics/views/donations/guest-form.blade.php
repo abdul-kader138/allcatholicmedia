@@ -3,6 +3,10 @@
     SeoHelper::setTitle('Donate — Support Our Mission');
 @endphp
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 /* ===== Reset / Base ===== */
 .donate-page { background: #06111d; min-height: 100vh; padding-bottom: 80px; }
@@ -338,6 +342,95 @@
     .hero-text h1 { font-size: 1.85rem; }
     .form-card { padding: 24px 18px; }
     .amount-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ACM brand/readability refinement */
+.donate-page {
+    --donate-navy: #0d1f3c;
+    --donate-blue: #046bd2;
+    --donate-gold: #c9a227;
+    --donate-heading: 'Playfair Display', Georgia, serif;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.hero-text h1,
+.step-title,
+.impact-card-head p,
+.quote-card p,
+.t-text {
+    font-family: var(--donate-heading);
+}
+
+.donate-hero-banner {
+    padding: 56px 0 48px;
+    background: linear-gradient(158deg, #060e1d 0%, #0d1f3c 48%, #071426 100%);
+}
+
+.hero-text h1 {
+    font-size: clamp(3rem, 5.8vw, 4.8rem);
+    line-height: 1.03;
+}
+
+.hero-text p {
+    color: rgba(255, 255, 255, .84);
+    font-size: 1rem;
+    line-height: 1.82;
+}
+
+.form-card .form-label,
+.step-title { color: #f8fbff; }
+
+.step-sub,
+.help-text,
+.trust-item,
+.login-hint,
+.impact-row span,
+.t-loc {
+    color: rgba(200, 218, 236, .72) !important;
+}
+
+.form-card .form-control,
+.form-card .form-select {
+    border-color: rgba(255, 255, 255, .20);
+}
+
+.form-card .form-control::placeholder { color: rgba(180, 210, 240, .56); }
+
+.form-card .form-control:focus,
+.form-card .form-select:focus,
+.preset-btn:focus-visible,
+.custom-btn:focus-visible,
+.paypal-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(201, 162, 39, .28);
+}
+
+.form-card .invalid-feedback {
+    color: #ffb8b8;
+    font-size: .88rem;
+    line-height: 1.5;
+}
+
+.donate-page .alert {
+    color: #0d1f3c;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .donate-page *,
+    .donate-page *::before,
+    .donate-page *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .donate-hero-banner { padding: 40px 0 32px; }
+    .hero-text h1 { font-size: 2.4rem; }
 }
 </style>
 

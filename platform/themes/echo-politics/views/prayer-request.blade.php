@@ -8,6 +8,10 @@
     $contactForm = ContactForm::create();
 @endphp
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 .prayer-request-page {
     background:
@@ -480,6 +484,79 @@
         padding: 20px 16px 4px;
     }
 }
+
+/* ACM brand/readability refinement */
+.prayer-request-page {
+    --prayer-gold: #c9a227;
+    --prayer-blue: #046bd2;
+    --prayer-heading: 'Playfair Display', Georgia, serif;
+}
+
+.prayer-title,
+.prayer-hero-card h2,
+.prayer-side-card h3,
+.panel-title {
+    font-family: var(--prayer-heading);
+}
+
+.prayer-hero {
+    padding: 56px 0 48px;
+}
+
+.prayer-lead,
+.prayer-hero-card p,
+.prayer-side-card p,
+.prayer-side-card li,
+.prayer-side-card blockquote {
+    color: rgba(231, 238, 247, .86);
+    line-height: 1.82;
+}
+
+.prayer-panel,
+.prayer-side-card {
+    border-color: rgba(255, 255, 255, .13);
+}
+
+.prayer-form-shell .contact-form .contact-label,
+.prayer-form-shell .contact-form .form-check-label,
+.prayer-form-shell .contact-form .form-check .contact-label {
+    color: #f8fbff;
+}
+
+.prayer-form-shell .contact-form .contact-form-input,
+.prayer-form-shell .contact-form .form-control {
+    background: rgba(255, 255, 255, .075);
+    border-color: rgba(255, 255, 255, .20);
+}
+
+.prayer-form-shell .contact-form .contact-form-input::placeholder {
+    color: rgba(231, 238, 247, .56);
+}
+
+.prayer-note { color: rgba(231, 238, 247, .74); }
+
+.prayer-form-shell { scroll-margin-top: 24px; }
+
+.prayer-form-shell .contact-error-message,
+.prayer-form-shell .contact-success-message {
+    font-size: .95rem;
+    line-height: 1.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .prayer-request-page *,
+    .prayer-request-page *::before,
+    .prayer-request-page *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .prayer-hero { padding: 40px 0 32px; }
+}
 </style>
 
 <script>
@@ -603,7 +680,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         </div>
                     </div>
 
-                    <div class="prayer-form-shell">
+                    <div class="prayer-form-shell" aria-live="polite">
                         {!! $contactForm->renderForm() !!}
                     </div>
 
