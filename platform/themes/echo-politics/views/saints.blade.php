@@ -761,14 +761,28 @@ html[data-theme='dark'] {
     z-index: 1;
 }
 
+.sdir-search-bar {
+    background: linear-gradient(180deg, #0c1a31 0%, #0a1628 100%);
+    border-bottom: 1px solid rgba(201, 162, 39, .18);
+    padding: 14px 0;
+}
+
 .sdir-search {
     display: flex;
     align-items: center;
     gap: 10px;
-    max-width: 560px;
-    margin: 0 auto 34px;
+    max-width: 760px;
+    min-height: 46px;
+    margin: 0 auto;
     position: relative;
     z-index: 1;
+}
+
+.sdir-search-icon {
+    color: rgba(201, 162, 39, .78);
+    flex: 0 0 auto;
+    margin-left: 15px;
+    pointer-events: none;
 }
 
 .sdir-search-label {
@@ -786,33 +800,37 @@ html[data-theme='dark'] {
 .sdir-search-input {
     min-width: 0;
     flex: 1;
-    height: 48px;
-    padding: 0 16px;
-    border: 1px solid var(--s-border);
+    height: 46px;
+    padding: 0 8px;
+    border: 0;
     border-radius: 10px;
-    background: var(--s-card);
-    color: var(--s-head);
+    background: transparent;
+    color: #f8fafc;
     font-family: var(--bf);
     font-size: .88rem;
-    box-shadow: 0 2px 12px rgba(13, 31, 60, .05);
+    box-shadow: none;
     transition: border-color var(--tr), box-shadow var(--tr);
 }
 
-.sdir-search-input::placeholder { color: var(--s-muted); }
+.sdir-search-input::placeholder { color: rgba(226, 232, 240, .55); }
 
 .sdir-search-input:focus {
     outline: none;
-    border-color: rgba(4, 107, 210, .58);
-    box-shadow: 0 0 0 3px rgba(4, 107, 210, .10);
+    box-shadow: none;
+}
+
+.sdir-search:focus-within {
+    border-radius: 10px;
+    box-shadow: 0 0 0 3px rgba(4, 107, 210, .28);
 }
 
 .sdir-search-submit {
-    height: 48px;
-    padding: 0 20px;
-    border: 1px solid var(--sn);
-    border-radius: 10px;
-    background: var(--sn);
-    color: #f8fafc;
+    height: 38px;
+    padding: 0 17px;
+    border: 1px solid rgba(201, 162, 39, .48);
+    border-radius: 8px;
+    background: rgba(201, 162, 39, .14);
+    color: #fde68a;
     font-family: var(--bf);
     font-size: .78rem;
     font-weight: 700;
@@ -822,9 +840,25 @@ html[data-theme='dark'] {
 }
 
 .sdir-search-submit:hover {
-    background: var(--sb);
+    background: var(--sg);
+    color: var(--sn);
     transform: translateY(-1px);
     box-shadow: 0 5px 16px rgba(4, 107, 210, .22);
+}
+
+.sdir-search-clear {
+    color: rgba(226, 232, 240, .68);
+    flex: 0 0 auto;
+    font-family: var(--bf);
+    font-size: .75rem;
+    font-weight: 600;
+    padding: 0 10px;
+    text-decoration: none;
+}
+
+.sdir-search-clear:hover {
+    color: #fde68a;
+    text-decoration: none;
 }
 
 .sdir-result-count {
@@ -1498,7 +1532,7 @@ html[data-theme='dark'] {
         font-size: .70rem;
     }
 
-    .sdir-search { margin-bottom: 28px; }
+    .sdir-search { margin-bottom: 0; }
 }
 
 @media(max-width:639px) {
@@ -1538,11 +1572,11 @@ html[data-theme='dark'] {
     }
 
     .sdir-search {
-        align-items: stretch;
-        flex-direction: column;
+        align-items: center;
+        flex-direction: row;
     }
 
-    .sdir-search-submit { width: 100%; }
+    .sdir-search-submit { width: auto; }
 
     .sdir-featured .sdir-ciw,
     .sdir-featured .sdir-cph {
@@ -1645,6 +1679,29 @@ html[data-theme='dark'] {
     </div>
 </div>
 
+{{-- Directory search --}}
+<div class="sdir-search-bar">
+    <div class="container">
+        <form class="sdir-search" action="{{ route('public.saints') }}" method="get" role="search">
+            <label class="sdir-search-label" for="saints-search">{{ __('Search saints') }}</label>
+            <svg class="sdir-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="7"></circle>
+                <path d="m20 20-4-4"></path>
+            </svg>
+            <input id="saints-search" class="sdir-search-input" type="search" name="q"
+                value="{{ $query }}" placeholder="{{ __('Search by saint name…') }}" autocomplete="off">
+            @if($letter)<input type="hidden" name="letter" value="{{ $letter }}">@endif
+            <button class="sdir-search-submit" type="submit">{{ __('Search') }}</button>
+            @if($query)
+            <a class="sdir-search-clear" href="{{ route('public.saints', $letter ? ['letter' => $letter] : []) }}">
+                {{ __('Clear') }}
+            </a>
+            @endif
+        </form>
+    </div>
+</div>
+
 {{-- ══════════════════════════════════════════════════════════
      A–Z BAR
 ══════════════════════════════════════════════════════════ --}}
@@ -1712,14 +1769,6 @@ html[data-theme='dark'] {
             </a>
             @endif
         </div>
-
-        <form class="sdir-search" action="{{ route('public.saints') }}" method="get" role="search">
-            <label class="sdir-search-label" for="saints-search">{{ __('Search saints') }}</label>
-            <input id="saints-search" class="sdir-search-input" type="search" name="q"
-                value="{{ $query }}" placeholder="{{ __('Search by saint name…') }}" autocomplete="off">
-            @if($letter)<input type="hidden" name="letter" value="{{ $letter }}">@endif
-            <button class="sdir-search-submit" type="submit">{{ __('Search') }}</button>
-        </form>
 
         {{-- Section heading --}}
         <div class="sdir-sh">
