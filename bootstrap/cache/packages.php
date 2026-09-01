@@ -1,4 +1,15 @@
 <?php return array (
+  'barryvdh/laravel-debugbar' => 
+  array (
+    'aliases' => 
+    array (
+      'Debugbar' => 'Barryvdh\\Debugbar\\Facades\\Debugbar',
+    ),
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    ),
+  ),
   'barryvdh/laravel-dompdf' => 
   array (
     'aliases' => 
@@ -40,6 +51,13 @@
       0 => 'Botble\\DataSynchronize\\Providers\\DataSynchronizeServiceProvider',
     ),
   ),
+  'botble/dev-tool' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Botble\\DevTool\\Providers\\DevToolServiceProvider',
+    ),
+  ),
   'botble/form-builder' => 
   array (
     'aliases' => 
@@ -56,6 +74,13 @@
     'providers' => 
     array (
       0 => 'Botble\\GetStarted\\Providers\\GetStartedServiceProvider',
+    ),
+  ),
+  'botble/git-commit-checker' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Botble\\GitCommitChecker\\Providers\\GitCommitCheckerServiceProvider',
     ),
   ),
   'botble/installer' => 
@@ -218,6 +243,45 @@
       'WidgetGroup' => 'Botble\\Widget\\Facades\\WidgetGroup',
     ),
   ),
+  'laravel/boost' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Boost\\BoostServiceProvider',
+    ),
+  ),
+  'laravel/mcp' => 
+  array (
+    'aliases' => 
+    array (
+      'Mcp' => 'Laravel\\Mcp\\Server\\Facades\\Mcp',
+    ),
+    'providers' => 
+    array (
+      0 => 'Laravel\\Mcp\\Server\\McpServiceProvider',
+    ),
+  ),
+  'laravel/pail' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Pail\\PailServiceProvider',
+    ),
+  ),
+  'laravel/roster' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Roster\\RosterServiceProvider',
+    ),
+  ),
+  'laravel/sail' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Sail\\SailServiceProvider',
+    ),
+  ),
   'laravel/sanctum' => 
   array (
     'providers' => 
@@ -270,6 +334,13 @@
     'providers' => 
     array (
       0 => 'Carbon\\Laravel\\ServiceProvider',
+    ),
+  ),
+  'nunomaduro/collision' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
     ),
   ),
   'nunomaduro/termwind' => 

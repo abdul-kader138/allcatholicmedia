@@ -1,0 +1,357 @@
+/*
+ * AllCatholicMedia foundation layer
+ * Shared tokens and interaction rules for the active child theme.
+ * Keep page-specific layouts in their own files; use these tokens for shared UI.
+ */
+:root {
+    --acm-brand-navy: #0d1f3c;
+    --acm-brand-navy-dark: #060e1d;
+    --acm-brand-navy-mid: #172b49;
+    --acm-brand-gold: #c9a227;
+    --acm-brand-gold-hover: #a88520;
+    --acm-brand-blue: #1769aa;
+    --acm-brand-blue-hover: #125585;
+    --acm-brand-crimson: #9b1c1c;
+    --acm-surface: #ffffff;
+    --acm-surface-muted: #f0f4fb;
+    --acm-border: #dce4f0;
+    --acm-text-heading: #0d1f3c;
+    --acm-text-body: #475569;
+    --acm-text-muted: #718096;
+    --acm-radius-sm: 8px;
+    --acm-radius-md: 12px;
+    --acm-radius-lg: 16px;
+    --acm-shadow-sm: 0 2px 8px rgba(13, 31, 60, .06);
+    --acm-shadow-md: 0 10px 30px rgba(13, 31, 60, .10);
+    --acm-focus: 0 0 0 3px rgba(201, 162, 39, .35);
+    --acm-font-body: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --acm-font-heading: "Playfair Display", Georgia, serif;
+}
+
+.acm-skip-link {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 10000;
+    padding: 10px 16px;
+    border-radius: var(--acm-radius-sm);
+    background: var(--acm-brand-gold);
+    color: var(--acm-brand-navy-dark);
+    font: 700 .875rem/1.2 var(--acm-font-body);
+    text-decoration: none;
+    transform: translateY(-150%);
+    transition: transform .2s ease;
+}
+
+.acm-skip-link:focus {
+    transform: translateY(0);
+    color: var(--acm-brand-navy-dark);
+}
+
+html[data-theme='dark'] {
+    --acm-surface: #131b2e;
+    --acm-surface-muted: #080d18;
+    --acm-border: rgba(255, 255, 255, .10);
+    --acm-text-heading: #eef2f9;
+    --acm-text-body: rgba(218, 228, 244, .78);
+    --acm-text-muted: #9aa9bc;
+    --acm-shadow-sm: 0 2px 8px rgba(0, 0, 0, .20);
+    --acm-shadow-md: 0 12px 34px rgba(0, 0, 0, .28);
+}
+
+.acm-brand-logo {
+    flex: 0 0 auto;
+    margin-right: 18px;
+}
+
+.acm-brand-logo a {
+    display: inline-flex;
+    align-items: center;
+}
+
+.acm-header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid rgba(201, 162, 39, .72);
+    border-radius: 999px;
+    background: rgba(201, 162, 39, .12);
+    color: #f3d46d;
+    font: 700 .72rem/1 var(--acm-font-body);
+    letter-spacing: .04em;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+.acm-header-cta:hover {
+    border-color: var(--acm-brand-gold);
+    background: var(--acm-brand-gold);
+    color: var(--acm-brand-navy-dark);
+    transform: translateY(-1px);
+}
+
+.acm-header-cta-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e05252;
+    box-shadow: 0 0 0 3px rgba(224, 82, 82, .18);
+}
+
+/* Keep the major ACM landing pages on one visual scale. */
+body.home-eight .acm-vhero,
+body.home-eight .lv-hero,
+body.inner-page .acm-listen-hero {
+    background-color: var(--acm-brand-navy-dark);
+}
+
+body.home-eight .acm-vhero-title,
+body.home-eight .lv-hero-title,
+body.inner-page .acm-listen-title {
+    font-family: var(--acm-font-heading);
+}
+
+body.home-eight .acm-vhero-sub,
+body.home-eight .lv-hero-sub,
+body.inner-page .acm-listen-sub {
+    font-family: var(--acm-font-body);
+}
+
+/* Shared section-heading rhythm used by homepage media blocks. */
+body.home-eight .catholic-section-header,
+body.inner-page .acm-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+body.home-eight .catholic-section-title,
+body.inner-page .acm-section-title {
+    margin: 0;
+    color: var(--acm-text-heading);
+    font-family: var(--acm-font-heading);
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    line-height: 1.2;
+}
+
+body.home-eight .acm-search-form button,
+body.inner-page .acm-search-form button,
+body.home-eight .acm-empty-btn,
+body.inner-page .acm-empty-btn,
+body.home-eight .contact-button,
+body.inner-page .contact-button {
+    min-height: 44px;
+    border-radius: var(--acm-radius-sm);
+    font-family: var(--acm-font-body);
+    font-weight: 700;
+}
+
+/* Make the entire media card feel interactive and keyboard-accessible. */
+body.home-eight .catholic-live-card:focus-within,
+body.home-eight .catholic-channel-card:focus-within,
+body.home-eight .catholic-listen-grid-card:focus-within,
+body.inner-page .acm-audio-card:focus-within,
+body.inner-page .rd-card:focus-visible,
+body.inner-page .sdir-card:focus-within {
+    outline: none;
+    box-shadow: var(--acm-focus), var(--acm-shadow-md);
+}
+
+/* Consistent, readable pagination and filter affordances. */
+body.home-eight .pagination,
+body.inner-page .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 32px;
+}
+
+body.home-eight .pagination .page-link,
+body.inner-page .pagination .page-link {
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--acm-radius-sm);
+    border-color: var(--acm-border);
+    color: var(--acm-brand-blue);
+    font-weight: 600;
+}
+
+body.home-eight .pagination .page-item.active .page-link,
+body.inner-page .pagination .page-item.active .page-link {
+    border-color: var(--acm-brand-navy);
+    background: var(--acm-brand-navy);
+    color: #fff;
+}
+
+/* Consistent keyboard visibility across links, controls, cards and media. */
+body.home-eight a:focus-visible,
+body.inner-page a:focus-visible,
+body.home-eight button:focus-visible,
+body.inner-page button:focus-visible,
+body.home-eight input:focus-visible,
+body.inner-page input:focus-visible,
+body.home-eight select:focus-visible,
+body.inner-page select:focus-visible,
+body.home-eight textarea:focus-visible,
+body.inner-page textarea:focus-visible {
+    outline: none;
+    box-shadow: var(--acm-focus);
+}
+
+/* Shared action language. */
+body.home-eight .btn-primary,
+body.inner-page .btn-primary,
+body.home-eight .catholic-view-all,
+body.inner-page .catholic-view-all {
+    border-radius: var(--acm-radius-sm);
+    font-family: var(--acm-font-body);
+    font-weight: 700;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease, transform .2s ease;
+}
+
+body.home-eight .btn-primary:hover,
+body.inner-page .btn-primary:hover,
+body.home-eight .catholic-view-all:hover,
+body.inner-page .catholic-view-all:hover {
+    transform: translateY(-1px);
+}
+
+/* Normalize the most common ACM surface patterns without touching editorial layouts. */
+body.home-eight .catholic-live-card,
+body.home-eight .catholic-channel-card,
+body.home-eight .catholic-listen-grid-card,
+body.inner-page .acm-audio-card,
+body.inner-page .acm-empty-state,
+body.inner-page .acm-no-results {
+    border-radius: var(--acm-radius-md);
+    border-color: var(--acm-border);
+    box-shadow: var(--acm-shadow-sm);
+}
+
+body.home-eight .catholic-live-card:hover,
+body.home-eight .catholic-channel-card:hover,
+body.home-eight .catholic-listen-grid-card:hover,
+body.inner-page .acm-audio-card:hover {
+    box-shadow: var(--acm-shadow-md);
+}
+
+body.home-eight .catholic-view-all,
+body.inner-page .catholic-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 0 12px;
+    color: var(--acm-brand-blue);
+    text-decoration: none;
+}
+
+body.home-eight .catholic-view-all:hover,
+body.inner-page .catholic-view-all:hover {
+    color: var(--acm-brand-blue-hover);
+    background: rgba(23, 105, 170, .08);
+}
+
+/* Keep media thumbnails stable as content loads. */
+body.home-eight .catholic-live-thumb,
+body.home-eight .catholic-channel-thumb,
+body.home-eight .catholic-listen-grid-media,
+body.inner-page .acm-audio-thumb,
+body.inner-page .acm-result-img {
+    overflow: hidden;
+    background: var(--acm-brand-navy-mid);
+}
+
+body.home-eight .catholic-live-thumb img,
+body.home-eight .catholic-channel-thumb img,
+body.home-eight .catholic-listen-grid-media img,
+body.inner-page .acm-audio-thumb,
+body.inner-page .acm-result-img {
+    object-fit: cover;
+}
+
+/* Semantic live status: readable without depending on color alone. */
+body.home-eight .badge-live,
+body.home-eight .live-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--acm-font-body);
+    font-weight: 800;
+    letter-spacing: .06em;
+}
+
+body.home-eight .badge-live::before,
+body.home-eight .live-indicator::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, .16);
+}
+
+/* Make tab/chip controls feel like one filter system. */
+body.home-eight .acm-chip,
+body.inner-page .acm-chip,
+body.home-eight .acm-tab,
+body.inner-page .acm-tab,
+body.home-eight .catholic-upcoming-chip,
+body.inner-page .rd-filter-cat {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    font-family: var(--acm-font-body);
+    font-weight: 600;
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease;
+}
+
+/* Do not force visitors to experience decorative motion. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+/* Avoid horizontal overflow from long titles and media controls on small screens. */
+@media (max-width: 767px) {
+    body.home-eight .catholic-section-header,
+    body.inner-page .acm-section-header {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 575px) {
+    .acm-header-cta {
+        min-height: 34px;
+        padding: 0 10px;
+        font-size: .68rem;
+    }
+
+    .acm-header-cta-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    body.home-eight .catholic-section-header,
+    body.inner-page .acm-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+}

@@ -27,6 +27,15 @@ return new class () extends Migration {
                 $table->index(['member_id', 'created_at']);
                 $table->index('status');
             });
+        } elseif (Schema::hasTable('members')) {
+            $foreignKeyExists = collect(Schema::getForeignKeys('community_posts'))
+                ->contains(fn (array $foreignKey): bool => in_array('member_id', $foreignKey['columns'], true));
+
+            if (! $foreignKeyExists) {
+                Schema::table('community_posts', function (Blueprint $table): void {
+                    $table->foreign('member_id')->references('id')->on('members')->cascadeOnDelete();
+                });
+            }
         }
 
         if (! Schema::hasTable('community_post_likes')) {

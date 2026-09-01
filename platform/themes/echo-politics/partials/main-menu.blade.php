@@ -24,6 +24,7 @@
                 @class(['echo-dropdown-main-element' => ! $row->parent])
                 href="{{ url($row->url) }}"
                 title="{{ $row->title }}"
+                @if ($isActive) aria-current="page" @endif
                 @if ($row->target !== '_self') target="{{ $row->target }}" @endif
             >
                 {!! $row->icon_html !!}
@@ -50,7 +51,7 @@
         'current' => $isPrayerRequestActive,
         'current_page_item' => $isPrayerRequestActive,
     ])>
-        <a class="echo-dropdown-main-element" href="{{ route('public.prayer-request') }}" title="Prayer request">
+        <a class="echo-dropdown-main-element" href="{{ route('public.prayer-request') }}" title="Prayer request" @if ($isPrayerRequestActive) aria-current="page" @endif>
             Prayer request
         </a>
     </li>

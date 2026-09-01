@@ -805,7 +805,7 @@ html[data-theme='dark'] {
                                 {{ $cat->name }}
                             </span>
                         @endif
-                        <div class="rd-card-title">{{ $post->name }}</div>
+                        <h3 class="rd-card-title">{{ $post->name }}</h3>
                         @if($post->description)
                             <p class="rd-card-desc">{{ $post->description }}</p>
                         @endif

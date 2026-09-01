@@ -7,6 +7,9 @@
 /storage/framework/sessions/*
 /storage/framework/views/*
 /public/storage
+/public/vendor/core/
+/lang/vendor/*
+/bootstrap/cache
 Homestead.json
 Homestead.yaml
 .docker-compose.override.yml

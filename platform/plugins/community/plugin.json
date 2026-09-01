@@ -7,5 +7,8 @@
     "url": "",
     "version": "1.0.0",
     "description": "Community features: activity feed, groups, and forums for AllCatholicMedia.com.",
+    "require": [
+        "botble/member"
+    ],
     "minimum_core_version": "7.3.0"
 }
