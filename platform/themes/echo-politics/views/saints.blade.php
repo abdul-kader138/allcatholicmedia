@@ -763,7 +763,8 @@ html[data-theme='dark'] {
 
 .sdir-search-bar {
     background: linear-gradient(180deg, #0c1a31 0%, #0a1628 100%);
-    border-bottom: 1px solid rgba(201, 162, 39, .18);
+    border-bottom: 2px solid rgba(201, 162, 39, .22);
+    box-shadow: 0 6px 28px rgba(4, 10, 22, .30);
     padding: 14px 0;
 }
 
@@ -772,7 +773,7 @@ html[data-theme='dark'] {
     align-items: center;
     gap: 10px;
     max-width: 760px;
-    min-height: 46px;
+    min-height: 56px;
     margin: 0 auto;
     position: relative;
     z-index: 1;

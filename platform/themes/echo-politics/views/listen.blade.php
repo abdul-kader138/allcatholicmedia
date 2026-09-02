@@ -10,12 +10,14 @@
 .acm-listen-hero { background: linear-gradient(135deg,#0f172a,#1e293b); padding: 36px 0 28px; margin-bottom: 32px; text-align: center; }
 .acm-listen-title { font-size: 1.8rem; font-weight: 700; color: #f8fafc; margin: 0 0 6px; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .acm-listen-sub { color: #94a3b8; font-size: .95rem; }
-.acm-listen-tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:24px; }
-.acm-listen-tag { background:rgba(255,255,255,.86); border:1px solid #d8e0ec; border-radius:999px; color:#475569; font-size:.83rem; font-weight:700; padding:7px 15px; text-decoration:none; transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease; }
-.acm-listen-tag:hover { background:#fff8dc; border-color:#c9a227; color:#8b6b0b; text-decoration:none; transform:translateY(-1px); }
-.acm-listen-tag.is-active { background:#c9a227; border-color:#c9a227; color:#07111d; }
-html[data-theme='dark'] .acm-listen-tag { background:#102944; border-color:rgba(255,255,255,.14); color:#e8eef7; }
-html[data-theme='dark'] .acm-listen-tag:hover { background:rgba(201,162,39,.16); border-color:#c9a227; color:#f3d46d; }
+.acm-listen-filter-bar { background:linear-gradient(180deg,#0c1a31 0%,#0a1628 100%); border-bottom:2px solid rgba(201,162,39,.22); box-shadow:0 6px 28px rgba(4,10,22,.30); }
+.acm-listen-filter-inner { align-items:center; display:flex; min-height:56px; overflow-x:auto; scrollbar-width:none; }
+.acm-listen-filter-inner::-webkit-scrollbar { display:none; }
+.acm-listen-tags { display:flex; flex:1; gap:0; margin:0; overflow-x:auto; scrollbar-width:none; }
+.acm-listen-tags::-webkit-scrollbar { display:none; }
+.acm-listen-tag { align-items:center; background:transparent; border:0; border-bottom:2px solid transparent; border-radius:0; color:rgba(201,162,39,.62); display:flex; flex-shrink:0; font-size:.8rem; font-weight:600; min-height:56px; padding:0 20px; text-decoration:none; transition:background .2s ease,border-color .2s ease,color .2s ease; white-space:nowrap; }
+.acm-listen-tag:hover { background:rgba(4,107,210,.06); border-bottom-color:rgba(4,107,210,.4); color:#93c5fd; text-decoration:none; }
+.acm-listen-tag.is-active { background:rgba(4,107,210,.1); border-bottom-color:#046bd2; color:#93c5fd; }
 
 .acm-audio-grid { display: grid; grid-template-columns: 1fr; gap: 14px; max-width: 760px; margin: 0 auto 40px; }
 
@@ -50,23 +52,29 @@ html[data-theme='dark'] .acm-audio-empty h3 { color: #f1f5f9; }
     </div>
 </section>
 
-<div class="container" style="padding-bottom:60px">
-
     {{-- Tag filter --}}
     @if($audioTags->isNotEmpty())
-    <div class="acm-listen-tags">
-        <a href="{{ route('public.listen') }}"
-           class="acm-listen-tag @if(!$tagId) is-active @endif">
-            {{ __('All') }}
-        </a>
-        @foreach($audioTags as $tag)
-            <a href="{{ route('public.listen', ['tag' => $tag->id]) }}"
-               class="acm-listen-tag @if($tagId == $tag->id) is-active @endif">
-                {{ $tag->name }}
-            </a>
-        @endforeach
+    <div class="acm-listen-filter-bar">
+        <div class="container">
+            <div class="acm-listen-filter-inner">
+                <div class="acm-listen-tags">
+                    <a href="{{ route('public.listen') }}"
+                       class="acm-listen-tag @if(!$tagId) is-active @endif">
+                        {{ __('All') }}
+                    </a>
+                    @foreach($audioTags as $tag)
+                        <a href="{{ route('public.listen', ['tag' => $tag->id]) }}"
+                           class="acm-listen-tag @if($tagId == $tag->id) is-active @endif">
+                            {{ $tag->name }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
     @endif
+
+<div class="container" style="padding-bottom:60px">
 
     {{-- Audio cards --}}
     <div class="acm-audio-grid">
