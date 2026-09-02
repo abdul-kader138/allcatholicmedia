@@ -7,30 +7,30 @@ class CropImage {
         this.modal
             .on('change', 'input[type="file"]', (e) => {
                 const files = e.target.files
-                let reader
-                let file
 
-                if (files && files.length > 0) {
-                    file = files[0]
-
-                    if (URL) {
-                        this.image.prop('src', URL.createObjectURL(file))
-                    } else if (FileReader) {
-                        reader = new FileReader()
-                        reader.onload = () => {
-                            this.image.prop('src', reader.result)
-                        }
-                        reader.readAsDataURL(file)
-                    }
+                if (!files || files.length === 0) {
+                    return
                 }
 
-                this.init()
+                const file = files[0]
+
+                if (URL) {
+                    this.loadImage(URL.createObjectURL(file))
+                } else if (FileReader) {
+                    const reader = new FileReader()
+                    reader.onload = () => this.loadImage(reader.result)
+                    reader.readAsDataURL(file)
+                }
             })
             .on('click', 'button[type="submit"]', (e) => {
                 e.preventDefault()
 
                 const button = $(e.currentTarget)
                 const form = this.modal.find('form')
+
+                if (!this.cropper) {
+                    return
+                }
 
                 const canvas = this.cropper.getCroppedCanvas({
                     width: 160,
@@ -58,10 +58,11 @@ class CropImage {
                 const originalImage = $(e.relatedTarget).closest('.crop-image-container').find('.crop-image-original')
 
                 const image = new Image()
-                image.src = originalImage.prop('src')
-                image.onload = () => {
-                    this.image.prop('src', image.src)
-                    this.init()
+                const source = originalImage.attr('src')
+
+                if (source) {
+                    image.src = source
+                    image.onload = () => this.loadImage(image.src)
                 }
             })
             .on('hidden.bs.modal', () => {
@@ -95,10 +96,19 @@ class CropImage {
     }
 
     destroy() {
-        this.cropper.destroy()
+        this.cropper && this.cropper.destroy()
         this.cropper = null
         this.image.prop('src', '')
         this.modal.find('input[type="file"]').val('')
+    }
+
+    loadImage(source) {
+        if (!source) {
+            return
+        }
+
+        this.image.off('load.cropImage').one('load.cropImage', () => this.init())
+        this.image.prop('src', source)
     }
 
     updateImage(url) {
