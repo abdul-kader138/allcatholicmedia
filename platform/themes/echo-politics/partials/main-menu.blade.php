@@ -57,12 +57,6 @@
     </li>
 
     <li class="menu-item">
-        <a class="echo-dropdown-main-element" href="{{ url('/search') }}" title="{{ __('Search') }}">
-            <span aria-hidden="true">⌕</span> {{ __('Search') }}
-        </a>
-    </li>
-
-    <li class="menu-item">
         <a class="echo-dropdown-main-element" href="{{ url('/about') }}" title="{{ __('About All Catholic Media') }}">
             {{ __('About') }}
         </a>
