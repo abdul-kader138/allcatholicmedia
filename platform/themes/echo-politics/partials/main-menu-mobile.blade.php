@@ -42,15 +42,6 @@
 
     <li @class([
         'menu-item' => true,
-        'mm-active' => request()->is('about'),
-    ])>
-        <a class="main mobile-menu-link" href="{{ url('/about') }}" title="{{ __('About All Catholic Media') }}">
-            {{ __('About') }}
-        </a>
-    </li>
-
-    <li @class([
-        'menu-item' => true,
         'mm-active' => request()->routeIs('public.editorial-policy'),
     ])>
         <a class="main mobile-menu-link" href="{{ route('public.editorial-policy') }}" title="{{ __('Editorial Policy') }}">

@@ -56,9 +56,4 @@
         </a>
     </li>
 
-    <li class="menu-item">
-        <a class="echo-dropdown-main-element" href="{{ url('/about') }}" title="{{ __('About All Catholic Media') }}">
-            {{ __('About') }}
-        </a>
-    </li>
 </ul>
