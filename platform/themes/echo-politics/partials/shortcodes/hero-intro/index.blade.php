@@ -1,10 +1,8 @@
 @php
     $title = trim((string) ($shortcode->title ?: theme_option('hero_intro_title', 'Watch, Learn, Pray.')));
-    $heroHeading = preg_match('/^All Catholic Media\s*[—–-]?\s*$/u', $title)
-        ? 'All Catholic Media — Watch, Learn, Pray'
-        : (str_contains(strtolower($title), 'all catholic media')
-            ? $title
-            : 'All Catholic Media — ' . $title);
+    $tagline = preg_replace('/^All Catholic Media\s*[—–-]?\s*/u', '', $title) ?: '';
+    $tagline = trim($tagline, " —–-\t\n\r\0\x0B");
+    $tagline = $tagline ?: 'Watch, Learn, Pray';
     $link     = $shortcode->link     ?: theme_option('hero_intro_link', '');
     $bgImage  = $shortcode->background_image
         ? RvMedia::getImageUrl($shortcode->background_image)
@@ -81,7 +79,10 @@
                     </a>
                 @endif
 
-                <h1 class="hi-title">{{ $heroHeading }}</h1>
+                <h1 class="hi-title">
+                    <span class="hi-title-brand">All Catholic Media</span>
+                    <span class="hi-title-tagline">{{ $tagline }}</span>
+                </h1>
 
                 <div class="hi-primary-actions">
                     <a href="{{ url('/live') }}" class="hi-primary-action hi-primary-action--gold">{{ __('Watch Live') }}</a>
