@@ -98,6 +98,23 @@
         color: #334155;
     }
 
+    .acm-post-brand { color: #c9a227; font-size: .72rem; font-weight: 800; letter-spacing: .16em; margin-bottom: 10px; text-transform: uppercase; }
+
+    .acm-post-next-step {
+        background: linear-gradient(135deg, #07111d, #0d2a4e);
+        border: 1px solid rgba(201, 162, 39, .28);
+        border-radius: 18px;
+        color: #fff;
+        margin: 34px 0;
+        padding: 24px 26px;
+    }
+
+    .acm-post-next-step h2 { color: #fff; font-family: 'Playfair Display', Georgia, serif; font-size: 1.45rem; margin: 0 0 8px; }
+    .acm-post-next-step p { color: rgba(226, 232, 240, .78); margin: 0 0 16px; }
+    .acm-post-next-step-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .acm-post-next-step a { border: 1px solid rgba(201, 162, 39, .45); border-radius: 999px; color: #f3d46d; display: inline-flex; font-size: .82rem; font-weight: 700; padding: 9px 14px; text-decoration: none; }
+    .acm-post-next-step a:hover { background: #c9a227; color: #07111d; }
+
     .acm-post-content img {
         border-radius: 14px;
         display: block;
@@ -363,6 +380,7 @@
     {!! Theme::breadcrumb()->render() !!}
 
     <header class="acm-post-head">
+        <div class="acm-post-brand">{{ __('All Catholic Media') }}</div>
         <h1>{{ $post->name }}</h1>
 
         <div class="acm-post-meta">
@@ -407,6 +425,16 @@
     <div class="ck-content acm-post-content">
         {!! BaseHelper::clean($post->content) !!}
     </div>
+
+    <section class="acm-post-next-step" aria-label="Continue with All Catholic Media">
+        <h2>{{ __('Continue with All Catholic Media') }}</h2>
+        <p>{{ __('Take a moment to pray, explore another Catholic story, or help keep this ministry freely available.') }}</p>
+        <div class="acm-post-next-step-actions">
+            <a href="{{ route('public.prayer-request') }}">{{ __('Submit a Prayer') }}</a>
+            <a href="{{ url('/read') }}">{{ __('Read More') }}</a>
+            <a href="{{ route('donation.guest.form') }}">{{ __('Support the Mission') }}</a>
+        </div>
+    </section>
 
     {!! apply_filters(BASE_FILTER_PUBLIC_COMMENT_AREA, null, $post) !!}
 

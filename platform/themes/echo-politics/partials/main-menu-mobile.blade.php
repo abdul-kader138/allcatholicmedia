@@ -36,4 +36,22 @@
             Prayer request
         </a>
     </li>
+
+    <li @class([
+        'menu-item' => true,
+        'mm-active' => request()->is('search'),
+    ])>
+        <a class="main mobile-menu-link" href="{{ url('/search') }}" title="{{ __('Search All Catholic Media') }}">
+            {{ __('Search') }}
+        </a>
+    </li>
+
+    <li @class([
+        'menu-item' => true,
+        'mm-active' => request()->is('about'),
+    ])>
+        <a class="main mobile-menu-link" href="{{ url('/about') }}" title="{{ __('About All Catholic Media') }}">
+            {{ __('About') }}
+        </a>
+    </li>
 </ul>
