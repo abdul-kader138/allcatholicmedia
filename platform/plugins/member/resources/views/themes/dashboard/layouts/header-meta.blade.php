@@ -168,3 +168,18 @@
 </style>
 
 {!! Assets::renderHeader(['core']) !!}
+
+<style>
+    /* Final layout guard: core dashboard CSS is loaded before this point. */
+    @media screen and (min-width: 1200px) {
+        .ps-main { align-items: stretch; display: flex; min-height: 100vh; }
+        .ps-main .ps-main__sidebar { align-self: stretch; display: block !important; flex: 0 0 320px !important; max-width: 320px !important; min-width: 320px !important; padding: 0 !important; }
+        .ps-main .ps-main__wrapper { flex: 1 1 auto; max-width: calc(100% - 320px) !important; min-width: 0; }
+        .ps-main .ps-sidebar { min-height: 100vh; }
+    }
+
+    @media screen and (max-width: 1199px) {
+        .ps-main .ps-main__sidebar { display: none !important; }
+        .ps-main .ps-main__wrapper { max-width: 100%; width: 100%; }
+    }
+</style>
