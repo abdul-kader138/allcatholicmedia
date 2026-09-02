@@ -213,6 +213,8 @@
 .paypal-btn:hover { box-shadow: 0 14px 36px rgba(0,112,186,0.42); transform: translateY(-2px); }
 .paypal-btn:active { transform: none; }
 .trust-row { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 15px; }
+.donation-legal { margin: 18px 0 0; color: rgba(180,200,220,.62); font-size: .72rem; line-height: 1.65; text-align: center; }
+.donation-legal a { color: #c9a227; }
 .trust-item { align-items: center; color: rgba(160,185,210,0.5); display: flex; font-size: 0.87rem; gap: 6px; }
 .trust-item svg { flex-shrink: 0; opacity: 0.65; }
 
@@ -647,6 +649,8 @@
                                 </span>
                             </div>
                         </div>
+
+                        <p class="donation-legal">Donations are voluntary contributions to support All Catholic Media’s ministry. No goods or services are provided in exchange for your gift. Tax deductibility depends on the donor’s circumstances and the organization’s legal status; please consult your tax adviser. For donation or refund questions, <a href="{{ url('/contact') }}">contact us</a>.</p>
 
                     </form>
 

@@ -237,6 +237,9 @@
         font-style: normal;
     }
 
+    .donation-legal { color: rgba(220, 230, 242, .65); font-size: .75rem; line-height: 1.6; margin: 16px 0 0; text-align: center; }
+    .donation-legal a { color: #d3b24f; }
+
     .mission-card {
         background:
             radial-gradient(circle at top right, rgba(201, 162, 39, 0.12), transparent 34%),
@@ -506,6 +509,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                                 256-bit SSL encryption · You will be redirected to PayPal to complete payment
                             </div>
+                            <p class="donation-legal">Donations support All Catholic Media’s ministry. No goods or services are provided in exchange for your gift. Tax deductibility depends on the donor’s circumstances and the organization’s legal status; please consult your tax adviser. For donation or refund questions, <a href="{{ url('/contact') }}">contact us</a>.</p>
                         </form>
                     </div>
                 </div>

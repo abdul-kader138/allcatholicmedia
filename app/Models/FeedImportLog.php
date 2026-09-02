@@ -10,7 +10,7 @@ class FeedImportLog extends Model
     protected $table = 'feed_import_log';
 
     protected $fillable = [
-        'feed_source_id', 'guid', 'item_url', 'title', 'imported_at',
+        'feed_source_id', 'post_id', 'guid', 'item_url', 'title', 'imported_at',
     ];
 
     protected $casts = [

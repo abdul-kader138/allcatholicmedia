@@ -1267,11 +1267,11 @@ html[data-theme='dark'] .lv-utime-hm { color: var(--lg); }
             </svg>
         </div>
         <div class="lv-info-strip-text">
-            <h4>{{ __('Want to broadcast on AllCatholicMedia?') }}</h4>
+            <h4>{{ __('Partner With Us') }}</h4>
             <p>{{ __('Churches, ministries and Catholic organisations can submit their live streams to be featured here. Reach thousands of faithful viewers worldwide.') }}</p>
         </div>
         <a href="{{ url('/contact') }}" class="lv-info-strip-link">
-            {{ __('Get Listed') }}
+            {{ __('Start a Conversation') }}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
     </div>

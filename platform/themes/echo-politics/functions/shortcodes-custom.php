@@ -280,8 +280,9 @@ app('events')->listen(RouteMatched::class, function (): void {
                     ->whereHas('metadata', function ($query) use ($today): void {
                         $query->whereIn('meta_key', ['feast_date', 'saint_feast_date'])
                             ->where(function ($dateQuery) use ($today): void {
-                                $dateQuery->where('meta_value', $today)
-                                    ->orWhere('meta_value', 'like', "%-{$today}");
+                                $dateQuery->whereJsonContains('meta_value', $today)
+                                    ->orWhere('meta_value', 'like', '%"' . $today . '"%')
+                                    ->orWhere('meta_value', 'like', '%-' . $today . '%');
                             });
                     })
                     ->latest()

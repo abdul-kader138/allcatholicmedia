@@ -8,6 +8,7 @@ use App\Models\PodcastEpisode;
 use Botble\ACL\Models\User;
 use Botble\Blog\Models\Category;
 use Botble\Blog\Models\Post;
+use Botble\Base\Facades\MetaBox;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -345,6 +346,7 @@ class RssFeedImporter
         $pubDate    = $this->extractPubDate($item);
         $sourceUrl  = $this->extractLink($item);
         $imageUrl   = $this->extractImage($item);
+        $feastDate   = $this->extractFeastDate($title . ' ' . $rawContent);
 
         $plainText   = html_entity_decode(strip_tags($rawContent), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $description = Str::limit(trim(preg_replace('/\s+/', ' ', $plainText)), 300);
@@ -381,7 +383,7 @@ class RssFeedImporter
 
         $authorId = User::query()->orderBy('id')->value('id') ?? 1;
 
-        return DB::transaction(function () use ($title, $description, $content, $localImage, $imageUrl, $source, $authorId, $pubDate) {
+        return DB::transaction(function () use ($title, $description, $content, $localImage, $imageUrl, $source, $authorId, $pubDate, $feastDate) {
             $post = Post::query()->create([
                 'name'        => $title,
                 'description' => $description,
@@ -411,8 +413,25 @@ class RssFeedImporter
                 }
             }
 
+            if ($feastDate && $source->category === 'Saints & Feast Days') {
+                MetaBox::saveMetaBoxData($post, 'feast_date', $feastDate);
+            }
+
             return $post;
         });
+    }
+
+    private function extractFeastDate(string $text): ?string
+    {
+        if (! preg_match('/(?:feast\s+(?:day|date)|memorial)\s*[:\-]?\s*([A-Z][a-z]+\s+\d{1,2})/i', strip_tags($text), $matches)) {
+            return null;
+        }
+
+        try {
+            return Carbon::createFromFormat('!F j', $matches[1])->format('m-d');
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     private function resolveCategory(string $categoryValue): ?Category

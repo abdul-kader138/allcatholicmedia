@@ -79,6 +79,7 @@
                         <a class="wlp-action" href="#newsletter">Subscribe Free</a>
                     @endif
                     <a class="wlp-action" href="{{ route('donation.guest.form') }}">Support the Mission</a>
+                    <a class="wlp-action" href="{{ url('/contact?subject=Partner%20with%20us') }}">Partner With Us</a>
                 </div>
             </div>
 

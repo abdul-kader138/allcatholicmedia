@@ -104,6 +104,34 @@ Artisan::command('feeds:sync {--source= : Sync a specific feed source ID}', func
     $this->info('Done.');
 })->purpose('Sync all active RSS feed sources (posts & podcast episodes)');
 
+Artisan::command('feeds:backfill-attribution', function () {
+    $updated = 0;
+
+    \App\Models\FeedImportLog::with('feedSource')->where('feed_source_id', '!=', 0)->chunkById(100, function ($logs) use (&$updated) {
+        foreach ($logs as $log) {
+            if ($log->feedSource?->type !== 'post') {
+                continue;
+            }
+
+            $post = $log->post_id
+                ? \Botble\Blog\Models\Post::find($log->post_id)
+                : \Botble\Blog\Models\Post::where('name', $log->title)->first();
+            $url = filter_var($log->item_url, FILTER_VALIDATE_URL) ? $log->item_url : null;
+
+            if (! $post || ! $url || str_contains((string) $post->content, 'acm-content-source')) {
+                continue;
+            }
+
+            $post->content .= "\n\n<p class=\"acm-content-source\"><em>Source: " . e($log->feedSource->name) .
+                " — <a href=\"" . e($url) . "\" target=\"_blank\" rel=\"noopener noreferrer\">View original publication</a></em></p>";
+            $post->save();
+            $updated++;
+        }
+    });
+
+    $this->info("Backfilled attribution on {$updated} imported post(s).");
+})->purpose('Backfill source attribution on previously imported RSS posts');
+
 /*
 |--------------------------------------------------------------------------
 | homepage:refresh-sections
