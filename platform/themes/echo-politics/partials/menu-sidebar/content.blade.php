@@ -68,6 +68,20 @@
     object-fit: contain;
 }
 
+.acm-sb-welcome {
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    color: rgba(226,232,240,.72);
+    padding: 16px 18px 14px;
+}
+.acm-sb-welcome strong {
+    color: #f3d46d;
+    display: block;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.08rem;
+    margin-bottom: 4px;
+}
+.acm-sb-welcome span { font-size: .76rem; line-height: 1.5; }
+
 /* Close button */
 .acm-sb-close-wrap {
     padding: 0 !important;
@@ -151,6 +165,36 @@
     color: #fff !important;
 }
 
+.acm-sb-menu-wrap .mobile-menu nav a:focus-visible,
+#side-bar .close-icon-menu:focus-visible,
+.acm-sb-quick-actions a:focus-visible {
+    outline: 3px solid rgba(243,212,109,.9) !important;
+    outline-offset: 2px;
+}
+
+.acm-sb-quick-actions {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+    padding: 16px 14px calc(12px + env(safe-area-inset-bottom));
+}
+.acm-sb-quick-actions a {
+    align-items: center;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 12px;
+    color: #f8fafc;
+    display: flex;
+    font-size: .78rem;
+    font-weight: 700;
+    justify-content: center;
+    min-height: 44px;
+    padding: 8px 10px;
+    text-align: center;
+    text-decoration: none;
+}
+.acm-sb-quick-actions a:first-child { background: #c9a227; border-color: #c9a227; color: #101a2b; }
+
 /* Hide the base ::after arrow on all links, add our own for parents */
 .acm-sb-menu-wrap .mobile-menu nav ul li a::after {
     display: none !important;
@@ -227,6 +271,11 @@
     </div>
 </div>
 
+<div class="acm-sb-welcome">
+    <strong>{{ __('All Catholic Media') }}</strong>
+    <span>{{ __('Watch, learn, pray, and stay connected wherever you are.') }}</span>
+</div>
+
 {{-- Navigation --}}
 <div class="acm-sb-menu-wrap" style="flex:1; overflow-y:auto;">
     <div class="mobile-menu">
@@ -235,9 +284,13 @@
                Menu::renderMenuLocation('main-menu', [
                    'options' => ['class' => 'mainmenu', 'id' => 'mobile-menu-active'],
                     'view' => 'main-menu-mobile',
-                ])
+               ])
             !!}
         </nav>
+        <div class="acm-sb-quick-actions" aria-label="{{ __('Quick actions') }}">
+            <a href="{{ route('donation.guest.form') }}">{{ __('Support Us') }}</a>
+            <a href="{{ route('public.prayer-request') }}">{{ __('Prayer Request') }}</a>
+        </div>
     </div>
 </div>
 

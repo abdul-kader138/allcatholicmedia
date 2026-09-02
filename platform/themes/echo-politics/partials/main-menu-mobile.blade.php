@@ -11,6 +11,9 @@
                 @if ($row->target !== '_self') target="{{ $row->target }}" @endif
             >
                 {{ $row->title }}
+                @if ($row->has_child)
+                    <span class="acm-arrow" aria-hidden="true">⌄</span>
+                @endif
             </a>
 
             @if ($row->has_child)
