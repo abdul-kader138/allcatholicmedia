@@ -54,8 +54,9 @@
     .ps-drawer--mobile .menu li a.active { background: rgba(201, 162, 39, .12); color: var(--acm-gold); transform: translateX(2px); }
     .ps-sidebar .menu li a.active:before { background: var(--acm-gold); }
     .ps-sidebar__footer { border-top: 1px solid rgba(255, 255, 255, .08); }
-    .ps-sidebar__center { padding: 18px 12px 24px; }
-    .ps-sidebar__footer { padding: 20px 24px; }
+    .ps-sidebar__content { display: flex; flex: 0 0 auto; justify-content: flex-start !important; }
+    .ps-sidebar__center { padding: 18px 12px 0; }
+    .ps-sidebar__content .ps-sidebar__footer { bottom: auto; margin-top: 0; padding: 20px 24px; position: static; }
     .ps-sidebar__footer .ps-copyright p { color: var(--acm-muted); }
 
     .ps-main__wrapper { background: var(--acm-navy); color: var(--acm-text); padding: 32px; }

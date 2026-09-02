@@ -1441,7 +1441,7 @@ app('events')->listen(RouteMatched::class, function (): void {
         'fab fa-tiktok',
     ];
 
-    $css = [Theme::asset()->url('plugins/fontawesome5/css/fontawesome.min.css')];
+    $css = [asset('vendor/core/core/base/libraries/font-awesome/css/fontawesome.min.css')];
 
     Theme::registerThemeIconFields($icons, $css);
 });
