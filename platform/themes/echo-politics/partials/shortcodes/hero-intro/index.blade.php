@@ -1,8 +1,10 @@
 @php
-    $title    = $shortcode->title    ?: theme_option('hero_intro_title', 'Watch, Learn, Pray.');
-    $heroHeading = str_contains(strtolower($title), 'all catholic media')
-        ? $title
-        : 'All Catholic Media — ' . $title;
+    $title = trim((string) ($shortcode->title ?: theme_option('hero_intro_title', 'Watch, Learn, Pray.')));
+    $heroHeading = preg_match('/^All Catholic Media\s*[—–-]?\s*$/u', $title)
+        ? 'All Catholic Media — Watch, Learn, Pray'
+        : (str_contains(strtolower($title), 'all catholic media')
+            ? $title
+            : 'All Catholic Media — ' . $title);
     $link     = $shortcode->link     ?: theme_option('hero_intro_link', '');
     $bgImage  = $shortcode->background_image
         ? RvMedia::getImageUrl($shortcode->background_image)
