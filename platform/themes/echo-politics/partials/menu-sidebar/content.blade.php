@@ -117,7 +117,15 @@
     display: flex !important;
     flex-direction: column !important;
     width: 100% !important;
+    margin-bottom: 0 !important;
     margin-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.acm-sb-menu-wrap .mobile-menu nav,
+.acm-sb-menu-wrap .mobile-menu nav > ul {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .acm-sb-menu-wrap {
@@ -289,7 +297,7 @@
 .acm-sb-menu-wrap .mobile-menu nav ul ul li a { border-bottom-color: rgba(255,255,255,.035) !important; }
 .acm-sb-quick-actions a { box-shadow: 0 8px 18px rgba(0,0,0,.14); transition: transform .18s ease, background .18s ease; }
 .acm-sb-quick-actions a:hover { transform: translateY(-1px); }
-.acm-sb-footer-note { color: rgba(226,232,240,.42); font-size: .68rem; letter-spacing: .08em; padding: 2px 0 18px; text-align: center; text-transform: uppercase; }
+.acm-sb-footer-note { color: rgba(226,232,240,.42); font-size: .68rem; letter-spacing: .08em; padding: 2px 0 0; text-align: center; text-transform: uppercase; }
 @media (max-width: 479px) {
     #side-bar { width: 100vw !important; max-width: 100vw !important; }
     .acm-sb-menu-wrap .mobile-menu nav > ul > li > a { padding: 15px 10px !important; }
@@ -313,7 +321,6 @@
     <span>{{ __('Watch, learn, pray, and stay connected wherever you are.') }}</span>
 </div>
 
-{{-- Navigation --}}
 <div class="acm-sb-menu-wrap" style="flex:1; overflow-y:auto;">
     <div class="mobile-menu">
         <nav class="nav-main mainmenu-nav d-flex flex-column justify-content-center">
