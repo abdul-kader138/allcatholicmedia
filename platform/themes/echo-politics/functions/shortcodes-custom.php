@@ -392,8 +392,16 @@ app('events')->listen(RouteMatched::class, function (): void {
                 ? ($rosary->categories->first(fn ($category) => in_array($category->id, $categoryIds, true)) ?: $rosary->categories->first())
                 : $rosary->categories->first();
 
-            $title = $shortcode->title ?: 'Daily Rosary';
-            $subtitle = $shortcode->subtitle ?: 'Pray today\'s rosary';
+            $title = $shortcode->title ?: 'Pray the Daily Rosary';
+            $subtitle = $shortcode->subtitle ?: 'Pray with the Church';
+
+            // Normalize older homepage shortcode values without requiring a reseed.
+            if (in_array(trim($title), ['Daily Rosary', 'Pray today\'s rosary'], true)) {
+                $title = 'Pray the Daily Rosary';
+            }
+            if (trim($subtitle) === 'Pray today\'s rosary') {
+                $subtitle = 'Pray with the Church';
+            }
             $archiveUrl = $primaryCategory?->url ?: $rosary->url;
             $archiveLabel = $primaryCategory ? 'View All in ' . $primaryCategory->name : 'View Rosary Archive';
 
@@ -434,8 +442,8 @@ app('events')->listen(RouteMatched::class, function (): void {
                     ->multiple()
                     ->toArray()
             )
-            ->add('title', TextField::class, TextFieldOption::make()->label('Section Title')->defaultValue('Daily Rosary')->toArray())
-            ->add('subtitle', TextField::class, TextFieldOption::make()->label('Subtitle')->defaultValue('Pray today\'s rosary')->toArray());
+            ->add('title', TextField::class, TextFieldOption::make()->label('Section Title')->defaultValue('Pray the Daily Rosary')->toArray())
+            ->add('subtitle', TextField::class, TextFieldOption::make()->label('Subtitle')->defaultValue('Pray with the Church')->toArray());
     });
 
 });

@@ -307,7 +307,7 @@
                     @endif
 
                     <p class="rosary-spotlight-excerpt">
-                        Enter today’s mysteries with prayer, scripture, and reflection, and let the newest Rosary post rise automatically to the homepage.
+                        Enter the daily mysteries with prayer, scripture, and reflection. The newest Rosary post is featured automatically on the homepage.
                     </p>
 
                     <div class="rosary-spotlight-actions">

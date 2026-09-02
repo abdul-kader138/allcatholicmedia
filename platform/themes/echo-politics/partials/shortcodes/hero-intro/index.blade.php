@@ -1,5 +1,8 @@
 @php
     $title    = $shortcode->title    ?: theme_option('hero_intro_title', 'Watch, Learn, Pray.');
+    $heroHeading = str_contains(strtolower($title), 'all catholic media')
+        ? $title
+        : 'All Catholic Media — ' . $title;
     $link     = $shortcode->link     ?: theme_option('hero_intro_link', '');
     $bgImage  = $shortcode->background_image
         ? RvMedia::getImageUrl($shortcode->background_image)
@@ -42,11 +45,10 @@
     }
 @endphp
 
-@if($bgImage)
 <section class="hi-section">
 
     {{-- ── Main Hero Area ── --}}
-    <div class="hi-hero" id="hi-hero" style="background-image: url('{{ $bgImage }}');">
+    <div class="hi-hero" id="hi-hero" @if($bgImage) style="background-image: url('{{ $bgImage }}');" @endif>
 
         <div class="hi-hero-overlay" aria-hidden="true"></div>
 
@@ -77,7 +79,7 @@
                     </a>
                 @endif
 
-                <h1 class="hi-title">{{ $title }}</h1>
+                <h1 class="hi-title">{{ $heroHeading }}</h1>
 
                 <div class="hi-primary-actions">
                     <a href="{{ url('/live') }}" class="hi-primary-action hi-primary-action--gold">{{ __('Watch Live') }}</a>
@@ -155,4 +157,3 @@
     @endif
 
 </section>
-@endif
