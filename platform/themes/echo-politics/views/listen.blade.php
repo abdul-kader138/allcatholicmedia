@@ -10,6 +10,12 @@
 .acm-listen-hero { background: linear-gradient(135deg,#0f172a,#1e293b); padding: 36px 0 28px; margin-bottom: 32px; text-align: center; }
 .acm-listen-title { font-size: 1.8rem; font-weight: 700; color: #f8fafc; margin: 0 0 6px; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .acm-listen-sub { color: #94a3b8; font-size: .95rem; }
+.acm-listen-tags { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:24px; }
+.acm-listen-tag { background:rgba(255,255,255,.86); border:1px solid #d8e0ec; border-radius:999px; color:#475569; font-size:.83rem; font-weight:700; padding:7px 15px; text-decoration:none; transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease; }
+.acm-listen-tag:hover { background:#fff8dc; border-color:#c9a227; color:#8b6b0b; text-decoration:none; transform:translateY(-1px); }
+.acm-listen-tag.is-active { background:#c9a227; border-color:#c9a227; color:#07111d; }
+html[data-theme='dark'] .acm-listen-tag { background:#102944; border-color:rgba(255,255,255,.14); color:#e8eef7; }
+html[data-theme='dark'] .acm-listen-tag:hover { background:rgba(201,162,39,.16); border-color:#c9a227; color:#f3d46d; }
 
 .acm-audio-grid { display: grid; grid-template-columns: 1fr; gap: 14px; max-width: 760px; margin: 0 auto 40px; }
 
@@ -48,14 +54,14 @@ html[data-theme='dark'] .acm-audio-empty h3 { color: #f1f5f9; }
 
     {{-- Tag filter --}}
     @if($audioTags->isNotEmpty())
-    <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:24px">
+    <div class="acm-listen-tags">
         <a href="{{ route('public.listen') }}"
-           style="padding:5px 14px;border-radius:20px;font-size:.83rem;font-weight:600;border:1px solid var(--border-color,#e2e8f0);color:var(--color-body,#475569);text-decoration:none;background:{{ !$tagId ? '#046bd2' : 'var(--bg-card,#fff)' }};color:{{ !$tagId ? '#fff' : '' }}">
+           class="acm-listen-tag @if(!$tagId) is-active @endif">
             {{ __('All') }}
         </a>
         @foreach($audioTags as $tag)
             <a href="{{ route('public.listen', ['tag' => $tag->id]) }}"
-               style="padding:5px 14px;border-radius:20px;font-size:.83rem;font-weight:600;border:1px solid var(--border-color,#e2e8f0);text-decoration:none;background:{{ $tagId == $tag->id ? '#046bd2' : 'var(--bg-card,#fff)' }};color:{{ $tagId == $tag->id ? '#fff' : 'var(--color-body,#475569)' }}">
+               class="acm-listen-tag @if($tagId == $tag->id) is-active @endif">
                 {{ $tag->name }}
             </a>
         @endforeach
