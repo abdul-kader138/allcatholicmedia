@@ -26,18 +26,25 @@
     .header--mobile .navbar-toggler,
     .header--mobile .header__right a { color: var(--acm-gold); }
 
-    .ps-main__sidebar { align-self: stretch; background: #081827; max-width: 375px; padding: 0 !important; }
-    .ps-sidebar { background: #081827; color: var(--acm-text); }
+    .ps-main__sidebar { align-self: stretch; background: #081827; flex: 0 0 320px; max-width: 320px; padding: 0 !important; }
+    .ps-sidebar { background: #081827; color: var(--acm-text); display: flex; flex-direction: column; }
     .ps-sidebar { min-height: 100vh; }
-    .ps-sidebar__top { background: linear-gradient(180deg, #102944, #0b1e32); border-bottom: 1px solid rgba(201, 162, 39, .2); padding: 28px !important; }
+    .ps-sidebar__top { background: linear-gradient(180deg, #102944, #0b1e32); border-bottom: 1px solid rgba(201, 162, 39, .2); padding: 24px !important; }
     .ps-sidebar .ps-sidebar__top { margin-bottom: 0 !important; }
-    .ps-sidebar .ps-sidebar__top .ps-block--user-wellcome { margin-bottom: 28px !important; }
+    .ps-sidebar .ps-sidebar__top .ps-block--user-wellcome { background: rgba(255, 255, 255, .045); border: 1px solid rgba(201, 162, 39, .2); border-radius: 16px; margin-bottom: 18px !important; padding: 14px; }
     .ps-block--user-wellcome .ps-block__right p,
     .ps-block--user-wellcome .ps-block__right p a,
     .ps-block--earning-count h3 { color: var(--acm-text); }
+    .ps-block--user-wellcome .ps-block__right { min-width: 0; overflow: hidden; }
+    .ps-block--user-wellcome .ps-block__right p,
+    .ps-block--user-wellcome .ps-block__right p a,
+    .ps-block--user-wellcome .ps-block__right small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .ps-block--user-wellcome .ps-block__right small,
     .ps-block--earning-count small { color: var(--acm-muted); }
     .ps-block--user-wellcome .ps-block__action i { color: var(--acm-gold); }
+    .acm-dashboard-avatar { align-items: center; background: #132841; border: 2px solid rgba(201, 162, 39, .55); border-radius: 50%; display: flex; flex: 0 0 58px; height: 58px; justify-content: center; overflow: hidden; width: 58px; }
+    .acm-dashboard-avatar img { border: 0 !important; border-radius: 50%; display: block; height: 100%; object-fit: cover; width: 100%; }
+    .acm-dashboard-avatar.acm-avatar-fallback::before { color: var(--acm-gold); content: '✦'; font-size: 1.2rem; }
 
     .ps-sidebar .menu li a,
     .ps-drawer--mobile .menu li a { border-radius: 10px; color: var(--acm-muted); margin: 4px 12px; transition: background .2s, color .2s, transform .2s; }
@@ -47,6 +54,8 @@
     .ps-drawer--mobile .menu li a.active { background: rgba(201, 162, 39, .12); color: var(--acm-gold); transform: translateX(2px); }
     .ps-sidebar .menu li a.active:before { background: var(--acm-gold); }
     .ps-sidebar__footer { border-top: 1px solid rgba(255, 255, 255, .08); }
+    .ps-sidebar__center { padding: 18px 12px 24px; }
+    .ps-sidebar__footer { padding: 20px 24px; }
     .ps-sidebar__footer .ps-copyright p { color: var(--acm-muted); }
 
     .ps-main__wrapper { background: var(--acm-navy); color: var(--acm-text); padding: 32px; }
@@ -98,8 +107,8 @@
     .ps-drawer--mobile .ps-drawer__header h4,
     .ps-drawer--mobile .ps-drawer__close { color: var(--acm-gold); }
 
-    .ps-block--earning-count { background: transparent; border-bottom: 1px solid rgba(201, 162, 39, .2) !important; padding: 0 0 22px !important; }
-    .ps-block--earning-count h3 { color: var(--acm-gold) !important; font-size: 2rem; font-weight: 800; line-height: 1.1; margin: 6px 0 0; }
+    .ps-block--earning-count { align-items: center; background: rgba(201, 162, 39, .09); border: 1px solid rgba(201, 162, 39, .26) !important; border-radius: 14px; display: flex; justify-content: space-between; padding: 14px 16px !important; }
+    .ps-block--earning-count h3 { color: var(--acm-gold) !important; font-size: 1.75rem; font-weight: 800; line-height: 1; margin: 0; }
     .ps-block--earning-count small { color: var(--acm-muted) !important; }
     .ps-block--user-wellcome .ps-block__left img { border: 2px solid rgba(201, 162, 39, .55); }
     .ps-main__wrapper .invalid-feedback,

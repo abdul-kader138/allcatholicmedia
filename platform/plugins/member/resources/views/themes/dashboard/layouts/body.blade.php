@@ -37,11 +37,12 @@
         <div class="ps-sidebar">
             <div class="ps-sidebar__top">
                 <div class="ps-block--user-wellcome">
-                    <div class="ps-block__left">
+                    <div class="ps-block__left acm-dashboard-avatar">
                         <img
                             src="{{ auth('member')->user()->avatar_url }}"
                             alt="{{ auth('member')->user()->name }}"
                             class="avatar avatar-lg"
+                            onerror="this.style.display='none'; this.parentElement.classList.add('acm-avatar-fallback');"
                         />
                     </div>
                     <div class="ps-block__right">
