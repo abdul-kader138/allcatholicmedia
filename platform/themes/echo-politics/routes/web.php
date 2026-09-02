@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web', 'core']], function (): void {
     Route::get('sitemap.xml', function () {
         $urls = collect([
             url('/'), url('/read'), url('/saints'), url('/live'), url('/listen'),
-            url('/about'), url('/donate'),
+            url('/about'), url('/donate'), url('/editorial-policy'), url('/corrections-policy'),
         ]);
 
         Post::query()->with(['categories', 'slugable'])->wherePublished()->latest()->limit(1000)->get()->each(function (Post $post) use ($urls): void {
@@ -40,6 +40,9 @@ Route::group(['middleware' => ['web', 'core']], function (): void {
 
         return response($xml, 200)->header('Content-Type', 'application/xml');
     })->name('public.sitemap');
+
+    Route::get('editorial-policy', fn () => Theme::scope('editorial-policy')->render())->name('public.editorial-policy');
+    Route::get('corrections-policy', fn () => Theme::scope('corrections-policy')->render())->name('public.corrections-policy');
 
     /*
     |--------------------------------------------------------------------------

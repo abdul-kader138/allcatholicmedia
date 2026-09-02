@@ -132,6 +132,28 @@ Artisan::command('feeds:backfill-attribution', function () {
     $this->info("Backfilled attribution on {$updated} imported post(s).");
 })->purpose('Backfill source attribution on previously imported RSS posts');
 
+Artisan::command('saints:check-calendar', function () {
+    if (! class_exists(\Botble\Blog\Models\Post::class)) {
+        $this->warn('The Blog plugin is not loaded in this environment; calendar coverage could not be checked.');
+
+        return self::SUCCESS;
+    }
+
+    $today = now()->format('m-d');
+    $saints = \Botble\Blog\Models\Post::query()
+        ->wherePublished()
+        ->whereHas('categories', fn ($query) => $query->where('id', 3))
+        ->with('metadata')
+        ->get();
+    $dated = $saints->filter(fn ($saint) => (bool) $saint->metadata->first(fn ($meta) => in_array($meta->meta_key, ['feast_date', 'saint_feast_date'], true)));
+    $todaySaint = $saints->first(fn ($saint) => $saint->metadata->contains(fn ($meta) => in_array($meta->meta_key, ['feast_date', 'saint_feast_date'], true) && str_contains((string) $meta->meta_value, $today)));
+
+    $this->line("Published saints: {$saints->count()}");
+    $this->line("With feast-date metadata: {$dated->count()}");
+    $todaySaint ? $this->info("Today's match ({$today}): {$todaySaint->name}") : $this->warn("No feast-date match for today ({$today}).");
+    $saints->diff($dated)->each(fn ($saint) => $this->line("  Missing date: {$saint->name}"));
+})->purpose('Check saint feast-date coverage and today\'s calendar match');
+
 /*
 |--------------------------------------------------------------------------
 | homepage:refresh-sections

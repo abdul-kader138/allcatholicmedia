@@ -57,4 +57,22 @@
             {{ __('About') }}
         </a>
     </li>
+
+    <li @class([
+        'menu-item' => true,
+        'mm-active' => request()->routeIs('public.editorial-policy'),
+    ])>
+        <a class="main mobile-menu-link" href="{{ route('public.editorial-policy') }}" title="{{ __('Editorial Policy') }}">
+            {{ __('Editorial Policy') }}
+        </a>
+    </li>
+
+    <li @class([
+        'menu-item' => true,
+        'mm-active' => request()->routeIs('public.corrections-policy'),
+    ])>
+        <a class="main mobile-menu-link" href="{{ route('public.corrections-policy') }}" title="{{ __('Corrections Policy') }}">
+            {{ __('Corrections Policy') }}
+        </a>
+    </li>
 </ul>
