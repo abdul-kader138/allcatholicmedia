@@ -19,7 +19,7 @@
 @php
     $isSaint = $post->categories->contains('id', 3);
     $postUrl = $isSaint ? route('public.saint', $post->slugable?->key ?: \Illuminate\Support\Str::slug($post->name)) : $post->url;
-    $schemaType = $isSaint ? 'Person' : ($videoUrl ? 'VideoObject' : 'Article');
+    $schemaType = $isSaint ? 'Person' : ($videoUrl ? 'VideoObject' : ($post->categories->contains(fn ($category) => in_array($category->name, ['Vatican News', 'World News'], true)) ? 'NewsArticle' : 'Article'));
     $postSchema = [
         '@context' => 'https://schema.org',
         '@type' => $schemaType,
@@ -30,6 +30,7 @@
         'datePublished' => optional($post->created_at)->toIso8601String(),
         'dateModified' => optional($post->updated_at)->toIso8601String(),
         'publisher' => ['@type' => 'Organization', 'name' => 'All Catholic Media', 'url' => url('/')],
+        'author' => ['@type' => 'Person', 'name' => $post->authorName ?: 'All Catholic Media Editorial Team'],
         'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $postUrl],
         'breadcrumb' => [
             '@type' => 'BreadcrumbList',
@@ -372,6 +373,15 @@
             @endif
 
             <span>{{ $post->created_at->format('M d, Y') }}</span>
+
+            <span class="acm-post-byline">
+                {{ __('By') }}
+                @if ($post->authorUrl)
+                    <a href="{{ $post->authorUrl }}">{{ $post->authorName ?: __('All Catholic Media Editorial Team') }}</a>
+                @else
+                    <strong>{{ $post->authorName ?: __('All Catholic Media Editorial Team') }}</strong>
+                @endif
+            </span>
 
             @if ($post->tags->isNotEmpty())
                 <span>
