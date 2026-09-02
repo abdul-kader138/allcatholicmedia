@@ -61,9 +61,9 @@
         }
 
         .member-login-form__panel .auth-card .bg-white {
-            border: 1px solid rgba(85, 122, 255, 0.22);
+            border: 1px solid rgba(201, 162, 39, 0.22);
             border-radius: 18px !important;
-            background: linear-gradient(180deg, rgba(38, 65, 166, 0.32), rgba(38, 65, 166, 0.14)) !important;
+            background: linear-gradient(180deg, rgba(201, 162, 39, 0.12), rgba(201, 162, 39, 0.04)) !important;
         }
 
         .member-login-form__panel .auth-card .text-primary {

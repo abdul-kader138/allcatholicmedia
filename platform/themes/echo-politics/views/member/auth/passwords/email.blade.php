@@ -15,7 +15,7 @@
 .acm-auth-panel .auth-card { overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08) !important; border-radius: 28px; background: linear-gradient(180deg, rgba(25, 30, 44, 0.96), rgba(18, 22, 34, 0.98)) !important; box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.04); }
 .acm-auth-panel .auth-card .card-header { padding: 34px 34px 8px !important; background: transparent !important; }
 .acm-auth-panel .auth-card .card-body { padding: 20px 34px 34px !important; }
-.acm-auth-panel .auth-card .bg-white { border: 1px solid rgba(85, 122, 255, 0.22); border-radius: 18px !important; background: linear-gradient(180deg, rgba(38, 65, 166, 0.32), rgba(38, 65, 166, 0.14)) !important; }
+.acm-auth-panel .auth-card .bg-white { border: 1px solid rgba(201, 162, 39, 0.22); border-radius: 18px !important; background: linear-gradient(180deg, rgba(201, 162, 39, 0.12), rgba(201, 162, 39, 0.04)) !important; }
 .acm-auth-panel .auth-card .text-primary { color: #d8b95f !important; }
 .acm-auth-panel .auth-card h3 { margin-bottom: 10px !important; color: #f7f1e7; font-family: var(--heading-font); font-size: 1.7rem; line-height: 1.15; }
 .acm-auth-panel .auth-card p.text-muted { margin: 0; color: rgba(229, 232, 239, 0.72) !important; font-size: 0.95rem; line-height: 1.7; }
