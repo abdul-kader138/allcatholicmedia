@@ -257,6 +257,30 @@
         padding: 10px 14px 10px 28px !important;
     }
 }
+/* Brand-aligned small-screen treatment */
+#side-bar {
+    background: radial-gradient(circle at 100% 0, rgba(201,162,39,.12), transparent 30%), linear-gradient(180deg, #06111d 0%, #0a1b2d 52%, #06111d 100%) !important;
+    box-shadow: 24px 0 60px rgba(0,0,0,.55) !important;
+    width: min(360px, 92vw) !important;
+    max-width: 92vw !important;
+}
+.acm-sb-logo-strip { background: rgba(6,17,29,.97); border-bottom-color: rgba(201,162,39,.22); }
+#side-bar .close-icon-menu { background: transparent !important; border-color: rgba(201,162,39,.45) !important; border-radius: 50% !important; }
+#side-bar .close-icon-menu i { color: #f3d46d !important; }
+.acm-sb-welcome { padding: 22px 22px 18px; }
+.acm-sb-welcome strong { color: #c9a227; }
+.acm-sb-menu-wrap { padding: 10px 18px 0; }
+.acm-sb-menu-wrap .mobile-menu nav > ul > li > a { background: transparent !important; border: 0 !important; border-bottom: 1px solid rgba(255,255,255,.09) !important; border-radius: 0 !important; margin-bottom: 0 !important; padding: 16px 10px !important; }
+.acm-sb-menu-wrap .mobile-menu nav > ul > li > a:hover { background: rgba(255,255,255,.04) !important; }
+.acm-sb-menu-wrap .mobile-menu nav > ul > li.mm-active > a { background: rgba(201,162,39,.08) !important; border-color: #c9a227 !important; box-shadow: inset 3px 0 0 #c9a227; color: #f3d46d !important; }
+.acm-sb-menu-wrap .mobile-menu nav ul ul { background: rgba(255,255,255,.025); border: 0; border-left: 1px solid rgba(201,162,39,.3); border-radius: 0; margin: 0 0 0 10px; }
+.acm-sb-menu-wrap .mobile-menu nav ul ul li a { padding: 13px 16px 13px 20px !important; }
+.acm-sb-quick-actions { border-top: 1px solid rgba(201,162,39,.2); padding-left: 0; padding-right: 0; }
+.acm-sb-quick-actions a { border-radius: 4px; }
+@media (max-width: 479px) {
+    #side-bar { width: 100vw !important; max-width: 100vw !important; }
+    .acm-sb-menu-wrap .mobile-menu nav > ul > li > a { padding: 15px 10px !important; }
+}
 </style>
 
 {{-- Logo --}}
