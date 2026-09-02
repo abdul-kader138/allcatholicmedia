@@ -263,7 +263,7 @@ app('events')->listen(RouteMatched::class, function (): void {
 
             sort($categoryIds);
 
-            $cacheKey = 'echo_politics.latest_daily_saint.' . now()->format('Y-m-d') . '.' . implode('_', $categoryIds);
+            $cacheKey = 'echo_politics.latest_daily_saint.v2.' . now()->format('Y-m-d') . '.' . implode('_', $categoryIds);
 
             $saint = Cache::remember(acm_homepage_cache_key($cacheKey), now()->addMinutes(10), function () use ($categoryIds) {
                 $today = now()->format('m-d');
@@ -288,10 +288,15 @@ app('events')->listen(RouteMatched::class, function (): void {
                     ->latest()
                     ->first();
 
-                // Never label a stale post as today's saint. A missing date is
-                // preferable to publishing an incorrect feast-day claim.
-                return $datedSaint;
+                return [
+                    'post' => $datedSaint ?: $baseQuery->latest()->first(),
+                    'is_today' => (bool) $datedSaint,
+                ];
             });
+
+            $saintData = $saint;
+            $saint = $saintData['post'] ?? null;
+            $isTodaySaint = (bool) ($saintData['is_today'] ?? false);
 
             if (! $saint) {
                 return null;
@@ -300,8 +305,8 @@ app('events')->listen(RouteMatched::class, function (): void {
             $primaryCategory = $saint->categories->first(fn ($category) => in_array($category->id, $categoryIds, true))
                 ?: $saint->categories->first();
 
-            $title = $shortcode->title ?: 'Daily Saint';
-            $subtitle = $shortcode->subtitle ?: 'Meet today\'s saint';
+            $title = $shortcode->title ?: ($isTodaySaint ? 'Daily Saint' : 'Featured Saint');
+            $subtitle = $shortcode->subtitle ?: ($isTodaySaint ? 'Meet today\'s saint' : 'Explore the saints');
             $archiveUrl = $primaryCategory?->url ?: route('public.saints');
             $archiveLabel = $primaryCategory ? 'View All in ' . $primaryCategory->name : 'View All Saints';
 
@@ -311,6 +316,7 @@ app('events')->listen(RouteMatched::class, function (): void {
                 'title',
                 'subtitle',
                 'primaryCategory',
+                'isTodaySaint',
                 'archiveUrl',
                 'archiveLabel'
             ));

@@ -149,7 +149,7 @@
         <div class="row g-0 saint-spotlight-card">
             <div class="col-lg-5">
                 <div class="saint-spotlight-media">
-                    <span class="saint-spotlight-badge">{{ $primaryCategory?->name ?: $title }}</span>
+                    <span class="saint-spotlight-badge">{{ $isTodaySaint ? ($primaryCategory?->name ?: $title) : 'Featured Saint' }}</span>
                     <a href="{{ $saintUrl }}" title="{{ $saint->name }}">
                         {{ RvMedia::image($saint->image, $saint->name, 'large', attributes: ['class' => 'img-hover']) }}
                     </a>
@@ -157,7 +157,7 @@
             </div>
             <div class="col-lg-7">
                 <div class="saint-spotlight-body">
-                    <div class="saint-spotlight-label">{{ $subtitle }}</div>
+                    <div class="saint-spotlight-label">{{ $isTodaySaint ? $subtitle : 'Explore the saints' }}</div>
                     <h2 class="saint-spotlight-title">
                         <a href="{{ $saintUrl }}" title="{{ $saint->name }}">
                             {{ $saint->name }}
@@ -171,7 +171,7 @@
                     @endif
 
                     <p class="saint-spotlight-excerpt">
-                        Discover the life, witness, and feast of today’s saint, and bring a moment of reflection to the top of your homepage.
+                        {{ $isTodaySaint ? 'Discover the life, witness, and feast of today’s saint, and bring a moment of reflection to the top of your homepage.' : 'Discover the life and witness of a saint, and bring a moment of reflection to your day.' }}
                     </p>
 
                     <div class="saint-spotlight-actions">
