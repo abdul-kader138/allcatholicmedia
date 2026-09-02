@@ -158,26 +158,6 @@
     text-shadow: 0 2px 36px rgba(0, 0, 0, 0.55);
 }
 
-.hi-title-brand,
-.hi-title-tagline {
-    display: block;
-}
-
-.hi-title-brand {
-    color: #f3d46d;
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(.72rem, 1.1vw, .95rem);
-    font-weight: 800;
-    letter-spacing: .22em;
-    line-height: 1.2;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-}
-
-.hi-title-tagline {
-    max-width: 760px;
-}
-
 .hi-primary-actions {
     display: flex;
     flex-wrap: wrap;
@@ -334,7 +314,6 @@
     .hi-hero { min-height: 300px; }
     .hi-hero-content { padding-bottom: 28px; }
     .hi-hero-inner { padding: 0 20px; gap: 16px; }
-    .hi-title-brand { font-size: .68rem; letter-spacing: .16em; margin-bottom: 8px; }
     .hi-primary-actions { margin-left: 0; width: 100%; }
     .hi-primary-action { flex: 1 1 auto; text-align: center; }
     .hi-play-btn { width: 52px; height: 52px; }

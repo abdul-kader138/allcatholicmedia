@@ -1,8 +1,4 @@
 @php
-    $title = trim((string) ($shortcode->title ?: theme_option('hero_intro_title', 'Watch, Learn, Pray.')));
-    $tagline = preg_replace('/^All Catholic Media\s*[—–-]?\s*/u', '', $title) ?: '';
-    $tagline = trim($tagline, " —–-\t\n\r\0\x0B");
-    $tagline = $tagline ?: 'Watch, Learn, Pray';
     $link     = $shortcode->link     ?: theme_option('hero_intro_link', '');
     $bgImage  = $shortcode->background_image
         ? RvMedia::getImageUrl($shortcode->background_image)
@@ -80,8 +76,7 @@
                 @endif
 
                 <h1 class="hi-title">
-                    <span class="hi-title-brand">All Catholic Media</span>
-                    <span class="hi-title-tagline">{{ $tagline }}</span>
+                    All Catholic Media
                 </h1>
 
                 <div class="hi-primary-actions">
