@@ -277,6 +277,25 @@
 .acm-sb-menu-wrap .mobile-menu nav ul ul li a { padding: 13px 16px 13px 20px !important; }
 .acm-sb-quick-actions { border-top: 1px solid rgba(201,162,39,.2); padding-left: 0; padding-right: 0; }
 .acm-sb-quick-actions a { border-radius: 4px; }
+.acm-sb-menu-wrap .mobile-menu nav > ul > li > a {
+    background: linear-gradient(90deg, rgba(255,255,255,.035), rgba(255,255,255,.012)) !important;
+    border-bottom-color: rgba(255,255,255,.06) !important;
+    border-radius: 10px !important;
+    margin: 4px 0 !important;
+    padding: 14px 13px !important;
+}
+.acm-sb-menu-wrap .mobile-menu nav > ul > li > a::before {
+    color: rgba(201,162,39,.72);
+    content: '✦';
+    font-size: .62rem;
+    margin-right: 12px;
+}
+.acm-sb-menu-wrap .mobile-menu nav > ul > li.mm-active > a::before { color: #f3d46d; }
+.acm-sb-menu-wrap .mobile-menu nav > ul > li.mm-active > a { box-shadow: inset 3px 0 0 #c9a227, 0 8px 20px rgba(0,0,0,.12); }
+.acm-sb-menu-wrap .mobile-menu nav ul ul li a { border-bottom-color: rgba(255,255,255,.035) !important; }
+.acm-sb-quick-actions a { box-shadow: 0 8px 18px rgba(0,0,0,.14); transition: transform .18s ease, background .18s ease; }
+.acm-sb-quick-actions a:hover { transform: translateY(-1px); }
+.acm-sb-footer-note { color: rgba(226,232,240,.42); font-size: .68rem; letter-spacing: .08em; padding: 2px 0 18px; text-align: center; text-transform: uppercase; }
 @media (max-width: 479px) {
     #side-bar { width: 100vw !important; max-width: 100vw !important; }
     .acm-sb-menu-wrap .mobile-menu nav > ul > li > a { padding: 15px 10px !important; }
@@ -315,6 +334,7 @@
             <a href="{{ route('donation.guest.form') }}">{{ __('Support Us') }}</a>
             <a href="{{ route('public.prayer-request') }}">{{ __('Prayer Request') }}</a>
         </div>
+        <div class="acm-sb-footer-note">{{ __('One faith · One family · One place') }}</div>
     </div>
 </div>
 
