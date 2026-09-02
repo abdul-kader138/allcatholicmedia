@@ -173,6 +173,30 @@ app()->booted(function (): void {
         $html .= '<link rel="dns-prefetch" href="https://www.youtube.com">' . PHP_EOL;
         $html .= '<link rel="dns-prefetch" href="https://player.vimeo.com">' . PHP_EOL;
         $html .= '<meta name="theme-color" content="#0f172a">' . PHP_EOL;
+        $siteUrl = url('/');
+        $html .= '<script type="application/ld+json">' . json_encode([
+            '@context' => 'https://schema.org',
+            '@graph' => [
+                [
+                    '@type' => 'Organization',
+                    '@id' => $siteUrl . '#organization',
+                    'name' => 'All Catholic Media',
+                    'url' => $siteUrl,
+                ],
+                [
+                    '@type' => 'WebSite',
+                    '@id' => $siteUrl . '#website',
+                    'name' => 'All Catholic Media',
+                    'url' => $siteUrl,
+                    'publisher' => ['@id' => $siteUrl . '#organization'],
+                    'potentialAction' => [
+                        '@type' => 'SearchAction',
+                        'target' => ['@type' => 'EntryPoint', 'urlTemplate' => $siteUrl . '/search?q={search_term_string}'],
+                        'query-input' => 'required name=search_term_string',
+                    ],
+                ],
+            ],
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . '</script>' . PHP_EOL;
         return $html;
     }, 20, 1);
 

@@ -361,6 +361,17 @@ Route::group(['middleware' => ['web', 'core']], function (): void {
     |--------------------------------------------------------------------------
     | Browse posts from the Saints & Feast Days category with A-Z filter.
     */
+    Route::get('saints/{slug}', function (string $slug) {
+        $post = Post::query()
+            ->with(['slugable', 'categories', 'tags'])
+            ->wherePublished()
+            ->whereHas('categories', fn ($q) => $q->where('id', 3))
+            ->whereHas('slugable', fn ($q) => $q->where('key', $slug))
+            ->firstOrFail();
+
+        return Theme::scope('post', compact('post'))->render();
+    })->name('public.saint');
+
     Route::get('saints', function (Request $request) {
         $query  = $request->input('q', '');
         $letter = $request->input('letter', '');

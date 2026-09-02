@@ -142,13 +142,15 @@
     }
 </style>
 
+@php($saintUrl = route('public.saint', $saint->slugable?->key ?: \Illuminate\Support\Str::slug($saint->name)))
+
 <section class="saint-spotlight-section">
     <div class="container">
         <div class="row g-0 saint-spotlight-card">
             <div class="col-lg-5">
                 <div class="saint-spotlight-media">
                     <span class="saint-spotlight-badge">{{ $primaryCategory?->name ?: $title }}</span>
-                    <a href="{{ $saint->url }}" title="{{ $saint->name }}">
+                    <a href="{{ $saintUrl }}" title="{{ $saint->name }}">
                         {{ RvMedia::image($saint->image, $saint->name, 'large', attributes: ['class' => 'img-hover']) }}
                     </a>
                 </div>
@@ -157,7 +159,7 @@
                 <div class="saint-spotlight-body">
                     <div class="saint-spotlight-label">{{ $subtitle }}</div>
                     <h2 class="saint-spotlight-title">
-                        <a href="{{ $saint->url }}" title="{{ $saint->name }}">
+                        <a href="{{ $saintUrl }}" title="{{ $saint->name }}">
                             {{ $saint->name }}
                         </a>
                     </h2>
@@ -173,7 +175,7 @@
                     </p>
 
                     <div class="saint-spotlight-actions">
-                        <a href="{{ $saint->url }}" class="saint-spotlight-btn saint-spotlight-btn-primary">
+                        <a href="{{ $saintUrl }}" class="saint-spotlight-btn saint-spotlight-btn-primary">
                             Read Saint Story
                         </a>
                         <a href="{{ $archiveUrl }}" class="saint-spotlight-btn saint-spotlight-btn-secondary">

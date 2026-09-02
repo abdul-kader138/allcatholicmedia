@@ -288,7 +288,9 @@ app('events')->listen(RouteMatched::class, function (): void {
                     ->latest()
                     ->first();
 
-                return $datedSaint ?: $baseQuery->latest()->first();
+                // Never label a stale post as today's saint. A missing date is
+                // preferable to publishing an incorrect feast-day claim.
+                return $datedSaint;
             });
 
             if (! $saint) {

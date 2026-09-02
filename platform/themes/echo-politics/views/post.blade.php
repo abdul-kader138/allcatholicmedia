@@ -16,6 +16,39 @@
     }
 @endphp
 
+@php
+    $isSaint = $post->categories->contains('id', 3);
+    $postUrl = $isSaint ? route('public.saint', $post->slugable?->key ?: \Illuminate\Support\Str::slug($post->name)) : $post->url;
+    $schemaType = $isSaint ? 'Person' : ($videoUrl ? 'VideoObject' : 'Article');
+    $postSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => $schemaType,
+        'name' => $post->name,
+        'description' => strip_tags((string) $post->description),
+        'url' => $postUrl,
+        'image' => $post->image ? RvMedia::getImageUrl($post->image) : null,
+        'datePublished' => optional($post->created_at)->toIso8601String(),
+        'dateModified' => optional($post->updated_at)->toIso8601String(),
+        'publisher' => ['@type' => 'Organization', 'name' => 'All Catholic Media', 'url' => url('/')],
+        'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => $postUrl],
+        'breadcrumb' => [
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [
+                ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
+                ['@type' => 'ListItem', 'position' => 2, 'name' => $isSaint ? 'Saints' : 'Articles', 'item' => $isSaint ? route('public.saints') : url('/read')],
+                ['@type' => 'ListItem', 'position' => 3, 'name' => $post->name, 'item' => $postUrl],
+            ],
+        ],
+    ];
+    if ($videoUrl) {
+        $postSchema['contentUrl'] = $videoUrl;
+        $postSchema['uploadDate'] = optional($post->created_at)->toIso8601String();
+    }
+    $postSchema = array_filter($postSchema, fn ($value) => $value !== null && $value !== '');
+@endphp
+
+<script type="application/ld+json">{!! json_encode($postSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+
 <style>
     .acm-post-wrap {
         background: transparent !important;

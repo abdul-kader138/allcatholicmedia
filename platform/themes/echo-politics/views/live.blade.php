@@ -11,7 +11,24 @@
 
     SeoHelper::setTitle($heroTitle . ' | AllCatholicMedia');
     SeoHelper::setDescription($heroSubtitle);
+
+    $broadcastEvents = $liveNow->concat($upcoming)->map(function ($stream) {
+        return array_filter([
+            '@type' => 'BroadcastEvent',
+            'name' => $stream->title,
+            'description' => strip_tags((string) $stream->description),
+            'url' => url('/live'),
+            'isLiveBroadcast' => (bool) $stream->is_live,
+            'startDate' => $stream->scheduled_at?->toIso8601String(),
+            'videoFormat' => 'HD',
+            'broadcastOfEvent' => ['@type' => 'Event', 'name' => $stream->title],
+        ], fn ($value) => $value !== null && $value !== '');
+    })->values()->all();
 @endphp
+
+@if ($broadcastEvents)
+    <script type="application/ld+json">{!! json_encode(['@context' => 'https://schema.org', '@graph' => $broadcastEvents], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+@endif
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
