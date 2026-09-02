@@ -158,6 +158,28 @@
     text-shadow: 0 2px 36px rgba(0, 0, 0, 0.55);
 }
 
+.hi-primary-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.hi-primary-action {
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 999px;
+    color: #fff;
+    font-size: .82rem;
+    font-weight: 700;
+    padding: 11px 16px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s, color .2s;
+}
+
+.hi-primary-action:hover { background: rgba(255,255,255,.12); border-color: #fff; color: #fff; text-decoration: none; }
+.hi-primary-action--gold { background: #c9a227; border-color: #c9a227; color: #07111d; }
+.hi-primary-action--gold:hover { background: #f3d46d; border-color: #f3d46d; color: #07111d; }
+
 /* ── Four cards grid ── */
 .hi-cards {
     display: grid;
@@ -292,6 +314,8 @@
     .hi-hero { min-height: 300px; }
     .hi-hero-content { padding-bottom: 28px; }
     .hi-hero-inner { padding: 0 20px; gap: 16px; }
+    .hi-primary-actions { margin-left: 0; width: 100%; }
+    .hi-primary-action { flex: 1 1 auto; text-align: center; }
     .hi-play-btn { width: 52px; height: 52px; }
     .hi-cards { grid-template-columns: repeat(2, 1fr); }
     .hi-card { aspect-ratio: 1 / 1; }

@@ -79,6 +79,11 @@
 
                 <h1 class="hi-title">{{ $title }}</h1>
 
+                <div class="hi-primary-actions">
+                    <a href="{{ url('/live') }}" class="hi-primary-action hi-primary-action--gold">{{ __('Watch Live') }}</a>
+                    <a href="{{ url('/read') }}" class="hi-primary-action">{{ __('Explore Catholic Stories') }}</a>
+                </div>
+
             </div>
         </div>
     </div>

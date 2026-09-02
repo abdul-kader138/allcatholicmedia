@@ -115,6 +115,11 @@
     .acm-post-next-step a { border: 1px solid rgba(201, 162, 39, .45); border-radius: 999px; color: #f3d46d; display: inline-flex; font-size: .82rem; font-weight: 700; padding: 9px 14px; text-decoration: none; }
     .acm-post-next-step a:hover { background: #c9a227; color: #07111d; }
 
+    .acm-post-share { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 8px; }
+    .acm-post-share-label { color: #64748b; font-size: .8rem; font-weight: 700; margin-right: 4px; }
+    .acm-post-share a { border: 1px solid #cbd5e1; border-radius: 999px; color: #334155; font-size: .78rem; font-weight: 700; padding: 8px 12px; text-decoration: none; }
+    .acm-post-share a:hover { border-color: #c9a227; color: #8a6d12; }
+
     .acm-post-content img {
         border-radius: 14px;
         display: block;
@@ -425,6 +430,14 @@
     <div class="ck-content acm-post-content">
         {!! BaseHelper::clean($post->content) !!}
     </div>
+
+    @php($shareUrl = urlencode($postUrl))
+    <nav class="acm-post-share" aria-label="{{ __('Share this article') }}">
+        <span class="acm-post-share-label">{{ __('Share this') }}</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://wa.me/?text={{ urlencode($post->name . ' — ' . $postUrl) }}" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a href="mailto:?subject={{ urlencode($post->name) }}&body={{ urlencode($postUrl) }}">Email</a>
+    </nav>
 
     <section class="acm-post-next-step" aria-label="Continue with All Catholic Media">
         <h2>{{ __('Continue with All Catholic Media') }}</h2>
