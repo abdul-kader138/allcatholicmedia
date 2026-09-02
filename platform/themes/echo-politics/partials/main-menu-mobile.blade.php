@@ -10,7 +10,7 @@
                 title="{{ $row->title }}"
                 @if ($row->target !== '_self') target="{{ $row->target }}" @endif
             >
-                {{ $row->title }}
+                <span class="acm-menu-label">{{ $row->title }}</span>
                 @if ($row->has_child)
                     <span class="acm-arrow" aria-hidden="true">⌄</span>
                 @endif
