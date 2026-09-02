@@ -64,10 +64,27 @@
     .ps-main__wrapper .form-control,
     .ps-main__wrapper select,
     .ps-main__wrapper textarea { background: #102944; border-color: rgba(255, 255, 255, .14); border-radius: 10px; color: #fff; }
+    .ps-main__wrapper select,
+    .ps-main__wrapper select.form-control { color-scheme: dark; }
+    .ps-main__wrapper select option,
+    .ps-main__wrapper .form-select option { background: #102944; color: #fff; }
+    .ps-main__wrapper input::placeholder,
+    .ps-main__wrapper textarea::placeholder { color: rgba(232, 238, 247, .5); }
     .ps-main__wrapper .form-control:focus,
     .ps-main__wrapper select:focus,
     .ps-main__wrapper textarea:focus { border-color: var(--acm-gold); box-shadow: 0 0 0 3px rgba(201, 162, 39, .16); }
     .ps-main__wrapper label { color: var(--acm-text); font-weight: 600; }
+    .ps-main__wrapper .form-check-label,
+    .ps-main__wrapper .form-text,
+    .ps-main__wrapper .text-muted { color: var(--acm-muted) !important; }
+    .ps-main__wrapper .card,
+    .ps-main__wrapper .card-header,
+    .ps-main__wrapper .card-body,
+    .ps-main__wrapper .card-footer { background: var(--acm-panel) !important; border-color: rgba(255, 255, 255, .08); color: var(--acm-text); }
+    .ps-main__wrapper .card-header h4,
+    .ps-main__wrapper .card-header h5,
+    .ps-main__wrapper .card-body h4,
+    .ps-main__wrapper .card-body h5 { color: #fff; }
     .ps-main__wrapper .btn-primary,
     .ps-main__wrapper button[type="submit"] { background: #c9a227 !important; border-color: #c9a227 !important; border-radius: 999px; color: #07111d !important; font-weight: 800; }
     .ps-main__wrapper .btn-primary:hover,
@@ -77,6 +94,16 @@
     .ps-drawer--mobile .ps-drawer__header { border-bottom-color: rgba(201, 162, 39, .22); }
     .ps-drawer--mobile .ps-drawer__header h4,
     .ps-drawer--mobile .ps-drawer__close { color: var(--acm-gold); }
+
+    .ps-block--earning-count { background: transparent; }
+    .ps-block--earning-count h3 { color: var(--acm-gold) !important; font-size: 2rem; font-weight: 800; }
+    .ps-block--earning-count small { color: var(--acm-muted) !important; }
+    .ps-block--user-wellcome .ps-block__left img { border: 2px solid rgba(201, 162, 39, .55); }
+    .ps-main__wrapper .invalid-feedback,
+    .ps-main__wrapper .text-danger { color: #ffb4b4 !important; }
+    .ps-main__wrapper .alert-success { background: rgba(34, 197, 94, .14); border-color: rgba(74, 222, 128, .3); color: #bbf7d0; }
+    .ps-main__wrapper .alert-danger,
+    .ps-main__wrapper .alert-warning { background: rgba(239, 68, 68, .14); border-color: rgba(248, 113, 113, .3); color: #fecaca; }
 
     @media (max-width: 767px) {
         .ps-main__wrapper { padding: 22px 16px; }
