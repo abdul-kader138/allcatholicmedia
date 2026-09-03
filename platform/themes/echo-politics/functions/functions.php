@@ -174,6 +174,10 @@ app()->booted(function (): void {
         $html .= '<link rel="dns-prefetch" href="https://www.youtube.com">' . PHP_EOL;
         $html .= '<link rel="dns-prefetch" href="https://player.vimeo.com">' . PHP_EOL;
         $html .= '<meta name="theme-color" content="#0f172a">' . PHP_EOL;
+        $html .= '<meta name="referrer" content="strict-origin-when-cross-origin">' . PHP_EOL;
+        $html .= '<meta property="og:site_name" content="All Catholic Media">' . PHP_EOL;
+        $html .= '<meta property="og:type" content="website">' . PHP_EOL;
+        $html .= '<meta name="twitter:card" content="summary_large_image">' . PHP_EOL;
         $siteUrl = url('/');
         $html .= '<script type="application/ld+json">' . json_encode([
             '@context' => 'https://schema.org',

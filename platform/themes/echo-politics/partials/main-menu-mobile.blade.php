@@ -40,6 +40,14 @@
         </a>
     </li>
 
+    @if (Route::has('donation.guest.form'))
+        <li class="menu-item acm-mobile-support-item">
+            <a class="main mobile-menu-link" href="{{ route('donation.guest.form') }}" title="{{ __('Support the mission') }}">
+                {{ __('Support the mission') }}
+            </a>
+        </li>
+    @endif
+
     <li @class([
         'menu-item' => true,
         'mm-active' => request()->routeIs('public.editorial-policy'),

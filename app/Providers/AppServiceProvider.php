@@ -7,6 +7,8 @@ use Botble\ACL\Models\User;
 use Botble\Base\Facades\DashboardMenu;
 use Botble\Base\Supports\DashboardMenu as DashboardMenuSupport;
 use Botble\Theme\Events\RenderingThemeOptionSettings;
+use Botble\Theme\Events\RenderingSiteMapEvent;
+use Botble\Theme\Facades\SiteMapManager;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,6 +36,26 @@ class AppServiceProvider extends ServiceProvider
                 Route::get('/return/{donation}/{token}', [DonationController::class, 'guestReturn'])->name('return');
                 Route::get('/cancel/{donation}/{token}', [DonationController::class, 'guestCancel'])->name('cancel');
             });
+
+        app('events')->listen(RenderingSiteMapEvent::class, function (RenderingSiteMapEvent $event): void {
+            if ($event->key !== 'pages') {
+                return;
+            }
+
+            foreach ([
+                ['/', '1.0'],
+                ['/read', '0.9'],
+                ['/saints', '0.8'],
+                ['/live', '0.8'],
+                ['/listen', '0.8'],
+                ['/about', '0.7'],
+                ['/donate', '0.7'],
+                ['/editorial-policy', '0.5'],
+                ['/corrections-policy', '0.5'],
+            ] as [$path, $priority]) {
+                SiteMapManager::add(url($path), now(), $priority, 'weekly');
+            }
+        });
 
         Route::middleware(['web', 'core', 'member'])
             ->prefix('account/donate')

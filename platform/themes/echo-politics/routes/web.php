@@ -19,28 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['web', 'core']], function (): void {
 
-    Route::get('sitemap.xml', function () {
-        $urls = collect([
-            url('/'), url('/read'), url('/saints'), url('/live'), url('/listen'),
-            url('/about'), url('/donate'), url('/editorial-policy'), url('/corrections-policy'),
-        ]);
-
-        Post::query()->with(['categories', 'slugable'])->wherePublished()->latest()->limit(1000)->get()->each(function (Post $post) use ($urls): void {
-            $urls->push($post->categories->contains('id', 3)
-                ? route('public.saint', $post->slugable?->key ?: \Illuminate\Support\Str::slug($post->name))
-                : $post->url);
-        });
-
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>' .
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-        foreach ($urls->unique() as $pageUrl) {
-            $xml .= '<url><loc>' . htmlspecialchars($pageUrl, ENT_XML1 | ENT_COMPAT, 'UTF-8') . '</loc></url>';
-        }
-        $xml .= '</urlset>';
-
-        return response($xml, 200)->header('Content-Type', 'application/xml');
-    })->name('public.sitemap');
-
     Route::get('editorial-policy', fn () => Theme::scope('editorial-policy')->render())->name('public.editorial-policy');
     Route::get('corrections-policy', fn () => Theme::scope('corrections-policy')->render())->name('public.corrections-policy');
 
