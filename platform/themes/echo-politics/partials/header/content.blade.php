@@ -133,33 +133,6 @@ html[data-theme='dark'] .echo-header-top-menu-bar button {
     white-space: nowrap;
 }
 
-.acm-header-support {
-    align-items: center;
-    background: #c9a227;
-    border-radius: 999px;
-    color: #101827 !important;
-    display: inline-flex;
-    font-size: .74rem;
-    font-weight: 800;
-    letter-spacing: .06em;
-    padding: 9px 14px;
-    text-decoration: none !important;
-    text-transform: uppercase;
-    transition: background .18s ease, transform .18s ease;
-    white-space: nowrap;
-}
-
-.acm-header-support:hover,
-.acm-header-support:focus-visible {
-    background: #e3c45c;
-    color: #101827 !important;
-    transform: translateY(-1px);
-}
-
-@media (max-width: 1100px) {
-    .acm-header-support { display: none; }
-}
-
 #acm-suggest-box {
     position: absolute;
     top: calc(100% + 6px);
@@ -349,12 +322,6 @@ html[data-theme='dark'] .acm-suggest-item:hover,
                 </div>
 
                 <div class="d-flex align-items-center acm-header-actions">
-                    @if (Route::has('donation.guest.form'))
-                        <a class="acm-header-support" href="{{ route('donation.guest.form') }}">
-                            {{ __('Support the mission') }}
-                        </a>
-                    @endif
-
                     @if (is_plugin_active('language') && theme_option('language_switcher_enabled', true))
                     {!! Theme::partial('language-switcher') !!}
                     @endif
