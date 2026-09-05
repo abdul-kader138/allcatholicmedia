@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Botble\Base\Models\BaseModel;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class YouTubeChannel extends BaseModel
 {
@@ -32,6 +33,16 @@ class YouTubeChannel extends BaseModel
     public function videos(): HasMany
     {
         return $this->hasMany(YouTubeChannelVideo::class, 'youtube_channel_id');
+    }
+
+    /**
+     * Single newest video — eager-load safe (unlike `videos` + limit(1), which
+     * caps rows across the whole result set).
+     */
+    public function latestVideo(): HasOne
+    {
+        return $this->hasOne(YouTubeChannelVideo::class, 'youtube_channel_id')
+            ->latestOfMany('published_at');
     }
 
     public function scopeActive($query)

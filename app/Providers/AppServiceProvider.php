@@ -9,6 +9,9 @@ use Botble\Base\Supports\DashboardMenu as DashboardMenuSupport;
 use Botble\Theme\Events\RenderingThemeOptionSettings;
 use Botble\Theme\Events\RenderingSiteMapEvent;
 use Botble\Theme\Facades\SiteMapManager;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +30,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // --- Mobile API rate limiters --------------------------------------
+        RateLimiter::for('api-read', fn (Request $request) => Limit::perMinute(120)->by(
+            $request->user()?->getAuthIdentifier() ?: $request->ip()
+        ));
+
+        RateLimiter::for('api-write', fn (Request $request) => [
+            Limit::perMinute(6)->by($request->ip()),
+            Limit::perDay(60)->by($request->ip()),
+        ]);
+
         Route::middleware(['web', 'core'])
             ->prefix('donate')
             ->name('donation.guest.')
