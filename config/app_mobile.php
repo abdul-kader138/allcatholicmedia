@@ -11,6 +11,10 @@
 return [
     'latest_version' => env('APP_MOBILE_LATEST_VERSION', '1.0.0'),
 
+    // RFC 8594 Sunset header sent on the deprecated /api/app/* surface.
+    // Blank = no header. Use an HTTP-date, e.g. "Sat, 01 Aug 2026 00:00:00 GMT".
+    'legacy_api_sunset' => env('APP_MOBILE_LEGACY_API_SUNSET', ''),
+
     'min_version' => [
         'ios' => env('APP_MOBILE_MIN_VERSION_IOS', '1.0.0'),
         'android' => env('APP_MOBILE_MIN_VERSION_ANDROID', '1.0.0'),

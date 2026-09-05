@@ -80,6 +80,7 @@ Route::prefix('v1/account')
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
 
         Route::get('bookmarks', [V1AccountController::class, 'bookmarks']);
+        Route::get('bookmarks/ids', [V1AccountController::class, 'bookmarkIds']);
         Route::post('bookmarks', [V1AccountController::class, 'addBookmark'])
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
         Route::delete('bookmarks', [V1AccountController::class, 'removeBookmark'])
@@ -124,6 +125,9 @@ Route::prefix('v1/app')
         Route::get('read/{slug}/comments', [V1AppContentController::class, 'comments']);
         Route::post('read/{slug}/comments', [V1AppContentController::class, 'storeComment'])
             ->withoutMiddleware('throttle:api-read')->middleware(['auth:sanctum', 'throttle:api-write']);
+        Route::get('saints/{slug}/comments', [V1AppContentController::class, 'comments']);
+        Route::post('saints/{slug}/comments', [V1AppContentController::class, 'storeComment'])
+            ->withoutMiddleware('throttle:api-read')->middleware(['auth:sanctum', 'throttle:api-write']);
 
         Route::get('live-now', [V1AppContentController::class, 'liveNow']);
         Route::get('live-streams/{id}', [V1AppContentController::class, 'liveStreamDetail'])->whereNumber('id');
@@ -145,6 +149,8 @@ Route::prefix('v1/app')
         Route::post('prayer-requests', [V1PrayerRequestController::class, 'store'])
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
         Route::post('newsletter/subscribe', [V1AppContentController::class, 'newsletterSubscribe'])
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+        Route::post('newsletter/unsubscribe', [V1AppContentController::class, 'newsletterUnsubscribe'])
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
     });
 

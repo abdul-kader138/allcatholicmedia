@@ -455,6 +455,16 @@ class AppContentController extends Controller
         return ApiResponse::ok(['message' => 'You are subscribed.'], status: 201);
     }
 
+    public function newsletterUnsubscribe(Request $request): JsonResponse
+    {
+        $data = $request->validate(['email' => ['required', 'email', 'max:120']]);
+
+        $this->content->unsubscribeNewsletter($data['email']);
+
+        // Always 200 — don't reveal whether the address was on the list.
+        return ApiResponse::ok(['message' => 'You have been unsubscribed.']);
+    }
+
     /** @return array<int, array{code: string, name: string}> */
     private function locales(): array
     {

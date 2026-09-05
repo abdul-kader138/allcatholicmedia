@@ -592,6 +592,11 @@ class ApiDocsController extends Controller
                 'get' => $c('Approved comments for an article (paginated)', ['parameters' => [$this->pathParam('slug')]]),
                 'post' => array_merge($c('Post a comment (member)'), ['security' => $sec, 'parameters' => [$this->pathParam('slug')], 'requestBody' => $this->jsonBody('CommentInput', ['content' => 'Beautiful reflection, thank you.', 'reply_to' => null]), 'responses' => ['201' => $env('Created (may be pending moderation)'), '401' => $this->ref('Error', 'Unauthenticated')]]),
             ],
+            '/api/v1/app/saints/{slug}/comments' => [
+                'get' => $c('Approved comments for a saint entry (paginated)', ['parameters' => [$this->pathParam('slug')]]),
+                'post' => array_merge($c('Post a comment (member)'), ['security' => $sec, 'parameters' => [$this->pathParam('slug')], 'requestBody' => $this->jsonBody('CommentInput'), 'responses' => ['201' => $env('Created'), '401' => $this->ref('Error', 'Unauthenticated')]]),
+            ],
+            '/api/v1/app/newsletter/unsubscribe' => ['post' => $c('Unsubscribe an email (always 200)', ['requestBody' => $this->jsonBody('ForgotPasswordInput', ['email' => 'maria@example.com'])])],
             '/api/v1/app/prayer-wall' => ['get' => $c('Public prayer intentions (paginated)')],
             '/api/v1/app/prayer-wall/{id}/pray' => ['post' => $c('Increment the "prayed" counter', ['parameters' => [$this->pathParam('id')]])],
             '/api/v1/auth/resend-verification' => ['post' => ['tags' => ['Auth'], 'summary' => 'Resend the email verification link', 'requestBody' => $this->jsonBody('ForgotPasswordInput', ['email' => 'maria@example.com']), 'responses' => ['200' => $env('Always 200')]]],
@@ -599,8 +604,9 @@ class ApiDocsController extends Controller
                 'post' => array_merge($a('Register a push token'), ['requestBody' => $this->jsonBody('DeviceInput', ['token' => 'fcm-or-apns-token', 'platform' => 'ios', 'app_version' => '1.0.0']), 'responses' => ['201' => $env('Registered'), '401' => $this->ref('Error', 'Unauthenticated')]]),
                 'delete' => array_merge($a('Remove a push token'), ['requestBody' => $this->jsonBody('DeviceTokenInput', ['token' => 'fcm-or-apns-token'])]),
             ],
+            '/api/v1/account/bookmarks/ids' => ['get' => $a('Compact { type: [ref_id,...] } map for marking save icons in one call')],
             '/api/v1/account/bookmarks' => [
-                'get' => $a('List saved items (?type=article|saint|video|episode|show|channel)', ['parameters' => [$this->queryParam('type', 'string'), $this->queryParam('page', 'integer')]]),
+                'get' => $a('List saved items (?type=…, ?expand=1 hydrates each item)', ['parameters' => [$this->queryParam('type', 'string'), $this->queryParam('expand', 'boolean'), $this->queryParam('page', 'integer')]]),
                 'post' => array_merge($a('Save an item'), ['requestBody' => $this->jsonBody('BookmarkInput', ['type' => 'article', 'ref_id' => 42]), 'responses' => ['201' => $env('Saved'), '401' => $this->ref('Error', 'Unauthenticated')]]),
                 'delete' => array_merge($a('Remove a saved item'), ['requestBody' => $this->jsonBody('BookmarkInput', ['type' => 'article', 'ref_id' => 42])]),
             ],

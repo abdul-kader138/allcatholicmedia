@@ -408,6 +408,13 @@ class AppContentService
         );
     }
 
+    public function unsubscribeNewsletter(string $email): void
+    {
+        Newsletter::query()
+            ->where('email', $email)
+            ->update(['status' => NewsletterStatusEnum::UNSUBSCRIBED]);
+    }
+
     public function memberDonations(Member $member, ListQuery $lq): LengthAwarePaginator
     {
         return Donation::query()

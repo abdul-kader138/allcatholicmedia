@@ -13,6 +13,7 @@ use App\Support\Api\ApiResponse;
 use App\Support\Api\ListQuery;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CommunityController extends Controller
 {
@@ -20,16 +21,35 @@ class CommunityController extends Controller
     {
     }
 
+    /**
+     * Cache a guest read briefly. Authenticated reads are never cached — their
+     * responses carry per-viewer flags (liked_by_me, is_member).
+     */
+    private function guestCache(Request $request, string $key, int $ttl, \Closure $build): JsonResponse
+    {
+        if ($request->user()) {
+            return $build();
+        }
+
+        $payload = Cache::remember("api.v1.community.{$key}", $ttl, fn () => $build()->getData(true));
+
+        return ApiResponse::cache(response()->json($payload), $request, $ttl);
+    }
+
     // ---- Feed --------------------------------------------------------
 
     public function feed(Request $request): JsonResponse
     {
-        $posts = $this->community->feed(new ListQuery($request, defaultPerPage: 20));
+        $lq = new ListQuery($request, defaultPerPage: 20);
 
-        return ApiResponse::paginated(
-            CommunityPostResource::collection($posts->getCollection())->resolve($request),
-            $posts
-        );
+        return $this->guestCache($request, 'feed:' . $lq->cacheKey(), 20, function () use ($request, $lq) {
+            $posts = $this->community->feed($lq);
+
+            return ApiResponse::paginated(
+                CommunityPostResource::collection($posts->getCollection())->resolve($request),
+                $posts
+            );
+        });
     }
 
     public function storePost(Request $request): JsonResponse
@@ -64,17 +84,23 @@ class CommunityController extends Controller
 
     public function groups(Request $request): JsonResponse
     {
-        $groups = $this->community->groups(new ListQuery($request, defaultPerPage: 20));
+        $lq = new ListQuery($request, defaultPerPage: 20);
 
-        return ApiResponse::paginated(
-            CommunityGroupResource::collection($groups->getCollection())->resolve($request),
-            $groups
-        );
+        return $this->guestCache($request, 'groups:' . $lq->cacheKey(), 60, function () use ($request, $lq) {
+            $groups = $this->community->groups($lq);
+
+            return ApiResponse::paginated(
+                CommunityGroupResource::collection($groups->getCollection())->resolve($request),
+                $groups
+            );
+        });
     }
 
     public function group(Request $request, string $slug): JsonResponse
     {
-        return ApiResponse::ok((new CommunityGroupResource($this->community->group($slug)))->resolve($request));
+        return $this->guestCache($request, "group:{$slug}", 60, fn () => ApiResponse::ok(
+            (new CommunityGroupResource($this->community->group($slug)))->resolve($request)
+        ));
     }
 
     public function joinGroup(Request $request, string $slug): JsonResponse
@@ -91,20 +117,24 @@ class CommunityController extends Controller
 
     public function forumCategories(Request $request): JsonResponse
     {
-        return ApiResponse::ok(
+        return $this->guestCache($request, 'forum-categories', 300, fn () => ApiResponse::ok(
             ForumCategoryResource::collection($this->community->forumCategories())->resolve($request)
-        );
+        ));
     }
 
     public function forumTopics(Request $request): JsonResponse
     {
         $category = trim((string) $request->input('category', ''));
-        $topics = $this->community->forumTopics(new ListQuery($request, defaultPerPage: 20), $category);
+        $lq = new ListQuery($request, defaultPerPage: 20);
 
-        return ApiResponse::paginated(
-            ForumTopicResource::collection($topics->getCollection())->resolve($request),
-            $topics
-        );
+        return $this->guestCache($request, "forum-topics:{$category}:" . $lq->cacheKey(), 30, function () use ($request, $lq, $category) {
+            $topics = $this->community->forumTopics($lq, $category);
+
+            return ApiResponse::paginated(
+                ForumTopicResource::collection($topics->getCollection())->resolve($request),
+                $topics
+            );
+        });
     }
 
     public function forumTopic(Request $request, string $slug): JsonResponse

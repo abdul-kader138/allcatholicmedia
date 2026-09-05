@@ -10,6 +10,7 @@ use App\Models\MemberBookmark;
 use App\Models\MemberDevice;
 use App\Services\AppContentService;
 use App\Support\Api\ApiResponse;
+use App\Support\Api\BookmarkHydrator;
 use App\Support\Api\ListQuery;
 use Botble\Media\Facades\RvMedia;
 use Botble\Member\Models\Member;
@@ -149,7 +150,7 @@ class AccountController extends Controller
 
     // ---- Bookmarks / saved items -------------------------------
 
-    public function bookmarks(Request $request): JsonResponse
+    public function bookmarks(Request $request, BookmarkHydrator $hydrator): JsonResponse
     {
         $lq = new ListQuery($request, defaultPerPage: 30);
         $type = (string) $request->input('type', '');
@@ -160,15 +161,28 @@ class AccountController extends Controller
             ->latest()
             ->paginate($lq->perPage);
 
-        return ApiResponse::paginated(
-            $bookmarks->getCollection()->map(fn (MemberBookmark $b) => [
+        $items = $request->boolean('expand')
+            ? $hydrator->expand($bookmarks->getCollection(), $request)
+            : $bookmarks->getCollection()->map(fn (MemberBookmark $b) => [
                 'id' => $b->id,
                 'type' => $b->bookmarkable_type,
                 'ref_id' => $b->bookmarkable_id,
                 'created_at' => $b->created_at?->toIso8601String(),
-            ])->all(),
-            $bookmarks
-        );
+            ])->all();
+
+        return ApiResponse::paginated($items, $bookmarks);
+    }
+
+    /** Compact map { type: [ref_id, ...] } so the app can mark save icons in one call. */
+    public function bookmarkIds(Request $request): JsonResponse
+    {
+        $map = MemberBookmark::query()
+            ->where('member_id', $this->member($request)->getKey())
+            ->get(['bookmarkable_type', 'bookmarkable_id'])
+            ->groupBy('bookmarkable_type')
+            ->map(fn ($rows) => $rows->pluck('bookmarkable_id')->values()->all());
+
+        return ApiResponse::ok($map);
     }
 
     public function addBookmark(Request $request): JsonResponse

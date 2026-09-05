@@ -70,6 +70,10 @@ class ScheduledTaskController extends BaseController
     {
         $request->validate(['task' => ['required', 'string']]);
 
+        // "Run now" executes the command in-process; give slow ones room.
+        @set_time_limit(300);
+        @ini_set('memory_limit', '512M');
+
         $task = ScheduledTask::query()->where('key', $request->string('task'))->first();
 
         if (! $task) {

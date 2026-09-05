@@ -22,6 +22,11 @@ class LegacyApiDeprecation
         $response->headers->set('Deprecation', 'true');
         $response->headers->set('Link', "<{$successor}>; rel=\"successor-version\"");
 
+        // RFC 8594 — advertise the planned switch-off date so clients can plan.
+        if ($sunset = config('app_mobile.legacy_api_sunset')) {
+            $response->headers->set('Sunset', $sunset);
+        }
+
         return $response;
     }
 }
