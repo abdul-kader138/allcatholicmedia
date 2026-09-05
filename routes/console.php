@@ -275,3 +275,13 @@ Artisan::command('feeds:fix-images', function (App\Services\ImageDownloader $dow
         $this->info("Run 'php artisan feeds:sync' to re-import the reset posts.");
     }
 })->purpose('Re-download featured images for posts that have external URLs stored (server migration fix)');
+
+/*
+|--------------------------------------------------------------------------
+| scheduler:heartbeat
+|--------------------------------------------------------------------------
+| Runs every minute so the "Scheduled Tasks" admin page can prove the cron
+| entry is alive, refresh its task catalogue, and prune old run history.
+| Defined in app/Console/Commands/SchedulerHeartbeatCommand.php.
+*/
+Schedule::command('scheduler:heartbeat')->everyMinute()->withoutOverlapping();

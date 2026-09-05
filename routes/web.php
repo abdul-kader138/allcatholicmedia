@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiDocsController;
 use App\Http\Controllers\Admin\FeedSourceController;
 use App\Http\Controllers\Admin\PodcastShowController;
+use App\Http\Controllers\Admin\ScheduledTaskController;
 use App\Http\Controllers\Admin\YouTubeChannelController;
 use Botble\Base\Facades\AdminHelper;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,14 @@ AdminHelper::registerRoutes(function (): void {
         Route::put('{youtubeChannel}', [YouTubeChannelController::class, 'update'])->name('update');
         Route::delete('{youtubeChannel}', [YouTubeChannelController::class, 'destroy'])->name('destroy');
         Route::post('{youtubeChannel}/sync', [YouTubeChannelController::class, 'sync'])->name('sync');
+    });
+});
+
+AdminHelper::registerRoutes(function (): void {
+    Route::prefix('scheduled-tasks')->name('admin.scheduled-tasks.')->group(function (): void {
+        Route::get('/', [ScheduledTaskController::class, 'index'])->name('index')->permission('scheduled-tasks.index');
+        Route::post('run', [ScheduledTaskController::class, 'run'])->name('run')->permission('scheduled-tasks.run');
+        Route::get('{task}', [ScheduledTaskController::class, 'show'])->name('show')->permission('scheduled-tasks.index')->where('task', '.*');
     });
 });
 

@@ -236,6 +236,27 @@ class AppServiceProvider extends ServiceProvider
             'permissions' => false,
         ]);
 
+        // --- Scheduled Tasks monitor -----------------------------------------
+        \Illuminate\Support\Facades\Event::subscribe(\App\Listeners\RecordScheduledTaskActivity::class);
+
+        add_filter('core_acl_role_permissions', function (array $permissions): array {
+            foreach ((array) config('scheduled-tasks.permissions', []) as $permission) {
+                $permissions[$permission['flag']] = $permission;
+            }
+
+            return $permissions;
+        });
+
+        DashboardMenu::default()->registerItem([
+            'id'          => 'cms-app-scheduled-tasks',
+            'priority'    => 14,
+            'parent_id'   => null,
+            'name'        => 'Scheduled Tasks',
+            'icon'        => 'ti ti-clock',
+            'url'         => fn () => route('admin.scheduled-tasks.index'),
+            'permissions' => ['scheduled-tasks.index'],
+        ]);
+
         DashboardMenu::default()->beforeRetrieving(function (DashboardMenuSupport $menu): void {
             $user = auth()->user();
             if ($user instanceof User && ! $user->isSuperUser()) {
