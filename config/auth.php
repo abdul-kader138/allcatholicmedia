@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // Token auth for the mobile app (Botble members). The `members` provider
+        // is also registered at runtime by the Member plugin; declared here so
+        // `auth:sanctum` resolves a Member from its personal access token.
+        'sanctum' => [
+            'driver' => 'sanctum',
+            'provider' => 'members',
+        ],
     ],
 
     /*
@@ -65,10 +73,10 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'members' => [
+            'driver' => 'eloquent',
+            'model' => Botble\Member\Models\Member::class,
+        ],
     ],
 
     /*

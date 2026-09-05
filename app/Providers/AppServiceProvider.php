@@ -40,6 +40,11 @@ class AppServiceProvider extends ServiceProvider
             Limit::perDay(60)->by($request->ip()),
         ]);
 
+        RateLimiter::for('api-auth', fn (Request $request) => [
+            Limit::perMinute(5)->by(strtolower((string) $request->input('email')) . '|' . $request->ip()),
+            Limit::perMinute(20)->by($request->ip()),
+        ]);
+
         Route::middleware(['web', 'core'])
             ->prefix('donate')
             ->name('donation.guest.')
