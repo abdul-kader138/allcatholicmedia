@@ -28,10 +28,11 @@ class NewsletterCampaignForm extends FormAbstract
 {
     public function setup(): void
     {
+        $this->model(NewsletterCampaign::class);
+
         $isScheduled = $this->getStatusValue() === CampaignStatusEnum::SCHEDULED;
 
         $this
-            ->model(NewsletterCampaign::class)
             ->setValidatorClass(NewsletterCampaignRequest::class)
 
             ->add('name', TextField::class, NameFieldOption::make()
@@ -131,7 +132,9 @@ class NewsletterCampaignForm extends FormAbstract
 
     protected function getStatusValue(): string
     {
-        $status = $this->getModel()->status;
+        $model = $this->getModel();
+
+        $status = is_object($model) ? ($model->status ?? null) : null;
 
         return $status ? $status->getValue() : CampaignStatusEnum::DRAFT;
     }
