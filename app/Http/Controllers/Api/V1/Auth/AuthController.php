@@ -139,6 +139,19 @@ class AuthController extends Controller
         ]);
     }
 
+    public function resendVerification(Request $request): JsonResponse
+    {
+        $request->validate(['email' => ['required', 'email']]);
+
+        $member = Member::query()->where('email', $request->string('email'))->first();
+
+        if ($member && empty($member->confirmed_at)) {
+            $this->sendConfirmation($member);
+        }
+
+        return ApiResponse::ok(['message' => 'If the account needs verification, a new link has been sent.']);
+    }
+
     public function logout(Request $request): JsonResponse
     {
         $request->user()->currentAccessToken()->delete();

@@ -29,11 +29,19 @@ class ApiDocsController extends Controller
             ],
             'tags' => [
                 ['name' => 'Auth', 'description' => 'Member registration, login, password reset (v1)'],
-                ['name' => 'Account', 'description' => 'Authenticated member profile, activity, donations (v1)'],
-                ['name' => 'Content', 'description' => 'Channels, watch, listen, read, saints, live, search, pages (v1)'],
+                ['name' => 'Account', 'description' => 'Authenticated member profile, activity, bookmarks, devices, sessions (v1)'],
+                ['name' => 'Content', 'description' => 'Channels, watch, listen, read, saints, live, search, pages, galleries, announcements, config (v1)'],
+                ['name' => 'Community', 'description' => 'Feed, groups, forum (v1)'],
                 ['name' => 'Legacy', 'description' => 'Deprecated un-versioned endpoints'],
             ],
-            'paths' => array_merge($this->authPaths(), $this->accountPaths(), $this->v1ContentPaths(), $this->legacyPaths()),
+            'paths' => array_merge(
+                $this->authPaths(),
+                $this->accountPaths(),
+                $this->v1ContentPaths(),
+                $this->communityPaths(),
+                $this->extraPaths(),
+                $this->legacyPaths()
+            ),
             'components' => [
                 'securitySchemes' => [
                     'bearerAuth' => ['type' => 'http', 'scheme' => 'bearer', 'bearerFormat' => 'Sanctum personal access token'],
@@ -486,6 +494,32 @@ class ApiDocsController extends Controller
                     'name' => ['type' => 'string', 'nullable' => true, 'maxLength' => 120],
                 ],
             ],
+            'CommentInput' => [
+                'type' => 'object', 'required' => ['content'],
+                'properties' => [
+                    'content' => ['type' => 'string', 'maxLength' => 5000],
+                    'reply_to' => ['type' => 'integer', 'nullable' => true],
+                ],
+            ],
+            'DeviceInput' => [
+                'type' => 'object', 'required' => ['token'],
+                'properties' => [
+                    'token' => ['type' => 'string', 'maxLength' => 512],
+                    'platform' => ['type' => 'string', 'enum' => ['ios', 'android'], 'nullable' => true],
+                    'app_version' => ['type' => 'string', 'nullable' => true, 'maxLength' => 40],
+                ],
+            ],
+            'DeviceTokenInput' => [
+                'type' => 'object', 'required' => ['token'],
+                'properties' => ['token' => ['type' => 'string']],
+            ],
+            'BookmarkInput' => [
+                'type' => 'object', 'required' => ['type', 'ref_id'],
+                'properties' => [
+                    'type' => ['type' => 'string', 'enum' => ['article', 'saint', 'video', 'episode', 'show', 'channel']],
+                    'ref_id' => ['type' => 'integer'],
+                ],
+            ],
             'PrayerRequestInput' => [
                 'type' => 'object',
                 'required' => ['full_name', 'email', 'intention'],
@@ -499,6 +533,79 @@ class ApiDocsController extends Controller
                     'allow_follow_up' => ['type' => 'boolean', 'default' => false],
                 ],
             ],
+        ];
+    }
+
+    /**
+     * Community (feed / groups / forum). Reads public, writes bearer-only.
+     *
+     * @return array<string, mixed>
+     */
+    private function communityPaths(): array
+    {
+        $sec = [['bearerAuth' => []]];
+        $env = fn (string $d) => $this->ref('Envelope', $d);
+        $g = fn (string $s, array $extra = []) => array_merge(['tags' => ['Community'], 'summary' => $s, 'responses' => ['200' => $env('OK')]], $extra);
+
+        return [
+            '/api/v1/community/feed' => [
+                'get' => $g('Community feed (paginated)', ['parameters' => [$this->queryParam('page', 'integer'), $this->queryParam('per_page', 'integer'), $this->queryParam('q', 'string')]]),
+                'post' => $g('Create a post', ['security' => $sec, 'responses' => ['201' => $env('Created'), '401' => $this->ref('Error', 'Unauthenticated')]]),
+            ],
+            '/api/v1/community/feed/{id}' => ['delete' => $g('Delete own post', ['security' => $sec, 'parameters' => [$this->pathParam('id')]])],
+            '/api/v1/community/feed/{id}/like' => ['post' => $g('Toggle like → { liked, likes_count }', ['security' => $sec, 'parameters' => [$this->pathParam('id')]])],
+            '/api/v1/community/groups' => ['get' => $g('List groups (paginated, searchable)')],
+            '/api/v1/community/groups/{slug}' => ['get' => $g('Group detail', ['parameters' => [$this->pathParam('slug')]])],
+            '/api/v1/community/groups/{slug}/join' => ['post' => $g('Join group', ['security' => $sec, 'parameters' => [$this->pathParam('slug')]])],
+            '/api/v1/community/groups/{slug}/leave' => ['post' => $g('Leave group', ['security' => $sec, 'parameters' => [$this->pathParam('slug')]])],
+            '/api/v1/community/forum/categories' => ['get' => $g('Forum categories')],
+            '/api/v1/community/forum/topics' => ['get' => $g('Forum topics (paginated; ?category=slug)', ['parameters' => [$this->queryParam('category', 'string'), $this->queryParam('page', 'integer'), $this->queryParam('q', 'string')]])],
+            '/api/v1/community/forum/topics/{slug}' => ['get' => $g('Topic + paginated replies', ['parameters' => [$this->pathParam('slug')]])],
+            '/api/v1/community/forum/categories/{slug}/topics' => ['post' => $g('Create topic', ['security' => $sec, 'parameters' => [$this->pathParam('slug')]])],
+            '/api/v1/community/forum/topics/{slug}/replies' => ['post' => $g('Post a reply', ['security' => $sec, 'parameters' => [$this->pathParam('slug')]])],
+        ];
+    }
+
+    /**
+     * The rest of the v1 content + account surface added in the latest pass.
+     *
+     * @return array<string, mixed>
+     */
+    private function extraPaths(): array
+    {
+        $sec = [['bearerAuth' => []]];
+        $env = fn (string $d) => $this->ref('Envelope', $d);
+        $c = fn (string $s, array $extra = []) => array_merge(['tags' => ['Content'], 'summary' => $s, 'responses' => ['200' => $env('OK')]], $extra);
+        $a = fn (string $s, array $extra = []) => array_merge(['tags' => ['Account'], 'summary' => $s, 'security' => $sec, 'responses' => ['200' => $env('OK'), '401' => $this->ref('Error', 'Unauthenticated')]], $extra);
+
+        return [
+            '/api/v1/app/channels/{slug}/latest' => ['get' => $c(
+                'Latest video for one channel (live first, then newest). Default returns a single video + channel; ?limit=2-20 returns an array.',
+                ['parameters' => [$this->pathParam('slug'), $this->queryParam('limit', 'integer'), $this->queryParam('include_live', 'boolean')]]
+            )],
+            '/api/v1/app/config' => ['get' => $c('App bootstrap config — site, contact, social, features, pages, locales, min app version')],
+            '/api/v1/app/announcements' => ['get' => $c('Active announcements (date-windowed)')],
+            '/api/v1/app/galleries' => ['get' => $c('Photo galleries (paginated, searchable)', ['parameters' => [$this->queryParam('page', 'integer'), $this->queryParam('per_page', 'integer'), $this->queryParam('q', 'string')]])],
+            '/api/v1/app/galleries/{slug}' => ['get' => $c('Gallery detail with images', ['parameters' => [$this->pathParam('slug')]])],
+            '/api/v1/app/live-streams/{id}' => ['get' => $c('Single live stream', ['parameters' => [$this->pathParam('id')]])],
+            '/api/v1/app/read/{slug}/comments' => [
+                'get' => $c('Approved comments for an article (paginated)', ['parameters' => [$this->pathParam('slug')]]),
+                'post' => array_merge($c('Post a comment (member)'), ['security' => $sec, 'parameters' => [$this->pathParam('slug')], 'requestBody' => $this->jsonBody('CommentInput', ['content' => 'Beautiful reflection, thank you.', 'reply_to' => null]), 'responses' => ['201' => $env('Created (may be pending moderation)'), '401' => $this->ref('Error', 'Unauthenticated')]]),
+            ],
+            '/api/v1/app/prayer-wall' => ['get' => $c('Public prayer intentions (paginated)')],
+            '/api/v1/app/prayer-wall/{id}/pray' => ['post' => $c('Increment the "prayed" counter', ['parameters' => [$this->pathParam('id')]])],
+            '/api/v1/auth/resend-verification' => ['post' => ['tags' => ['Auth'], 'summary' => 'Resend the email verification link', 'requestBody' => $this->jsonBody('ForgotPasswordInput', ['email' => 'maria@example.com']), 'responses' => ['200' => $env('Always 200')]]],
+            '/api/v1/account/devices' => [
+                'post' => array_merge($a('Register a push token'), ['requestBody' => $this->jsonBody('DeviceInput', ['token' => 'fcm-or-apns-token', 'platform' => 'ios', 'app_version' => '1.0.0']), 'responses' => ['201' => $env('Registered'), '401' => $this->ref('Error', 'Unauthenticated')]]),
+                'delete' => array_merge($a('Remove a push token'), ['requestBody' => $this->jsonBody('DeviceTokenInput', ['token' => 'fcm-or-apns-token'])]),
+            ],
+            '/api/v1/account/bookmarks' => [
+                'get' => $a('List saved items (?type=article|saint|video|episode|show|channel)', ['parameters' => [$this->queryParam('type', 'string'), $this->queryParam('page', 'integer')]]),
+                'post' => array_merge($a('Save an item'), ['requestBody' => $this->jsonBody('BookmarkInput', ['type' => 'article', 'ref_id' => 42]), 'responses' => ['201' => $env('Saved'), '401' => $this->ref('Error', 'Unauthenticated')]]),
+                'delete' => array_merge($a('Remove a saved item'), ['requestBody' => $this->jsonBody('BookmarkInput', ['type' => 'article', 'ref_id' => 42])]),
+            ],
+            '/api/v1/account/sessions' => ['get' => $a('List active tokens/devices')],
+            '/api/v1/account/sessions/{id}' => ['delete' => $a('Revoke one session', ['parameters' => [$this->pathParam('id')]])],
         ];
     }
 

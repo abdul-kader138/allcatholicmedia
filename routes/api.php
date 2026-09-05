@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\PrayerRequestController;
 use App\Http\Controllers\Api\V1\Account\AccountController as V1AccountController;
 use App\Http\Controllers\Api\V1\AppContentController as V1AppContentController;
 use App\Http\Controllers\Api\V1\Auth\AuthController as V1AuthController;
+use App\Http\Controllers\Api\V1\CommunityController as V1CommunityController;
 use App\Http\Controllers\Api\V1\PrayerRequestController as V1PrayerRequestController;
 use App\Http\Middleware\LegacyApiDeprecation;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,7 @@ Route::prefix('v1/auth')->group(function (): void {
         Route::post('login', [V1AuthController::class, 'login']);
         Route::post('forgot-password', [V1AuthController::class, 'forgotPassword']);
         Route::post('reset-password', [V1AuthController::class, 'resetPassword']);
+        Route::post('resend-verification', [V1AuthController::class, 'resendVerification']);
     });
 
     Route::middleware(['auth:sanctum', 'throttle:api-read'])->group(function (): void {
@@ -71,6 +73,20 @@ Route::prefix('v1/account')
         Route::get('activities', [V1AccountController::class, 'activities']);
         Route::get('donations', [V1AccountController::class, 'donations']);
         Route::get('prayer-requests', [V1AccountController::class, 'prayerRequests']);
+
+        Route::post('devices', [V1AccountController::class, 'registerDevice'])
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+        Route::delete('devices', [V1AccountController::class, 'unregisterDevice'])
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+
+        Route::get('bookmarks', [V1AccountController::class, 'bookmarks']);
+        Route::post('bookmarks', [V1AccountController::class, 'addBookmark'])
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+        Route::delete('bookmarks', [V1AccountController::class, 'removeBookmark'])
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+
+        Route::get('sessions', [V1AccountController::class, 'sessions']);
+        Route::delete('sessions/{id}', [V1AccountController::class, 'revokeSession'])->whereNumber('id');
     });
 
 /*
@@ -87,6 +103,7 @@ Route::prefix('v1/app')
         Route::get('home', [V1AppContentController::class, 'home']);
 
         Route::get('channels', [V1AppContentController::class, 'channels']);
+        Route::get('channels/{slug}/latest', [V1AppContentController::class, 'channelLatest']);
         Route::get('channels/{slug}', [V1AppContentController::class, 'channelDetail']);
 
         Route::get('videos', [V1AppContentController::class, 'videos']);
@@ -104,7 +121,24 @@ Route::prefix('v1/app')
         Route::get('saints', [V1AppContentController::class, 'saints']);
         Route::get('saints/{slug}', [V1AppContentController::class, 'saintDetail']);
 
+        Route::get('read/{slug}/comments', [V1AppContentController::class, 'comments']);
+        Route::post('read/{slug}/comments', [V1AppContentController::class, 'storeComment'])
+            ->withoutMiddleware('throttle:api-read')->middleware(['auth:sanctum', 'throttle:api-write']);
+
+        Route::get('live-now', [V1AppContentController::class, 'liveNow']);
+        Route::get('live-streams/{id}', [V1AppContentController::class, 'liveStreamDetail'])->whereNumber('id');
+
+        Route::get('announcements', [V1AppContentController::class, 'announcements']);
+        Route::get('galleries', [V1AppContentController::class, 'galleries']);
+        Route::get('galleries/{slug}', [V1AppContentController::class, 'galleryDetail']);
+
+        Route::get('prayer-wall', [V1AppContentController::class, 'prayerWall']);
+        Route::post('prayer-wall/{id}/pray', [V1AppContentController::class, 'prayerWallPray'])
+            ->whereNumber('id')
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+
         Route::get('search', [V1AppContentController::class, 'search']);
+        Route::get('config', [V1AppContentController::class, 'config']);
         Route::get('pages/{slug}', [V1AppContentController::class, 'page']);
         Route::get('donate/config', [V1AppContentController::class, 'donateConfig']);
 
@@ -113,3 +147,32 @@ Route::prefix('v1/app')
         Route::post('newsletter/subscribe', [V1AppContentController::class, 'newsletterSubscribe'])
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
     });
+
+/*
+|--------------------------------------------------------------------------
+| Mobile API v1 — community (feed, groups, forum)
+|--------------------------------------------------------------------------
+| Reads are public; writes require a member bearer token.
+*/
+Route::prefix('v1/community')->group(function (): void {
+    Route::middleware('throttle:api-read')->group(function (): void {
+        Route::get('feed', [V1CommunityController::class, 'feed']);
+        Route::get('groups', [V1CommunityController::class, 'groups']);
+        Route::get('groups/{slug}', [V1CommunityController::class, 'group']);
+        Route::get('forum/categories', [V1CommunityController::class, 'forumCategories']);
+        Route::get('forum/topics', [V1CommunityController::class, 'forumTopics']);
+        Route::get('forum/topics/{slug}', [V1CommunityController::class, 'forumTopic']);
+    });
+
+    Route::middleware(['auth:sanctum', 'throttle:api-write'])->group(function (): void {
+        Route::post('feed', [V1CommunityController::class, 'storePost']);
+        Route::delete('feed/{id}', [V1CommunityController::class, 'destroyPost'])->whereNumber('id');
+        Route::post('feed/{id}/like', [V1CommunityController::class, 'toggleLike'])->whereNumber('id');
+
+        Route::post('groups/{slug}/join', [V1CommunityController::class, 'joinGroup']);
+        Route::post('groups/{slug}/leave', [V1CommunityController::class, 'leaveGroup']);
+
+        Route::post('forum/categories/{slug}/topics', [V1CommunityController::class, 'storeTopic']);
+        Route::post('forum/topics/{slug}/replies', [V1CommunityController::class, 'storeReply']);
+    });
+});

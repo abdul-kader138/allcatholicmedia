@@ -10,14 +10,20 @@ use App\Models\PrayerRequest;
 use App\Models\YouTubeChannel;
 use App\Models\YouTubeChannelVideo;
 use App\Support\Api\ListQuery;
+use ArchiElite\Announcement\Models\Announcement;
 use Botble\Blog\Models\Category;
 use Botble\Blog\Models\Post;
+use Botble\Gallery\Models\Gallery;
+use Botble\Gallery\Models\GalleryMeta;
 use Botble\Member\Models\Member;
 use Botble\Newsletter\Enums\NewsletterStatusEnum;
 use Botble\Newsletter\Models\Newsletter;
 use Botble\Page\Models\Page;
+use FriendsOfBotble\Comment\Enums\CommentStatus;
+use FriendsOfBotble\Comment\Models\Comment;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 /**
@@ -106,6 +112,21 @@ class AppContentService
             ->withCount('videos')
             ->where('slug', $slug)
             ->firstOrFail();
+    }
+
+    /**
+     * The newest video(s) for one channel — live broadcasts first, then by
+     * publish date. Returns up to $limit rows (1 = just the latest).
+     */
+    public function channelLatestVideos(YouTubeChannel $channel, int $limit = 1, bool $includeLive = true): Collection
+    {
+        return YouTubeChannelVideo::query()
+            ->where('youtube_channel_id', $channel->id)
+            ->when(! $includeLive, fn (Builder $q) => $q->where('is_live', false))
+            ->orderByDesc('is_live')
+            ->orderByDesc('published_at')
+            ->limit(max(1, min($limit, 20)))
+            ->get();
     }
 
     public function channelVideos(YouTubeChannel $channel, ListQuery $lq, ?bool $live = null): LengthAwarePaginator
@@ -243,22 +264,131 @@ class AppContentService
      * Grouped cross-content search preview. Use the section list endpoints
      * (read?q=, listen?q=, saints?q=, videos?q=) for paginated results.
      *
-     * @return array{articles: Collection, saints: Collection, shows: Collection, channels: Collection}
+     * @return array<string, Collection>
      */
     public function search(string $term, int $limit = 8): array
     {
         $term = trim($term);
+        $like = "%{$term}%";
 
         return [
             'articles' => $this->readBaseQuery()
-                ->where('name', 'like', "%{$term}%")->latest()->limit($limit)->get(),
+                ->where('name', 'like', $like)->latest()->limit($limit)->get(),
             'saints' => $this->saintsBaseQuery()
-                ->where('name', 'like', "%{$term}%")->orderBy('name')->limit($limit)->get(),
+                ->where('name', 'like', $like)->orderBy('name')->limit($limit)->get(),
             'shows' => PodcastShow::query()->active()->withCount('episodes')
-                ->where('name', 'like', "%{$term}%")->orderBy('name')->limit($limit)->get(),
+                ->where('name', 'like', $like)->orderBy('name')->limit($limit)->get(),
             'channels' => YouTubeChannel::query()->active()->withCount('videos')
-                ->where('name', 'like', "%{$term}%")->orderBy('name')->limit($limit)->get(),
+                ->where('name', 'like', $like)->orderBy('name')->limit($limit)->get(),
+            'videos' => YouTubeChannelVideo::query()
+                ->whereHas('channel', fn (Builder $q) => $q->active())
+                ->where('title', 'like', $like)->orderByDesc('published_at')->limit($limit)->get(),
+            'episodes' => PodcastEpisode::query()
+                ->whereHas('show', fn (Builder $q) => $q->active())
+                ->where('title', 'like', $like)->orderByDesc('published_at')->limit($limit)->get(),
         ];
+    }
+
+    public function announcements(): Collection
+    {
+        return Announcement::query()->available()->latest()->get();
+    }
+
+    public function galleries(ListQuery $lq): LengthAwarePaginator
+    {
+        return Gallery::query()
+            ->with('slugable')
+            ->wherePublished()
+            ->when($lq->q !== '', fn (Builder $q) => $q->where('name', 'like', "%{$lq->q}%"))
+            ->orderByDesc('is_featured')
+            ->orderBy('order')
+            ->orderByDesc('created_at')
+            ->paginate($lq->perPage);
+    }
+
+    public function gallery(string $slug): Gallery
+    {
+        $gallery = Gallery::query()
+            ->with('slugable')
+            ->wherePublished()
+            ->where(function (Builder $q) use ($slug): void {
+                $q->whereHas('slugable', fn (Builder $s) => $s->where('key', $slug));
+
+                if (ctype_digit($slug)) {
+                    $q->orWhere('id', (int) $slug);
+                }
+            })
+            ->firstOrFail();
+
+        $gallery->setAttribute('images', $this->galleryImages($gallery));
+
+        return $gallery;
+    }
+
+    /** @return array<int, mixed> */
+    public function galleryImages(Gallery $gallery): array
+    {
+        $meta = GalleryMeta::query()
+            ->where('reference_type', Gallery::class)
+            ->where('reference_id', $gallery->getKey())
+            ->first();
+
+        return (array) ($meta->images ?? []);
+    }
+
+    public function liveStream(int $id): LiveStream
+    {
+        return LiveStream::query()->findOrFail($id);
+    }
+
+    public function prayerWall(ListQuery $lq): LengthAwarePaginator
+    {
+        return PrayerRequest::query()
+            ->where('is_private', false)
+            ->whereNotIn('status', ['spam', 'rejected', 'archived'])
+            ->latest()
+            ->paginate($lq->perPage);
+    }
+
+    public function recordPrayer(int $id): PrayerRequest
+    {
+        $request = PrayerRequest::query()->where('is_private', false)->findOrFail($id);
+        $request->increment('prayed_count');
+
+        return $request->refresh();
+    }
+
+    // ---- Comments (fob-comment) ------------------------------------
+
+    public function comments(Post $post, ListQuery $lq): LengthAwarePaginator
+    {
+        return Comment::query()
+            ->where('reference_type', Post::class)
+            ->where('reference_id', $post->getKey())
+            ->where('status', CommentStatus::APPROVED)
+            ->whereNull('reply_to')
+            ->with(['replies' => fn ($q) => $q->where('status', CommentStatus::APPROVED)->orderBy('created_at')])
+            ->orderByDesc('created_at')
+            ->paginate($lq->perPage);
+    }
+
+    public function addComment(Post $post, Member $member, string $content, ?int $replyTo = null): Comment
+    {
+        $moderated = (bool) setting('fob_comment_comment_moderation', false);
+
+        return Comment::query()->create([
+            'name' => $member->name,
+            'email' => $member->email,
+            'content' => $content,
+            'status' => $moderated ? CommentStatus::PENDING : CommentStatus::APPROVED,
+            'author_id' => $member->getKey(),
+            'author_type' => $member->getMorphClass(),
+            'reference_id' => $post->getKey(),
+            'reference_type' => Post::class,
+            'reply_to' => $replyTo,
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ]);
     }
 
     public function page(string $slug): Page

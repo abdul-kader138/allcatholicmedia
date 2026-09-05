@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class () extends Migration {
+    public function up(): void
+    {
+        Schema::create('member_bookmarks', function (Blueprint $table): void {
+            $table->id();
+            $table->unsignedBigInteger('member_id')->index();
+            $table->string('bookmarkable_type', 60);   // article | saint | video | episode | show | channel
+            $table->unsignedBigInteger('bookmarkable_id');
+            $table->timestamps();
+
+            $table->unique(
+                ['member_id', 'bookmarkable_type', 'bookmarkable_id'],
+                'member_bookmarks_unique'
+            );
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('member_bookmarks');
+    }
+};

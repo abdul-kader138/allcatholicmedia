@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Api\AnnouncementResource;
 use App\Http\Resources\Api\CategoryResource;
 use App\Http\Resources\Api\ChannelResource;
+use App\Http\Resources\Api\CommentResource;
+use App\Http\Resources\Api\GalleryResource;
 use App\Http\Resources\Api\LiveStreamResource;
 use App\Http\Resources\Api\PageResource;
 use App\Http\Resources\Api\PodcastEpisodeResource;
@@ -77,6 +80,36 @@ class AppContentController extends Controller
                 ],
                 'meta' => $this->pageMeta($videos),
             ];
+        });
+    }
+
+    /**
+     * Latest video for one channel — for a "Watch <channel>" tile.
+     *   default        → { data: <video + channel> | null }
+     *   ?limit=N (2-20) → { data: [ <video>, ... ] }  newest first
+     */
+    public function channelLatest(Request $request, string $slug): JsonResponse
+    {
+        $limit = max(1, min((int) $request->integer('limit', 1), 20));
+        $includeLive = $request->boolean('include_live', true);
+
+        return $this->respond($request, "channel-latest:{$slug}:n{$limit}:l" . ($includeLive ? 1 : 0), 120, function () use ($request, $slug, $limit, $includeLive) {
+            $channel = $this->content->channel($slug);
+            $videos = $this->content->channelLatestVideos($channel, $limit, $includeLive);
+
+            if ($limit === 1) {
+                $latest = $videos->first();
+
+                return ['data' => $latest ? array_merge(
+                    (new VideoResource($latest))->resolve($request),
+                    ['channel' => (new ChannelResource($channel))->resolve($request)]
+                ) : null];
+            }
+
+            return ['data' => [
+                'channel' => (new ChannelResource($channel))->resolve($request),
+                'videos' => VideoResource::collection($videos)->resolve($request),
+            ]];
         });
     }
 
@@ -245,8 +278,149 @@ class AppContentController extends Controller
                 'saints' => PostResource::collection($r['saints'])->resolve($request),
                 'shows' => PodcastShowResource::collection($r['shows'])->resolve($request),
                 'channels' => ChannelResource::collection($r['channels'])->resolve($request),
+                'videos' => VideoResource::collection($r['videos'])->resolve($request),
+                'episodes' => PodcastEpisodeResource::collection($r['episodes'])->resolve($request),
             ]];
         });
+    }
+
+    public function config(Request $request): JsonResponse
+    {
+        return $this->respond($request, 'config', 600, function () {
+            $social = collect(config('app_mobile.social_keys', []))
+                ->mapWithKeys(fn ($k) => [$k => theme_option($k) ?: null])
+                ->filter()
+                ->all();
+
+            $announcement = $this->content->announcements()->first();
+
+            return ['data' => [
+                'site' => [
+                    'name' => theme_option('site_title', config('app.name')),
+                    'description' => theme_option('seo_description'),
+                    'url' => url('/'),
+                    'logo' => \App\Support\Api\Media::url(theme_option('logo')),
+                ],
+                'contact' => [
+                    'email' => theme_option('contact_email') ?: setting('admin_email'),
+                    'phone' => theme_option('contact_phone') ?: theme_option('hotline'),
+                ],
+                'social' => $social,
+                'donation' => [
+                    'currency' => 'USD',
+                    'minimum_amount' => self::DONATION_MIN,
+                    'maximum_amount' => self::DONATION_MAX,
+                    'preset_amounts' => self::DONATION_PRESETS,
+                    'guest_checkout_url' => url('/donate'),
+                    'member_checkout_url' => url('/account/donate'),
+                ],
+                'announcement' => $announcement ? (new AnnouncementResource($announcement))->resolve(request()) : null,
+                'features' => [
+                    'community' => is_plugin_active('community'),
+                    'comments' => is_plugin_active('fob-comment'),
+                    'galleries' => is_plugin_active('gallery'),
+                    'donations' => true,
+                    'prayer_requests' => true,
+                    'newsletter' => is_plugin_active('newsletter'),
+                    'social_login' => is_plugin_active('social-login'),
+                ],
+                'pages' => config('app_mobile.pages', []),
+                'locales' => $this->locales(),
+                'app' => [
+                    'latest_version' => config('app_mobile.latest_version'),
+                    'min_version' => config('app_mobile.min_version'),
+                    'store_url' => config('app_mobile.store_url'),
+                ],
+            ]];
+        });
+    }
+
+    public function announcements(Request $request): JsonResponse
+    {
+        return $this->respond($request, 'announcements', 120, function () use ($request) {
+            return ['data' => AnnouncementResource::collection($this->content->announcements())->resolve($request)];
+        });
+    }
+
+    public function galleries(Request $request): JsonResponse
+    {
+        $lq = new ListQuery($request, defaultPerPage: 18);
+
+        return $this->respond($request, 'galleries:' . $lq->cacheKey(), 300, function () use ($request, $lq) {
+            $galleries = $this->content->galleries($lq);
+
+            return [
+                'data' => GalleryResource::collection($galleries->getCollection())->resolve($request),
+                'meta' => $this->pageMeta($galleries),
+            ];
+        });
+    }
+
+    public function galleryDetail(Request $request, string $slug): JsonResponse
+    {
+        return $this->respond($request, "gallery:{$slug}", 300, function () use ($request, $slug) {
+            return ['data' => (new GalleryResource($this->content->gallery($slug)))->resolve($request)];
+        });
+    }
+
+    public function liveStreamDetail(Request $request, int $id): JsonResponse
+    {
+        return $this->respond($request, "live-stream:{$id}", 30, function () use ($request, $id) {
+            return ['data' => (new LiveStreamResource($this->content->liveStream($id)))->resolve($request)];
+        });
+    }
+
+    public function comments(Request $request, string $slug): JsonResponse
+    {
+        $post = $this->content->postBySlug($slug);
+        $comments = $this->content->comments($post, new ListQuery($request, defaultPerPage: 20));
+
+        return ApiResponse::paginated(
+            CommentResource::collection($comments->getCollection())->resolve($request),
+            $comments
+        );
+    }
+
+    public function storeComment(Request $request, string $slug): JsonResponse
+    {
+        $data = $request->validate([
+            'content' => ['required', 'string', 'max:5000'],
+            'reply_to' => ['nullable', 'integer'],
+        ]);
+
+        $post = $this->content->postBySlug($slug);
+        $comment = $this->content->addComment($post, $request->user(), $data['content'], $data['reply_to'] ?? null);
+
+        return ApiResponse::ok([
+            'id' => $comment->id,
+            'status' => $comment->status->getValue(),
+            'pending' => $comment->status->getValue() === 'pending',
+        ], status: 201);
+    }
+
+    public function prayerWall(Request $request): JsonResponse
+    {
+        $lq = new ListQuery($request, defaultPerPage: 20);
+        $requests = $this->content->prayerWall($lq);
+
+        return ApiResponse::paginated(
+            $requests->getCollection()->map(fn ($pr) => [
+                'id' => $pr->id,
+                'name' => $pr->full_name,
+                'location' => $pr->location,
+                'intention' => $pr->intention,
+                'prayed_count' => (int) $pr->prayed_count,
+                'created_at' => $pr->created_at?->toIso8601String(),
+            ])->all(),
+            $requests
+        );
+    }
+
+    public function prayerWallPray(Request $request, int $id): JsonResponse
+    {
+        $pr = $this->content->recordPrayer($id);
+
+        return ApiResponse::ok(['id' => $pr->id, 'prayed_count' => (int) $pr->prayed_count]);
     }
 
     public function page(Request $request, string $slug): JsonResponse
@@ -279,6 +453,22 @@ class AppContentController extends Controller
         $this->content->subscribeNewsletter($data['email'], (string) ($data['name'] ?? ''));
 
         return ApiResponse::ok(['message' => 'You are subscribed.'], status: 201);
+    }
+
+    /** @return array<int, array{code: string, name: string}> */
+    private function locales(): array
+    {
+        try {
+            if (is_plugin_active('language')) {
+                return \Botble\Language\Facades\Language::getActiveLanguage(['lang_code', 'lang_name'])
+                    ->map(fn ($l) => ['code' => $l->lang_code, 'name' => $l->lang_name])
+                    ->all();
+            }
+        } catch (\Throwable) {
+            // fall through to the default
+        }
+
+        return [['code' => 'en', 'name' => 'English']];
     }
 
     private function respond(Request $request, string $keySuffix, int $ttl, \Closure $build): JsonResponse
