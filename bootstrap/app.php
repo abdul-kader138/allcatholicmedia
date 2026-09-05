@@ -17,6 +17,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+
+        // RFC 8058 one-click unsubscribe: mailbox providers POST here on the
+        // subscriber's behalf and cannot carry a session CSRF token.
+        $middleware->validateCsrfTokens(except: [
+            'newsletter/campaign/unsubscribe/*',
+            '*/newsletter/campaign/unsubscribe/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

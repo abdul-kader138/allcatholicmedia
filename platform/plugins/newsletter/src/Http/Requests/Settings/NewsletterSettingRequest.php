@@ -15,6 +15,7 @@ class NewsletterSettingRequest extends Request
             'newsletter_mailchimp_list_id' => ['nullable', 'string', 'size:10'],
             'newsletter_sendgrid_api_key' => ['nullable', 'string', 'min:32', 'max:255'],
             'newsletter_sendgrid_list_id' => ['nullable', 'string', 'min:10', 'max:255'],
+            'newsletter_sender_postal_address' => ['nullable', 'string', 'max:400'],
         ];
     }
 }

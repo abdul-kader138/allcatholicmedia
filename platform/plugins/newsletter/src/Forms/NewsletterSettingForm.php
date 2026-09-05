@@ -3,6 +3,8 @@
 namespace Botble\Newsletter\Forms;
 
 use Botble\Base\Facades\BaseHelper;
+use Botble\Base\Forms\FieldOptions\TextareaFieldOption;
+use Botble\Base\Forms\Fields\TextareaField;
 use Botble\Newsletter\Facades\Newsletter as NewsletterFacade;
 use Botble\Newsletter\Http\Requests\Settings\NewsletterSettingRequest;
 use Botble\Setting\Forms\SettingForm;
@@ -51,6 +53,15 @@ class NewsletterSettingForm extends SettingForm
             ->setSectionTitle(trans('plugins/newsletter::newsletter.settings.title'))
             ->setSectionDescription(trans('plugins/newsletter::newsletter.settings.description'))
             ->setValidatorClass(NewsletterSettingRequest::class)
+            ->add(
+                'newsletter_sender_postal_address',
+                TextareaField::class,
+                TextareaFieldOption::make()
+                    ->label(trans('plugins/newsletter::newsletter.settings.sender_postal_address'))
+                    ->helperText(trans('plugins/newsletter::newsletter.settings.sender_postal_address_helper'))
+                    ->value(setting('newsletter_sender_postal_address'))
+                    ->rows(3)
+            )
             ->add('newsletter_contacts_list_api_fields', 'html', [
                 'html' => view('plugins/newsletter::partials.newsletter-contacts-list-api-fields', compact('mailchimpContactList', 'sendGridContactList')),
                 'wrapper' => [
