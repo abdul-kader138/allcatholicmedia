@@ -1,4 +1,46 @@
 /* All Catholic Media footer newsletter CTA */
+.echo-footer-area .echo-subscribe-box-button form .input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    height: auto;
+    width: 100%;
+}
+
+.echo-footer-area .echo-subscribe-box-button .echo-subscribe-input-fill {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.echo-footer-area .echo-subscribe-box-button form .input-group input[type="email"] {
+    box-sizing: border-box;
+    width: 100%;
+    height: 50px;
+    margin: 0;
+    padding: 12px 16px 12px 42px;
+}
+
+/* Keep the icon centered on the field even when inline errors expand its wrapper. */
+.echo-footer-area .echo-subscribe-box-button .echo-subscribe-input-fill i.newsletter-icon-without-captcha {
+    position: absolute;
+    top: 25px;
+    left: 14px;
+    margin: 0;
+    line-height: 1;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.echo-footer-area .echo-subscribe-box-button .invalid-feedback,
+.echo-footer-area .echo-subscribe-box-button .newsletter-message {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
 .echo-footer-area .echo-subscribe-box-button button,
 .echo-footer-area .echo-subscribe-box-button input[type="submit"] {
     align-items: center;
@@ -9,10 +51,11 @@
     color: #07111d !important;
     cursor: pointer;
     display: inline-flex;
-    font-size: .82rem;
+    font-size: 14px;
     font-weight: 800;
     justify-content: center;
     min-height: 44px;
+    margin: 0;
     padding: 11px 20px;
     transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
