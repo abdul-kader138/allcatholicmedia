@@ -28,11 +28,12 @@ class ApiDocsController extends Controller
                 ['url' => url('/'), 'description' => 'Current environment'],
             ],
             'tags' => [
-                ['name' => 'Auth', 'description' => 'Member registration, login and account (v1)'],
-                ['name' => 'Content', 'description' => 'Channels, live, listen, read, saints, donate (v1)'],
+                ['name' => 'Auth', 'description' => 'Member registration, login, password reset (v1)'],
+                ['name' => 'Account', 'description' => 'Authenticated member profile, activity, donations (v1)'],
+                ['name' => 'Content', 'description' => 'Channels, watch, listen, read, saints, live, search, pages (v1)'],
                 ['name' => 'Legacy', 'description' => 'Deprecated un-versioned endpoints'],
             ],
-            'paths' => array_merge($this->authPaths(), $this->v1ContentPaths(), $this->legacyPaths()),
+            'paths' => array_merge($this->authPaths(), $this->accountPaths(), $this->v1ContentPaths(), $this->legacyPaths()),
             'components' => [
                 'securitySchemes' => [
                     'bearerAuth' => ['type' => 'http', 'scheme' => 'bearer', 'bearerFormat' => 'Sanctum personal access token'],
@@ -76,6 +77,24 @@ class ApiDocsController extends Controller
                     '429' => $this->ref('Error', 'Too many attempts'),
                 ],
             ]],
+            '/api/v1/auth/forgot-password' => ['post' => [
+                'tags' => ['Auth'],
+                'summary' => 'Request a password reset link',
+                'requestBody' => $this->jsonBody('ForgotPasswordInput', ['email' => 'maria@example.com']),
+                'responses' => ['200' => $this->ref('MessageEnvelope', 'Always 200 (no account enumeration)')],
+            ]],
+            '/api/v1/auth/reset-password' => ['post' => [
+                'tags' => ['Auth'],
+                'summary' => 'Reset password with the emailed token',
+                'requestBody' => $this->jsonBody('ResetPasswordInput', [
+                    'token' => '<from email>', 'email' => 'maria@example.com',
+                    'password' => 'newsecret6789', 'password_confirmation' => 'newsecret6789',
+                ]),
+                'responses' => [
+                    '200' => $this->ref('MessageEnvelope', 'Password reset'),
+                    '422' => $this->ref('Error', 'Invalid or expired token'),
+                ],
+            ]],
             '/api/v1/auth/me' => ['get' => [
                 'tags' => ['Auth'],
                 'summary' => 'Current member',
@@ -113,9 +132,62 @@ class ApiDocsController extends Controller
     }
 
     /** @return array<string, mixed> */
+    private function accountPaths(): array
+    {
+        $sec = [['bearerAuth' => []]];
+        $unauth = fn () => $this->ref('Error', 'Unauthenticated');
+        $paged = fn (string $d) => $this->ref('Envelope', $d);
+
+        return [
+            '/api/v1/account' => [
+                'get' => ['tags' => ['Account'], 'summary' => 'Get the signed-in member', 'security' => $sec,
+                    'responses' => ['200' => $this->ref('MemberEnvelope', 'Member'), '401' => $unauth()]],
+                'put' => ['tags' => ['Account'], 'summary' => 'Update profile', 'security' => $sec,
+                    'requestBody' => $this->jsonBody('ProfileUpdateInput', [
+                        'first_name' => 'Maria', 'last_name' => 'Gonzalez', 'phone' => '+1 555 010 2030',
+                        'dob' => '1990-05-01', 'gender' => 'female', 'description' => 'Parishioner at St. Mary.',
+                    ]),
+                    'responses' => ['200' => $this->ref('MemberEnvelope', 'Updated'), '401' => $unauth(), '422' => $this->ref('Error', 'Validation failed')]],
+                'delete' => ['tags' => ['Account'], 'summary' => 'Delete account', 'security' => $sec,
+                    'requestBody' => $this->jsonBody('DeleteAccountInput', ['confirm' => true]),
+                    'responses' => ['200' => $this->ref('MessageEnvelope', 'Deleted'), '401' => $unauth()]],
+            ],
+            '/api/v1/account/avatar' => ['post' => [
+                'tags' => ['Account'], 'summary' => 'Upload avatar (multipart)', 'security' => $sec,
+                'requestBody' => ['required' => true, 'content' => ['multipart/form-data' => ['schema' => [
+                    'type' => 'object', 'properties' => ['avatar' => ['type' => 'string', 'format' => 'binary']],
+                ]]]],
+                'responses' => ['200' => $this->ref('MemberEnvelope', 'Updated'), '401' => $unauth(), '422' => $this->ref('Error', 'Bad file')],
+            ]],
+            '/api/v1/account/activities' => ['get' => [
+                'tags' => ['Account'], 'summary' => 'Member activity log (paginated)', 'security' => $sec,
+                'parameters' => [$this->queryParam('page', 'integer'), $this->queryParam('per_page', 'integer')],
+                'responses' => ['200' => $paged('Activities'), '401' => $unauth()],
+            ]],
+            '/api/v1/account/donations' => ['get' => [
+                'tags' => ['Account'], 'summary' => 'Member donation history (paginated)', 'security' => $sec,
+                'parameters' => [$this->queryParam('page', 'integer'), $this->queryParam('per_page', 'integer')],
+                'responses' => ['200' => $paged('Donations'), '401' => $unauth()],
+            ]],
+            '/api/v1/account/prayer-requests' => ['get' => [
+                'tags' => ['Account'], 'summary' => 'Prayer requests submitted with this email (paginated)', 'security' => $sec,
+                'parameters' => [$this->queryParam('page', 'integer'), $this->queryParam('per_page', 'integer')],
+                'responses' => ['200' => $paged('Prayer requests'), '401' => $unauth()],
+            ]],
+        ];
+    }
+
+    /** @return array<string, mixed> */
     private function v1ContentPaths(): array
     {
         $ok = fn (string $desc) => $this->ref('Envelope', $desc);
+
+        // Shared list controls on every paginated list endpoint.
+        $list = [
+            $this->queryParam('page', 'integer'),
+            $this->queryParam('per_page', 'integer'),
+            $this->queryParam('q', 'string'),
+        ];
 
         return [
             '/api/v1/app/home' => ['get' => [
@@ -123,49 +195,89 @@ class ApiDocsController extends Controller
                 'responses' => ['200' => $ok('Home sections')],
             ]],
             '/api/v1/app/channels' => ['get' => [
-                'tags' => ['Content'], 'summary' => 'List active channels (with latest video)',
+                'tags' => ['Content'], 'summary' => 'List active channels (paginated, searchable)',
+                'parameters' => array_merge($list, [$this->queryParam('sort', 'string', ['sort', 'videos'])]),
                 'responses' => ['200' => $ok('Channels')],
             ]],
             '/api/v1/app/channels/{slug}' => ['get' => [
                 'tags' => ['Content'], 'summary' => 'Channel detail + paginated videos',
-                'parameters' => [$this->pathParam('slug'), $this->queryParam('page', 'integer')],
+                'parameters' => array_merge([$this->pathParam('slug'), $this->queryParam('live', 'boolean')], $list),
                 'responses' => ['200' => $ok('Channel detail'), '404' => $this->ref('Error', 'Not found')],
             ]],
+            '/api/v1/app/videos' => ['get' => [
+                'tags' => ['Content'], 'summary' => 'Watch — cross-channel video feed / search',
+                'parameters' => array_merge($list, [
+                    $this->queryParam('channel', 'string'),
+                    $this->queryParam('live', 'boolean'),
+                    $this->queryParam('sort', 'string', ['recent', 'views']),
+                ]),
+                'responses' => ['200' => $ok('Videos')],
+            ]],
+            '/api/v1/app/videos/{id}' => ['get' => [
+                'tags' => ['Content'], 'summary' => 'Video detail (with channel)',
+                'parameters' => [['name' => 'id', 'in' => 'path', 'required' => true, 'schema' => ['type' => 'integer']]],
+                'responses' => ['200' => $ok('Video'), '404' => $this->ref('Error', 'Not found')],
+            ]],
             '/api/v1/app/listen' => ['get' => [
-                'tags' => ['Content'], 'summary' => 'List podcast shows',
-                'parameters' => [
+                'tags' => ['Content'], 'summary' => 'List podcast shows (paginated, searchable)',
+                'parameters' => array_merge($list, [
                     $this->queryParam('category', 'string'),
                     $this->queryParam('sort', 'string', ['name', 'episodes']),
-                ],
+                ]),
                 'responses' => ['200' => $ok('Shows')],
             ]],
             '/api/v1/app/listen/{slug}' => ['get' => [
                 'tags' => ['Content'], 'summary' => 'Show detail + paginated episodes',
-                'parameters' => [$this->pathParam('slug'), $this->queryParam('page', 'integer')],
+                'parameters' => array_merge([$this->pathParam('slug')], $list),
                 'responses' => ['200' => $ok('Show detail'), '404' => $this->ref('Error', 'Not found')],
+            ]],
+            '/api/v1/app/episodes/{id}' => ['get' => [
+                'tags' => ['Content'], 'summary' => 'Episode detail (with show)',
+                'parameters' => [['name' => 'id', 'in' => 'path', 'required' => true, 'schema' => ['type' => 'integer']]],
+                'responses' => ['200' => $ok('Episode'), '404' => $this->ref('Error', 'Not found')],
             ]],
             '/api/v1/app/live-now' => ['get' => [
                 'tags' => ['Content'], 'summary' => 'Live + upcoming streams',
+                'parameters' => [$this->queryParam('status', 'string', ['live', 'upcoming'])],
                 'responses' => ['200' => $ok('Live streams')],
             ]],
             '/api/v1/app/read' => ['get' => [
-                'tags' => ['Content'], 'summary' => 'List articles',
-                'parameters' => [
+                'tags' => ['Content'], 'summary' => 'List articles (paginated, searchable)',
+                'parameters' => array_merge($list, [
                     $this->queryParam('category', 'integer'),
-                    $this->queryParam('q', 'string'),
                     $this->queryParam('sort', 'string', ['latest', 'popular']),
-                    $this->queryParam('page', 'integer'),
-                ],
+                ]),
                 'responses' => ['200' => $ok('Articles')],
             ]],
+            '/api/v1/app/read/{slug}' => ['get' => [
+                'tags' => ['Content'], 'summary' => 'Article detail (full content)',
+                'parameters' => [$this->pathParam('slug')],
+                'responses' => ['200' => $ok('Article'), '404' => $this->ref('Error', 'Not found')],
+            ]],
             '/api/v1/app/saints' => ['get' => [
-                'tags' => ['Content'], 'summary' => 'List saints',
-                'parameters' => [
-                    $this->queryParam('q', 'string'),
-                    $this->queryParam('letter', 'string'),
-                    $this->queryParam('page', 'integer'),
-                ],
+                'tags' => ['Content'], 'summary' => 'List saints (paginated, searchable)',
+                'parameters' => array_merge($list, [$this->queryParam('letter', 'string')]),
                 'responses' => ['200' => $ok('Saints')],
+            ]],
+            '/api/v1/app/saints/{slug}' => ['get' => [
+                'tags' => ['Content'], 'summary' => 'Saint detail (full content)',
+                'parameters' => [$this->pathParam('slug')],
+                'responses' => ['200' => $ok('Saint'), '404' => $this->ref('Error', 'Not found')],
+            ]],
+            '/api/v1/app/search' => ['get' => [
+                'tags' => ['Content'], 'summary' => 'Grouped search across articles, saints, shows, channels',
+                'parameters' => [$this->queryParam('q', 'string')],
+                'responses' => ['200' => $ok('Grouped results'), '422' => $this->ref('Error', 'Query too short')],
+            ]],
+            '/api/v1/app/pages/{slug}' => ['get' => [
+                'tags' => ['Content'], 'summary' => 'Static CMS page (about, editorial-policy, …)',
+                'parameters' => [$this->pathParam('slug')],
+                'responses' => ['200' => $ok('Page'), '404' => $this->ref('Error', 'Not found')],
+            ]],
+            '/api/v1/app/newsletter/subscribe' => ['post' => [
+                'tags' => ['Content'], 'summary' => 'Subscribe an email to the newsletter',
+                'requestBody' => $this->jsonBody('NewsletterSubscribeInput', ['email' => 'maria@example.com', 'name' => 'Maria']),
+                'responses' => ['201' => $this->ref('MessageEnvelope', 'Subscribed'), '422' => $this->ref('Error', 'Validation failed')],
             ]],
             '/api/v1/app/donate/config' => ['get' => [
                 'tags' => ['Content'], 'summary' => 'Donation configuration',
@@ -337,6 +449,41 @@ class ApiDocsController extends Controller
                     'password' => ['type' => 'string', 'format' => 'password', 'minLength' => 8],
                     'password_confirmation' => ['type' => 'string', 'format' => 'password'],
                     'logout_other_devices' => ['type' => 'boolean', 'default' => false],
+                ],
+            ],
+            'ForgotPasswordInput' => [
+                'type' => 'object', 'required' => ['email'],
+                'properties' => ['email' => ['type' => 'string', 'format' => 'email']],
+            ],
+            'ResetPasswordInput' => [
+                'type' => 'object', 'required' => ['token', 'email', 'password', 'password_confirmation'],
+                'properties' => [
+                    'token' => ['type' => 'string', 'description' => 'From the password-reset email'],
+                    'email' => ['type' => 'string', 'format' => 'email'],
+                    'password' => ['type' => 'string', 'format' => 'password', 'minLength' => 8],
+                    'password_confirmation' => ['type' => 'string', 'format' => 'password'],
+                ],
+            ],
+            'ProfileUpdateInput' => [
+                'type' => 'object',
+                'properties' => [
+                    'first_name' => ['type' => 'string', 'maxLength' => 120],
+                    'last_name' => ['type' => 'string', 'maxLength' => 120],
+                    'phone' => ['type' => 'string', 'nullable' => true, 'maxLength' => 40],
+                    'dob' => ['type' => 'string', 'format' => 'date', 'nullable' => true],
+                    'gender' => ['type' => 'string', 'nullable' => true, 'maxLength' => 20],
+                    'description' => ['type' => 'string', 'nullable' => true, 'maxLength' => 2000],
+                ],
+            ],
+            'DeleteAccountInput' => [
+                'type' => 'object', 'required' => ['confirm'],
+                'properties' => ['confirm' => ['type' => 'boolean', 'description' => 'Must be true']],
+            ],
+            'NewsletterSubscribeInput' => [
+                'type' => 'object', 'required' => ['email'],
+                'properties' => [
+                    'email' => ['type' => 'string', 'format' => 'email', 'maxLength' => 120],
+                    'name' => ['type' => 'string', 'nullable' => true, 'maxLength' => 120],
                 ],
             ],
             'PrayerRequestInput' => [

@@ -7,10 +7,12 @@ use App\Http\Resources\Api\MemberResource;
 use App\Support\Api\ApiResponse;
 use Botble\Member\Models\Member;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password as PasswordBrokerFacade;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\ValidationException;
 
@@ -93,6 +95,41 @@ class AuthController extends Controller
         }
 
         return $this->tokenResponse($request, $member);
+    }
+
+    public function forgotPassword(Request $request): JsonResponse
+    {
+        $request->validate(['email' => ['required', 'email']]);
+
+        PasswordBrokerFacade::broker('members')->sendResetLink($request->only('email'));
+
+        // Always 200 — don't reveal whether the address is registered.
+        return ApiResponse::ok([
+            'message' => 'If that email is registered, a password reset link has been sent.',
+        ]);
+    }
+
+    public function resetPassword(Request $request): JsonResponse
+    {
+        $data = $request->validate([
+            'token' => ['required', 'string'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'confirmed', Password::defaults()],
+        ]);
+
+        $status = PasswordBrokerFacade::broker('members')->reset(
+            $data,
+            function (Member $member, string $password): void {
+                $member->forceFill(['password' => $password])->save();
+                $member->tokens()->delete();
+            }
+        );
+
+        if ($status !== PasswordBroker::PASSWORD_RESET) {
+            throw ValidationException::withMessages(['email' => [trans($status)]]);
+        }
+
+        return ApiResponse::ok(['message' => 'Password reset. You can now sign in.']);
     }
 
     public function me(Request $request): JsonResponse

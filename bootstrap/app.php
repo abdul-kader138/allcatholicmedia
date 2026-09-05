@@ -2,7 +2,9 @@
 
 use App\Providers\AppServiceProvider;
 use App\Support\Api\ApiResponse;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -50,7 +52,11 @@ return Application::configure(basePath: dirname(__DIR__))
                 return ApiResponse::error('Unauthenticated.', 401, 'unauthenticated');
             }
 
-            if ($e instanceof NotFoundHttpException) {
+            if ($e instanceof AuthorizationException) {
+                return ApiResponse::error($e->getMessage() ?: 'Forbidden.', 403, 'forbidden');
+            }
+
+            if ($e instanceof ModelNotFoundException || $e instanceof NotFoundHttpException) {
                 return ApiResponse::error('Resource not found.', 404, 'not_found');
             }
 
