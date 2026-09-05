@@ -136,6 +136,8 @@ class NewsletterCampaignForm extends FormAbstract
 
         $status = is_object($model) ? ($model->status ?? null) : null;
 
-        return $status ? $status->getValue() : CampaignStatusEnum::DRAFT;
+        $value = $status instanceof CampaignStatusEnum ? $status->getValue() : $status;
+
+        return $value ?: CampaignStatusEnum::DRAFT;
     }
 }
