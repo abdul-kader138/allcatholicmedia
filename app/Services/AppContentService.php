@@ -455,4 +455,39 @@ class AppContentService
             ->wherePublished()
             ->whereHas('categories', fn (Builder $q) => $q->where('id', self::SAINTS_CATEGORY_ID));
     }
+
+    /**
+     * The saint the website home page's [latest-daily-saint] shortcode shows:
+     * a saint whose feast-date metadata matches today when one exists,
+     * otherwise the newest published saint post.
+     *
+     * @return array{post: ?Post, is_today: bool}
+     */
+    public function dailySaintPost(): array
+    {
+        $today = now()->format('m-d');
+
+        $base = Post::query()
+            ->with(['slugable', 'categories.slugable', 'metadata'])
+            ->wherePublished()
+            ->whereHas('categories', fn (Builder $q) => $q->where('id', self::SAINTS_CATEGORY_ID));
+
+        $dated = (clone $base)
+            ->whereHas('metadata', function (Builder $query) use ($today): void {
+                $query->whereIn('meta_key', ['feast_date', 'saint_feast_date'])
+                    ->where(function (Builder $dateQuery) use ($today): void {
+                        $dateQuery->whereJsonContains('meta_value', $today)
+                            ->orWhere('meta_value', 'like', '%"' . $today . '"%')
+                            ->orWhere('meta_value', 'like', '%-' . $today . '%');
+                    });
+            })
+            ->latest()
+            ->orderByDesc('id')
+            ->first();
+
+        return [
+            'post' => $dated ?: (clone $base)->latest()->orderByDesc('id')->first(),
+            'is_today' => (bool) $dated,
+        ];
+    }
 }

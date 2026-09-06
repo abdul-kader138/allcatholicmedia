@@ -19,6 +19,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Daily Rosary YouTube channel
+    |--------------------------------------------------------------------------
+    | Channel ID for the "Daily Rosary Meditations" YouTube channel. The mobile
+    | API's home "rosary" spotlight (GET /api/v1/app/home/spotlights) returns
+    | this channel's latest upload, read from its public XML feed.
+    */
+
+    'rosary_youtube_channel_id' => env('ROSARY_YOUTUBE_CHANNEL_ID', 'UCSBn2yNBQKzduwG_OJ72wcQ'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Pre-configured Catholic RSS feed sources
     |--------------------------------------------------------------------------
     | Seeded via Admin → Feed Sources → "Seed Catholic Feeds" button or

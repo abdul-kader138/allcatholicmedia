@@ -102,6 +102,7 @@ Route::prefix('v1/app')
     ->middleware('throttle:api-read')
     ->group(function (): void {
         Route::get('home', [V1AppContentController::class, 'home']);
+        Route::get('home/spotlights', [V1AppContentController::class, 'homeSpotlights']);
 
         Route::get('channels', [V1AppContentController::class, 'channels']);
         Route::get('channels/{slug}/latest', [V1AppContentController::class, 'channelLatest']);

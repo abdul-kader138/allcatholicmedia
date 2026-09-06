@@ -116,5 +116,15 @@ return [
             'is_active' => true,
             'sort_order' => 12,
         ],
+        [
+            // Feeds the app home page's "Daily Rosary" card via /api/app/channels.
+            'name' => 'Daily Rosary Meditations',
+            'slug' => 'daily-rosary-meditations',
+            'youtube_channel_id' => env('ROSARY_YOUTUBE_CHANNEL_ID', 'UCSBn2yNBQKzduwG_OJ72wcQ'),
+            'youtube_handle' => '',
+            'description' => 'Daily Rosary reflections and meditations.',
+            'is_active' => true,
+            'sort_order' => 13,
+        ],
     ],
 ];

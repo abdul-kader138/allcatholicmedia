@@ -22,6 +22,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 
 class AppContentController extends Controller
 {
@@ -48,6 +49,102 @@ class AppContentController extends Controller
                 ['key' => 'prayer_requests', 'title' => 'Prayer Request', 'path' => '/prayer-request', 'count' => null],
             ]]];
         });
+    }
+
+    /**
+     * The three dynamic cards on the website home page, resolved the same way
+     * their theme shortcodes do:
+     *   • rosary        — latest upload from the "Daily Rosary Meditations"
+     *                     YouTube channel (the source [latest-daily-rosary]
+     *                     imports from), read from its public feed
+     *   • saint         — [latest-daily-saint]   today's feast-date saint, else
+     *                     the newest saint post
+     *   • vatican_news  — [channel-spotlight]    latest video of the
+     *                     "vatican-news" YouTube channel
+     * Any card may be null when there is nothing to show.
+     */
+    public function homeSpotlights(Request $request): JsonResponse
+    {
+        return $this->respond($request, 'home-spotlights', 300, fn () => ['data' => [
+            'rosary' => $this->rosarySpotlight($request),
+            'saint' => $this->saintSpotlight($request),
+            'vatican_news' => $this->vaticanNewsSpotlight($request),
+        ]]);
+    }
+
+    private function rosarySpotlight(Request $request): ?array
+    {
+        $channelId = trim((string) config('feeds.rosary_youtube_channel_id'));
+
+        if ($channelId === '') {
+            return null;
+        }
+
+        try {
+            $response = Http::withoutVerifying()
+                ->timeout(10)
+                ->get('https://www.youtube.com/feeds/videos.xml', ['channel_id' => $channelId]);
+
+            if (! $response->ok()) {
+                return null;
+            }
+
+            $xml = @simplexml_load_string($response->body());
+            $entry = $xml->entry[0] ?? null;
+
+            if (! $entry) {
+                return null;
+            }
+
+            $media = $entry->children('http://www.youtube.com/xml/schemas/2015');
+            $videoId = (string) ($media->videoId ?? '');
+
+            if ($videoId === '') {
+                return null;
+            }
+
+            return [
+                'title' => trim((string) $entry->title) ?: 'Daily Rosary',
+                'video_url' => 'https://www.youtube.com/watch?v=' . $videoId,
+                'embed_url' => 'https://www.youtube.com/embed/' . $videoId,
+                'thumbnail' => 'https://i.ytimg.com/vi/' . $videoId . '/hqdefault.jpg',
+                'published_at' => (string) ($entry->published ?? '') ?: null,
+                'channel' => trim((string) ($entry->author->name ?? '')) ?: 'Daily Rosary Meditations',
+            ];
+        } catch (\Throwable) {
+            return null;
+        }
+    }
+
+    private function saintSpotlight(Request $request): ?array
+    {
+        ['post' => $post, 'is_today' => $isToday] = $this->content->dailySaintPost();
+
+        if (! $post) {
+            return null;
+        }
+
+        return array_merge((new PostResource($post))->resolve($request), ['is_today' => $isToday]);
+    }
+
+    private function vaticanNewsSpotlight(Request $request): ?array
+    {
+        try {
+            $channel = $this->content->channel('vatican-news');
+        } catch (\Throwable) {
+            return null;
+        }
+
+        $video = $this->content->channelLatestVideos($channel, 1)->first();
+
+        if (! $video) {
+            return null;
+        }
+
+        return array_merge(
+            (new VideoResource($video))->resolve($request),
+            ['channel' => (new ChannelResource($channel))->resolve($request)]
+        );
     }
 
     public function channels(Request $request): JsonResponse
