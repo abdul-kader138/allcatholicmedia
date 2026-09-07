@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PrayerRequest extends Model
 {
+    public const VISIBILITIES = ['only_me', 'prayer_team', 'community'];
+
     protected $fillable = [
         'full_name',
         'email',
@@ -13,6 +15,7 @@ class PrayerRequest extends Model
         'location',
         'intention',
         'is_private',
+        'visibility',
         'allow_follow_up',
         'status',
         'admin_notes',

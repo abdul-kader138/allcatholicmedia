@@ -107,6 +107,7 @@ class AccountController extends Controller
                 'id' => $pr->id,
                 'intention' => $pr->intention,
                 'is_private' => (bool) $pr->is_private,
+                'visibility' => $pr->visibility ?? ((bool) $pr->is_private ? 'prayer_team' : 'community'),
                 'status' => $pr->status,
                 'created_at' => $pr->created_at?->toIso8601String(),
             ])->all(),

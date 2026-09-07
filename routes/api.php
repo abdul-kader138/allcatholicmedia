@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\Account\AccountController as V1AccountController
 use App\Http\Controllers\Api\V1\AppContentController as V1AppContentController;
 use App\Http\Controllers\Api\V1\Auth\AuthController as V1AuthController;
 use App\Http\Controllers\Api\V1\CommunityController as V1CommunityController;
+use App\Http\Controllers\Api\V1\DonationController as V1DonationController;
 use App\Http\Controllers\Api\V1\PrayerRequestController as V1PrayerRequestController;
 use App\Http\Middleware\LegacyApiDeprecation;
 use Illuminate\Support\Facades\Route;
@@ -146,6 +147,16 @@ Route::prefix('v1/app')
         Route::get('config', [V1AppContentController::class, 'config']);
         Route::get('pages/{slug}', [V1AppContentController::class, 'page']);
         Route::get('donate/config', [V1AppContentController::class, 'donateConfig']);
+
+        // Native donation checkout: POST creates a PayPal order; the two GET
+        // routes are hit by PayPal's browser redirect and bounce to the app's
+        // deep link. Guests allowed (donor_name/email required in the body then).
+        Route::post('donate/checkout', [V1DonationController::class, 'checkout'])
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+        Route::get('donate/return/{donation}/{token}', [V1DonationController::class, 'return'])
+            ->name('api.v1.donation.return')->whereNumber('donation');
+        Route::get('donate/cancel/{donation}/{token}', [V1DonationController::class, 'cancel'])
+            ->name('api.v1.donation.cancel')->whereNumber('donation');
 
         Route::post('prayer-requests', [V1PrayerRequestController::class, 'store'])
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
