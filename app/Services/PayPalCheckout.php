@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Donation;
+use RuntimeException;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Throwable;
 
@@ -35,7 +36,7 @@ class PayPalCheckout
                 ],
                 'purchase_units' => [[
                     'reference_id' => (string) $donation->getKey(),
-                    'description' => 'Donation to ' . config('app.name'),
+                    'description' => 'Donation to '.config('app.name'),
                     'amount' => [
                         'currency_code' => $donation->getAttribute('currency') ?: 'USD',
                         'value' => $donation->getAttribute('amount'),
@@ -76,6 +77,33 @@ class PayPalCheckout
             if (($captured['status'] ?? null) === 'COMPLETED') {
                 $capture = $captured['purchase_units'][0]['payments']['captures'][0] ?? [];
 
+                // Defence in depth: the order was created server-side with a
+                // fixed amount the payer cannot alter, but confirm the money
+                // PayPal actually captured matches this donation before we
+                // record it as paid.
+                $paidValue = (float) ($capture['amount']['value'] ?? 0);
+                $paidCurrency = (string) ($capture['amount']['currency_code'] ?? '');
+                $expectedValue = (float) $donation->getAttribute('amount');
+                $expectedCurrency = (string) ($donation->getAttribute('currency') ?: 'USD');
+
+                if (abs($paidValue - $expectedValue) > 0.001 || strcasecmp($paidCurrency, $expectedCurrency) !== 0) {
+                    report(new RuntimeException(sprintf(
+                        'PayPal capture amount mismatch for donation %s: expected %s %s, captured %s %s',
+                        $donation->getKey(),
+                        $expectedValue,
+                        $expectedCurrency,
+                        $paidValue,
+                        $paidCurrency
+                    )));
+
+                    $donation->update([
+                        'status' => 'failed',
+                        'paypal_capture_id' => $capture['id'] ?? null,
+                    ]);
+
+                    return false;
+                }
+
                 $donation->update([
                     'status' => 'completed',
                     'paypal_capture_id' => $capture['id'] ?? null,
@@ -98,7 +126,7 @@ class PayPalCheckout
 
     private function client(): PayPalClient
     {
-        $provider = new PayPalClient();
+        $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
 

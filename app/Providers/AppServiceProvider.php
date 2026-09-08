@@ -6,14 +6,15 @@ use App\Http\Controllers\DonationController;
 use Botble\ACL\Models\User;
 use Botble\Base\Facades\DashboardMenu;
 use Botble\Base\Supports\DashboardMenu as DashboardMenuSupport;
-use Botble\Theme\Events\RenderingThemeOptionSettings;
 use Botble\Theme\Events\RenderingSiteMapEvent;
+use Botble\Theme\Events\RenderingThemeOptionSettings;
 use Botble\Theme\Facades\SiteMapManager;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\Rules\Password;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // --- Password policy (register / reset / change) ------------------
+        // Defined once here so every Password::defaults() call across the API
+        // and the web member area shares the same rules.
+        Password::defaults(function () {
+            $rule = Password::min(8)->letters()->numbers();
+
+            return $this->app->isProduction() ? $rule->uncompromised() : $rule;
+        });
+
         // --- Mobile API rate limiters --------------------------------------
         RateLimiter::for('api-read', fn (Request $request) => Limit::perMinute(120)->by(
             $request->user()?->getAuthIdentifier() ?: $request->ip()
@@ -41,8 +51,17 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         RateLimiter::for('api-auth', fn (Request $request) => [
-            Limit::perMinute(5)->by(strtolower((string) $request->input('email')) . '|' . $request->ip()),
+            Limit::perMinute(5)->by(strtolower((string) $request->input('email')).'|'.$request->ip()),
             Limit::perMinute(20)->by($request->ip()),
+        ]);
+
+        // Endpoints that send an email to a user-supplied address
+        // (forgot-password, resend-verification). Tighter, and capped per day
+        // so the address cannot be mail-bombed or walked for enumeration.
+        RateLimiter::for('api-auth-email', fn (Request $request) => [
+            Limit::perMinutes(15, 3)->by(strtolower((string) $request->input('email'))),
+            Limit::perDay(15)->by(strtolower((string) $request->input('email'))),
+            Limit::perDay(40)->by($request->ip()),
         ]);
 
         Route::middleware(['web', 'core'])
@@ -245,12 +264,12 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         DashboardMenu::default()->registerItem([
-            'id'          => 'cms-app-feed-sources',
-            'priority'    => 13,
-            'parent_id'   => null,
-            'name'        => 'Feed Sources',
-            'icon'        => 'ti ti-rss',
-            'url'         => fn () => route('admin.feed-sources.index'),
+            'id' => 'cms-app-feed-sources',
+            'priority' => 13,
+            'parent_id' => null,
+            'name' => 'Feed Sources',
+            'icon' => 'ti ti-rss',
+            'url' => fn () => route('admin.feed-sources.index'),
             'permissions' => false,
         ]);
 
@@ -266,12 +285,12 @@ class AppServiceProvider extends ServiceProvider
         });
 
         DashboardMenu::default()->registerItem([
-            'id'          => 'cms-app-scheduled-tasks',
-            'priority'    => 14,
-            'parent_id'   => null,
-            'name'        => 'Scheduled Tasks',
-            'icon'        => 'ti ti-clock',
-            'url'         => fn () => route('admin.scheduled-tasks.index'),
+            'id' => 'cms-app-scheduled-tasks',
+            'priority' => 14,
+            'parent_id' => null,
+            'name' => 'Scheduled Tasks',
+            'icon' => 'ti ti-clock',
+            'url' => fn () => route('admin.scheduled-tasks.index'),
             'permissions' => ['scheduled-tasks.index'],
         ]);
 

@@ -45,9 +45,13 @@ Route::prefix('v1/auth')->group(function (): void {
     Route::middleware('throttle:api-auth')->group(function (): void {
         Route::post('register', [V1AuthController::class, 'register']);
         Route::post('login', [V1AuthController::class, 'login']);
-        Route::post('forgot-password', [V1AuthController::class, 'forgotPassword']);
         Route::post('reset-password', [V1AuthController::class, 'resetPassword']);
-        Route::post('resend-verification', [V1AuthController::class, 'resendVerification']);
+
+        // Also throttled per-email/day: these send mail to a supplied address.
+        Route::middleware('throttle:api-auth-email')->group(function (): void {
+            Route::post('forgot-password', [V1AuthController::class, 'forgotPassword']);
+            Route::post('resend-verification', [V1AuthController::class, 'resendVerification']);
+        });
     });
 
     Route::middleware(['auth:sanctum', 'throttle:api-read'])->group(function (): void {

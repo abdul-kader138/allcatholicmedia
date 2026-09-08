@@ -88,8 +88,12 @@ class DonationController extends Controller
         }
 
         $paypalToken = (string) $request->query('token');
+        $expectedOrderId = (string) $donation->getAttribute('paypal_order_id');
 
-        if ($paypalToken === '') {
+        // The `token` PayPal hands back on the redirect is the order id we
+        // created for this donation. Anything else means a tampered / replayed
+        // redirect — never hand it to capture().
+        if ($paypalToken === '' || $expectedOrderId === '' || ! hash_equals($expectedOrderId, $paypalToken)) {
             $donation->update(['status' => 'failed']);
 
             return redirect()->away($this->withStatus($redirect, 'error'));
