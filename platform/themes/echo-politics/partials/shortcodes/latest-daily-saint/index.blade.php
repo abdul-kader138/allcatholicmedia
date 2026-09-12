@@ -11,8 +11,29 @@
         border: 1px solid rgba(255,255,255,.08);
         border-radius: 28px;
         overflow: hidden;
-        box-shadow: 0 24px 60px rgba(0,0,0,.22);
+        box-shadow: 0 24px 60px rgba(0,0,0,.22), inset 0 0 0 1px rgba(201,162,39,.06);
+        position: relative;
+        transition: box-shadow .35s ease, transform .35s ease;
     }
+
+    .saint-spotlight-card:hover {
+        box-shadow: 0 32px 76px rgba(0,0,0,.30), inset 0 0 0 1px rgba(201,162,39,.14);
+        transform: translateY(-3px);
+    }
+
+    /* Gilded corner ornaments framing the whole card */
+    .saint-spotlight-corner {
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        z-index: 3;
+        pointer-events: none;
+        border: 1px solid rgba(201,162,39,.42);
+        opacity: .85;
+    }
+
+    .saint-spotlight-corner--tl { top: 12px; left: 12px; border-width: 1px 0 0 1px; }
+    .saint-spotlight-corner--br { bottom: 12px; right: 12px; border-width: 0 1px 1px 0; }
 
     .saint-spotlight-media {
         position: relative;
@@ -25,6 +46,22 @@
         height: 100%;
         object-fit: cover;
         display: block;
+        filter: saturate(1.03);
+        transition: transform .6s ease;
+    }
+
+    .saint-spotlight-media a:hover img {
+        transform: scale(1.035);
+    }
+
+    /* Soft base-to-top gradient so the badge always reads cleanly on any photo */
+    .saint-spotlight-media::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(7,17,29,.30) 0%, transparent 26%, transparent 74%, rgba(7,17,29,.22) 100%);
     }
 
     /* Fallback shown when the saint post has no image */
@@ -113,7 +150,7 @@
         z-index: 2;
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 7px;
         padding: 8px 14px;
         border-radius: 999px;
         background: rgba(7, 17, 29, 0.76);
@@ -123,23 +160,43 @@
         font-weight: 700;
         letter-spacing: .08em;
         text-transform: uppercase;
+        backdrop-filter: blur(4px);
+    }
+
+    .saint-spotlight-badge svg {
+        width: 12px;
+        height: 12px;
+        flex-shrink: 0;
     }
 
     .saint-spotlight-body {
-        padding: 34px 34px 36px;
+        padding: 34px 38px 36px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         height: 100%;
+        position: relative;
     }
 
     .saint-spotlight-label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
         color: #c9a227;
         font-size: .78rem;
         font-weight: 700;
         letter-spacing: .22em;
         text-transform: uppercase;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
+    }
+
+    .saint-spotlight-label::before {
+        content: '';
+        display: block;
+        width: 34px;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(201,162,39,.85), rgba(201,162,39,0));
+        flex-shrink: 0;
     }
 
     .saint-spotlight-title {
@@ -147,12 +204,22 @@
         font-family: 'Playfair Display', serif;
         font-size: clamp(2rem, 4vw, 3.35rem);
         line-height: 1.06;
-        margin-bottom: 14px;
+        margin-bottom: 18px;
+        text-shadow: 0 2px 24px rgba(0,0,0,.35);
     }
 
     .saint-spotlight-title a {
         color: inherit;
         text-decoration: none;
+        background-image: linear-gradient(#e8cf7b, #e8cf7b);
+        background-position: 0 100%;
+        background-repeat: no-repeat;
+        background-size: 0% 2px;
+        transition: background-size .35s ease;
+    }
+
+    .saint-spotlight-title a:hover {
+        background-size: 100% 2px;
     }
 
     .saint-spotlight-subtitle {
@@ -167,6 +234,20 @@
         font-size: 1rem;
         line-height: 1.9;
         margin-bottom: 26px;
+        position: relative;
+        padding-left: 22px;
+    }
+
+    /* Large translucent quotation mark, a quiet editorial touch */
+    .saint-spotlight-excerpt::before {
+        content: '\201C';
+        position: absolute;
+        top: -.5rem;
+        left: -8px;
+        font-family: 'Playfair Display', serif;
+        font-size: 3.2rem;
+        line-height: 1;
+        color: rgba(201,162,39,.24);
     }
 
     .saint-spotlight-actions {
@@ -179,12 +260,23 @@
     .saint-spotlight-btn {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
+        gap: 9px;
         border-radius: 999px;
         padding: 13px 22px;
         text-decoration: none;
         font-weight: 700;
-        transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, gap .2s ease;
+    }
+
+    .saint-spotlight-btn svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        transition: transform .2s ease;
+    }
+
+    .saint-spotlight-btn:hover svg {
+        transform: translateX(3px);
     }
 
     .saint-spotlight-btn-primary {
@@ -196,6 +288,7 @@
     .saint-spotlight-btn-primary:hover {
         color: #08111c;
         transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(201,162,39,.32);
     }
 
     .saint-spotlight-btn-secondary {
@@ -226,9 +319,14 @@
 <section class="saint-spotlight-section">
     <div class="container">
         <div class="row g-0 saint-spotlight-card">
+            <span class="saint-spotlight-corner saint-spotlight-corner--tl" aria-hidden="true"></span>
+            <span class="saint-spotlight-corner saint-spotlight-corner--br" aria-hidden="true"></span>
             <div class="col-lg-5">
                 <div class="saint-spotlight-media">
-                    <span class="saint-spotlight-badge">{{ $isTodaySaint ? ($primaryCategory?->name ?: $title) : 'Featured Saint' }}</span>
+                    <span class="saint-spotlight-badge">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2h-2v7H4v2h7v11h2V11h7V9h-7z"/></svg>
+                        {{ $isTodaySaint ? ($primaryCategory?->name ?: $title) : 'Featured Saint' }}
+                    </span>
                     <a href="{{ $saintUrl }}" title="{{ $saint->name }}">
                         @if ($saint->image)
                             {{ RvMedia::image($saint->image, $saint->name, 'large', attributes: ['class' => 'img-hover']) }}
@@ -268,9 +366,11 @@
                     <div class="saint-spotlight-actions">
                         <a href="{{ $saintUrl }}" class="saint-spotlight-btn saint-spotlight-btn-primary">
                             Read Saint Story
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                         </a>
                         <a href="{{ $archiveUrl }}" class="saint-spotlight-btn saint-spotlight-btn-secondary">
                             {{ $archiveLabel }}
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                         </a>
                     </div>
                 </div>
