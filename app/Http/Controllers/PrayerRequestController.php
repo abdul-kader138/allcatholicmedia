@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PrayerRequest;
+use Botble\Base\Rules\PhoneNumberRule;
 use Botble\SeoHelper\Facades\SeoHelper;
 use Botble\Theme\Facades\Theme;
 use Illuminate\Http\RedirectResponse;
@@ -24,7 +25,7 @@ class PrayerRequestController extends Controller
         $data = $request->validate([
             'full_name' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:150'],
-            'phone' => ['nullable', 'string', 'max:40'],
+            'phone' => ['nullable', 'string', 'max:40', new PhoneNumberRule()],
             'location' => ['nullable', 'string', 'max:120'],
             'intention' => ['required', 'string', 'max:5000'],
             'is_private' => ['nullable', 'accepted'],

@@ -68,4 +68,5 @@ return [
     'enable_light_mode' => 'Enable light mode',
     'enable_dark_mode' => 'Enable dark mode',
     'close' => 'Close',
+    'phone_number_invalid' => 'Please enter a valid phone number for the selected country.',
 ];

@@ -28,6 +28,7 @@
         "botble/theme": "*@dev",
         "botble/widget": "*@dev",
         "doctrine/dbal": "^4.2",
+        "giggsey/libphonenumber-for-php": "^9.0",
         "guzzlehttp/guzzle": "^7.9",
         "laravel/framework": "12.43.1",
         "laravel/sanctum": "^4.0",
