@@ -59,14 +59,22 @@ echo "==> Linking storage"
 docker compose exec -T php php artisan storage:link || true
 
 echo ""
-echo "==> Clearing and rebuilding caches"
+echo "==> Clearing caches"
+# NOTE: intentionally NOT running config:cache / route:cache / view:cache here.
+# Those commands bake the *absolute path Laravel sees at cache-time* into
+# bootstrap/cache/*.php. Inside this container the code lives at /var/www/html,
+# but the container bind-mounts $APP_DIR from the host, so that cached file is
+# written to the same files the host's cron (running native host PHP against
+# /var/www/allcatholicmedia) then reads — with the wrong path baked in. That
+# previously broke storage/cache/log writes for every scheduled command
+# (e.g. homepage:refresh-sections) until the stale cache was cleared.
+# Leaving config/routes/views uncached lets each context (container vs. host
+# cron) resolve its own correct base path dynamically. Do not re-add caching
+# here unless the container path and $APP_DIR are made identical.
 docker compose exec -T php php artisan config:clear
 docker compose exec -T php php artisan cache:clear
 docker compose exec -T php php artisan route:clear
 docker compose exec -T php php artisan view:clear
-docker compose exec -T php php artisan config:cache
-docker compose exec -T php php artisan route:cache
-docker compose exec -T php php artisan view:cache
 
 echo ""
 echo "==> Fixing ownership and permissions"
