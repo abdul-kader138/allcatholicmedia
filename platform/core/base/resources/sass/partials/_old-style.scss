@@ -587,12 +587,19 @@ label.text-title-field ~ label {
 }
 
 .table-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+
     .btn {
         --bb-btn-padding-y: 0.25rem;
         --bb-btn-padding-x: 0.5rem;
         --bb-btn-border-radius: 0.25rem;
         --bb-btn-icon-size: 1.25rem;
         --bb-btn-font-size: 0.75rem;
+        margin: 0;
     }
 }
 
