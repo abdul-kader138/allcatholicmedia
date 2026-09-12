@@ -32,7 +32,7 @@
         <small class="form-hint">{{ trans('plugins/newsletter::newsletter.campaigns.delivery.test_email_helper') }}</small>
     </div>
 
-    <div class="col-md-6 text-md-end">
+    <div class="col-md-6 d-flex flex-wrap gap-2 justify-content-md-end">
         <a href="{{ route('newsletter.campaigns.preview', $campaign->getKey()) }}" target="_blank" class="btn btn-outline-secondary">
             <i class="ti ti-eye"></i> {{ trans('plugins/newsletter::newsletter.campaigns.preview') }}
         </a>

@@ -61,7 +61,7 @@
                     @endif
                 </div>
 
-                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                <div class="col-md-4 d-flex flex-wrap gap-2 justify-content-md-end mt-3 mt-md-0">
                     <a href="{{ route('newsletter.campaigns.preview', $campaign->getKey()) }}" target="_blank" class="btn btn-outline-secondary">
                         <i class="ti ti-eye"></i> {{ trans('plugins/newsletter::newsletter.campaigns.preview') }}
                     </a>
