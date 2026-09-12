@@ -27,6 +27,85 @@
         display: block;
     }
 
+    /* Fallback shown when the saint post has no image */
+    .saint-spotlight-fallback {
+        width: 100%;
+        height: 100%;
+        min-height: 340px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(145deg, #0d1f3c 0%, #142540 38%, #1a2f52 60%, #0a1628 100%);
+    }
+
+    .saint-spotlight-fallback::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 35% 40%, rgba(201, 162, 39, .12) 0%, transparent 50%),
+            radial-gradient(circle at 65% 60%, rgba(4, 107, 210, .08) 0%, transparent 50%);
+    }
+
+    .saint-spotlight-glow {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(201, 162, 39, .22) 0%, rgba(201, 162, 39, .06) 50%, transparent 80%);
+        animation: saintHaloGlow 4.5s ease-in-out infinite;
+        pointer-events: none;
+    }
+
+    .saint-spotlight-ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        border: 1px solid rgba(201, 162, 39, .16);
+        animation: saintPhRing 4s ease-in-out infinite;
+    }
+
+    .saint-spotlight-ring--1 { width: 96px; height: 96px; margin: -48px 0 0 -48px; animation-delay: 0s; }
+    .saint-spotlight-ring--2 { width: 148px; height: 148px; margin: -74px 0 0 -74px; border-color: rgba(201, 162, 39, .10); animation-delay: .8s; }
+    .saint-spotlight-ring--3 { width: 210px; height: 210px; margin: -105px 0 0 -105px; border-color: rgba(201, 162, 39, .06); animation-delay: 1.6s; }
+    .saint-spotlight-ring--4 { width: 280px; height: 280px; margin: -140px 0 0 -140px; border-color: rgba(201, 162, 39, .03); animation-delay: 2.4s; }
+
+    .saint-spotlight-glyph {
+        position: relative;
+        z-index: 1;
+        font-size: 4.2rem;
+        color: rgba(201, 162, 39, .48);
+        line-height: 1;
+    }
+
+    .saint-spotlight-glyph-label {
+        position: relative;
+        z-index: 1;
+        font-size: .78rem;
+        font-weight: 700;
+        letter-spacing: .28em;
+        text-transform: uppercase;
+        color: rgba(201, 162, 39, .34);
+    }
+
+    @keyframes saintHaloGlow {
+        0%, 100% { box-shadow: 0 0 28px rgba(201,162,39,.22), 0 0 60px rgba(201,162,39,.08); }
+        50% { box-shadow: 0 0 50px rgba(201,162,39,.42), 0 0 100px rgba(201,162,39,.16); }
+    }
+
+    @keyframes saintPhRing {
+        0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .18; }
+        50% { transform: translate(-50%, -50%) scale(1.12); opacity: .06; }
+    }
+
     .saint-spotlight-badge {
         position: absolute;
         top: 20px;
@@ -151,7 +230,19 @@
                 <div class="saint-spotlight-media">
                     <span class="saint-spotlight-badge">{{ $isTodaySaint ? ($primaryCategory?->name ?: $title) : 'Featured Saint' }}</span>
                     <a href="{{ $saintUrl }}" title="{{ $saint->name }}">
-                        {{ RvMedia::image($saint->image, $saint->name, 'large', attributes: ['class' => 'img-hover']) }}
+                        @if ($saint->image)
+                            {{ RvMedia::image($saint->image, $saint->name, 'large', attributes: ['class' => 'img-hover']) }}
+                        @else
+                            <div class="saint-spotlight-fallback" role="img" aria-label="{{ $saint->name }}">
+                                <div class="saint-spotlight-glow" aria-hidden="true"></div>
+                                <div class="saint-spotlight-ring saint-spotlight-ring--1" aria-hidden="true"></div>
+                                <div class="saint-spotlight-ring saint-spotlight-ring--2" aria-hidden="true"></div>
+                                <div class="saint-spotlight-ring saint-spotlight-ring--3" aria-hidden="true"></div>
+                                <div class="saint-spotlight-ring saint-spotlight-ring--4" aria-hidden="true"></div>
+                                <span class="saint-spotlight-glyph">✝</span>
+                                <span class="saint-spotlight-glyph-label">{{ __('Sanctus') }}</span>
+                            </div>
+                        @endif
                     </a>
                 </div>
             </div>
