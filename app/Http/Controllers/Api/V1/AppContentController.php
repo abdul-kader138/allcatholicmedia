@@ -18,6 +18,8 @@ use App\Http\Resources\Api\VideoResource;
 use App\Services\AppContentService;
 use App\Support\Api\ApiResponse;
 use App\Support\Api\ListQuery;
+use Botble\Contact\Http\Requests\ContactRequest;
+use Botble\Contact\Services\ContactService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -419,6 +421,7 @@ class AppContentController extends Controller
                     'donations' => true,
                     'prayer_requests' => true,
                     'newsletter' => is_plugin_active('newsletter'),
+                    'contact' => is_plugin_active('contact'),
                     'social_login' => is_plugin_active('social-login'),
                 ],
                 'pages' => config('app_mobile.pages', []),
@@ -538,6 +541,24 @@ class AppContentController extends Controller
             'member_checkout_url' => url('/account/donate'),
             'supports_prayer_message' => true,
         ]), $request, 3600);
+    }
+
+    /**
+     * Reuses the same `Botble\Contact\Services\ContactService` the website's
+     * `/contact` page posts to (validation, blacklist checks, admin
+     * notification email — all shared, nothing app-specific to maintain).
+     */
+    public function contact(ContactRequest $request): JsonResponse
+    {
+        abort_unless(is_plugin_active('contact'), 404);
+
+        $result = app(ContactService::class)->sendContact($request);
+
+        if (! $result['success']) {
+            return ApiResponse::error($result['message'], 422, 'contact_failed');
+        }
+
+        return ApiResponse::ok(['message' => $result['message']], status: 201);
     }
 
     public function newsletterSubscribe(Request $request): JsonResponse

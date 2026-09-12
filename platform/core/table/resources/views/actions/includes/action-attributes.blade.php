@@ -26,4 +26,11 @@
     target="_blank"
 @endif
 
-{!! Html::attributes($action->getAttributes()) !!}
+@php
+    $htmlAttributes = $action->getAttributes();
+
+    if ($excludeClass ?? false) {
+        unset($htmlAttributes['class']);
+    }
+@endphp
+{!! Html::attributes($htmlAttributes) !!}

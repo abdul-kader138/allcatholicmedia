@@ -53,17 +53,20 @@ class Action extends TableActionAbstract
 
     public function getAttributes(): array
     {
+        $attributes = $this->attributes;
+
         if (! $this->getColor() && $this->color) {
-            $this->addAttribute(
-                'style',
-                sprintf('background-color: %s !important; color: %s;', $this->color, $this->colorText ?? '#fff')
+            $attributes['style'] = sprintf(
+                'background-color: %s !important; color: %s;',
+                $this->color,
+                $this->colorText ?? '#fff'
             );
         }
 
         if ($cssClass = $this->getCssClass()) {
-            $this->attributes['class'] = explode(' ', $cssClass);
+            $attributes['class'] = explode(' ', $cssClass);
         }
 
-        return $this->attributes;
+        return $attributes;
     }
 }

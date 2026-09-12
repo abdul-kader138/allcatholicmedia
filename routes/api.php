@@ -168,6 +168,8 @@ Route::prefix('v1/app')
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
         Route::post('newsletter/unsubscribe', [V1AppContentController::class, 'newsletterUnsubscribe'])
             ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
+        Route::post('contact', [V1AppContentController::class, 'contact'])
+            ->withoutMiddleware('throttle:api-read')->middleware('throttle:api-write');
     });
 
 /*
