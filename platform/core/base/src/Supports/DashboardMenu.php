@@ -432,9 +432,29 @@ class DashboardMenu
 
         $children = $item['children']->toArray();
 
-        foreach ($children as &$child) {
-            $child = $this->applyActiveRecursive($child);
+        foreach ($children as $key => $child) {
+            $children[$key] = $this->applyActiveRecursive($child);
+        }
 
+        // A less specific sibling URL can be a substring of a more specific one
+        // (e.g. ".../newsletters" is contained in ".../newsletters/campaigns"),
+        // which would otherwise mark multiple siblings active at once. Only the
+        // most specific (longest) matching URL among direct self-matches should
+        // stay highlighted.
+        $activeKeys = array_keys(array_filter(
+            $children,
+            fn (array $child): bool => $child['active'] && $child['children']->isEmpty()
+        ));
+
+        if (count($activeKeys) > 1) {
+            usort($activeKeys, fn ($a, $b) => strlen($children[$b]['url']) <=> strlen($children[$a]['url']));
+
+            foreach (array_slice($activeKeys, 1) as $key) {
+                $children[$key]['active'] = false;
+            }
+        }
+
+        foreach ($children as $child) {
             if ($child['active']) {
                 $item['active'] = true;
 
