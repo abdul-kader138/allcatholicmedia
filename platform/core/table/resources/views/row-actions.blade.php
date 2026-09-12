@@ -16,13 +16,14 @@
                 type="button"
                 id="{{ $id = sprintf('dropdown-actions-%s-%s', md5($model::class), $model->getKey()) }}"
                 data-bs-toggle="dropdown"
+                data-bs-strategy="fixed"
                 aria-haspopup="true"
                 aria-expanded="false"
             >
                 {{ trans('core/base::tables.action') }}
             </button>
             <div
-                class="dropdown-menu"
+                class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="{{ $id }}"
             >
                 @foreach ($actions as $action)
