@@ -46,11 +46,15 @@
      * dial-code chip, so it falls back to a fixed 52px input padding-left.
      * That's only wide enough for 2-digit codes like +1/+44; 3-4 digit codes
      * (+994, +998, ...) overlap the typed number. Reserve enough room for the
-     * widest real country code instead.
+     * widest real country code instead. !important is needed here because
+     * page-level styling (e.g. the prayer-request theme's own
+     * `.contact-form .contact-form-input` shorthand padding override) has
+     * higher selector specificity and would otherwise clobber padding-left
+     * and reintroduce the overlap.
      */
     .iti--separate-dial-code input[type="text"],
     .iti--separate-dial-code input[type="tel"] {
-        padding-left: 88px;
+        padding-left: 88px !important;
     }
 
     /* Give the country-code segment a visible divider from the number input. */
@@ -93,8 +97,8 @@
 
     body[dir="rtl"] .iti--separate-dial-code input[type="text"],
     body[dir="rtl"] .iti--separate-dial-code input[type="tel"] {
-        padding-left: 6px;
-        padding-right: 88px;
+        padding-left: 6px !important;
+        padding-right: 88px !important;
     }
 
     body[dir="rtl"] .iti__country-list {
