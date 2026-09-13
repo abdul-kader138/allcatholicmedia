@@ -53,6 +53,19 @@
         padding-left: 88px;
     }
 
+    /* Give the country-code segment a visible divider from the number input. */
+    .iti--separate-dial-code .iti__flag-container {
+        border-right: 1px solid rgba(127, 127, 127, 0.35);
+    }
+
+    .iti--separate-dial-code .iti__selected-flag {
+        background-color: rgba(127, 127, 127, 0.12);
+    }
+
+    .iti--separate-dial-code .iti__selected-flag:hover {
+        background-color: rgba(127, 127, 127, 0.2);
+    }
+
     body[dir="rtl"] .iti {
         direction: ltr;
         text-align: left;
