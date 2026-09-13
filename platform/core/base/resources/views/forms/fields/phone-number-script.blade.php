@@ -38,6 +38,19 @@
 
     .iti--separate-dial-code .iti__selected-dial-code {
         padding-left: 6px;
+        white-space: nowrap;
+    }
+
+    /*
+     * The vendored intl-tel-input build has no JS-side auto-measurement of the
+     * dial-code chip, so it falls back to a fixed 52px input padding-left.
+     * That's only wide enough for 2-digit codes like +1/+44; 3-4 digit codes
+     * (+994, +998, ...) overlap the typed number. Reserve enough room for the
+     * widest real country code instead.
+     */
+    .iti--separate-dial-code input[type="text"],
+    .iti--separate-dial-code input[type="tel"] {
+        padding-left: 88px;
     }
 
     body[dir="rtl"] .iti {
@@ -63,6 +76,12 @@
     body[dir="rtl"] .iti--separate-dial-code .iti__selected-dial-code {
         padding-left: 0;
         padding-right: 6px;
+    }
+
+    body[dir="rtl"] .iti--separate-dial-code input[type="text"],
+    body[dir="rtl"] .iti--separate-dial-code input[type="tel"] {
+        padding-left: 6px;
+        padding-right: 88px;
     }
 
     body[dir="rtl"] .iti__country-list {
