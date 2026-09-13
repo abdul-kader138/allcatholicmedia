@@ -57,12 +57,25 @@
         padding-left: 88px !important;
     }
 
-    /* Give the country-code segment a visible divider from the number input. */
+    /*
+     * Give the country-code segment a visible divider from the number input,
+     * and make it span the full input height explicitly via flex stretch
+     * rather than relying on the library's own `height: 100%` (which needs
+     * the percentage to resolve against the absolutely-positioned
+     * .iti__flag-container and can end up collapsed to content height
+     * depending on the browser/layout context).
+     */
     .iti--separate-dial-code .iti__flag-container {
+        top: 0 !important;
+        bottom: 0 !important;
+        height: auto !important;
+        display: flex !important;
         border-right: 1px solid rgba(127, 127, 127, 0.35);
     }
 
     .iti--separate-dial-code .iti__selected-flag {
+        height: auto !important;
+        align-self: stretch !important;
         background-color: rgba(127, 127, 127, 0.12);
     }
 
