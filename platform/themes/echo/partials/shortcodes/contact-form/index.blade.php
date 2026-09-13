@@ -2,6 +2,17 @@
     $tabs = Shortcode::fields()->getTabsData(['title', 'description', 'icon', 'icon_image', 'url', 'open_in_new_tab'], $shortcode);
 @endphp
 
+<style>
+    .echo-contact-area .echo-main-contact-form .iti--separate-dial-code input.contact-form-input {
+        padding-left: 120px !important;
+    }
+
+    body[dir="rtl"] .echo-contact-area .echo-main-contact-form .iti--separate-dial-code input.contact-form-input {
+        padding-left: 20px !important;
+        padding-right: 120px !important;
+    }
+</style>
+
 <section class="echo-contact-area">
     <div class="echo-contact-content">
         <div class="container">
