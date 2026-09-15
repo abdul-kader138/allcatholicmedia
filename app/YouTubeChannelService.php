@@ -327,87 +327,88 @@ class YouTubeChannelService
         $knownChannels = YouTubeChannel::query()->active()->whereNotNull('youtube_channel_id')
             ->get()->keyBy('youtube_channel_id');
 
-        $found = [];
+        // Step 1: pull each channel's most recent video IDs from its public RSS feed.
+        // This costs zero YouTube API quota — a live broadcast shows up here as soon as it starts.
+        $candidateVideoIds = [];
+        $videoIdToChannel = [];
 
-        // --- Source A: per-channel search (precise, targets our 12 channels) ---
         foreach ($knownChannels as $channel) {
             try {
-                $items = $this->searchLive(['channelId' => $channel->youtube_channel_id], $apiKey);
-            } catch (RuntimeException $e) {
-                Log::warning("youtube:fetch-live channel [{$channel->name}]: " . $e->getMessage());
+                $videoIds = $this->fetchRecentVideoIdsFromRss($channel->youtube_channel_id);
+            } catch (\Throwable $e) {
+                Log::warning("youtube:fetch-live RSS [{$channel->name}]: " . $e->getMessage());
                 continue;
             }
 
-            foreach ($items as $item) {
-                $videoId = data_get($item, 'id.videoId');
-                if (! $videoId || isset($found[$videoId])) {
-                    continue;
-                }
-                $found[$videoId] = $this->mapSearchItem($item, $channel);
+            foreach ($videoIds as $videoId) {
+                $candidateVideoIds[$videoId] = true;
+                $videoIdToChannel[$videoId] = $channel;
             }
         }
 
-        // --- Source B: general keyword searches (catches 24/7 streams & parishes) ---
-        $keywords = [
-            'EWTN live',
-            'CatholicTV live',
-            'Catholic Mass live',
-            'Holy Rosary live',
-            'Adoration live Catholic',
-        ];
+        if ($candidateVideoIds === []) {
+            return [];
+        }
 
-        foreach ($keywords as $q) {
+        // Step 2: batch-confirm which of those candidates are actually live right now.
+        // videos.list is dramatically cheaper than search.list (no per-request 100-unit
+        // flat cost) and accepts up to 50 IDs per call, so all channels fit in ~1 call.
+        $found = [];
+
+        foreach (array_chunk(array_keys($candidateVideoIds), 50) as $chunk) {
             try {
-                $items = $this->searchLive(['q' => $q, 'relevanceLanguage' => 'en'], $apiKey);
+                $items = $this->fetchVideoDetails($chunk, $apiKey);
             } catch (RuntimeException $e) {
-                Log::warning("youtube:fetch-live keyword [{$q}]: " . $e->getMessage());
+                Log::warning('youtube:fetch-live videos.list failed: ' . $e->getMessage());
                 continue;
             }
 
-            foreach ($items as $item) {
-                $videoId    = data_get($item, 'id.videoId');
-                $channelId  = data_get($item, 'snippet.channelId');
-
-                if (! $videoId || isset($found[$videoId])) {
+            foreach ($items as $videoId => $item) {
+                if (data_get($item, 'snippet.liveBroadcastContent') !== 'live') {
                     continue;
                 }
 
-                // Map to a known channel if we have one; otherwise use snippet title as source
-                $channel = $knownChannels[$channelId] ?? null;
-                $found[$videoId] = $this->mapSearchItem($item, $channel);
+                $found[$videoId] = $this->mapVideoItem($item, $videoIdToChannel[$videoId] ?? null);
             }
         }
 
         return array_values($found);
     }
 
-    private function mapSearchItem(array $item, ?YouTubeChannel $channel): array
+    /**
+     * Fetch the most recent video IDs for a channel from its public RSS feed.
+     * Free of YouTube Data API quota — used only to shortlist candidates for a
+     * subsequent videos.list confirmation call.
+     */
+    private function fetchRecentVideoIdsFromRss(string $channelId, int $limit = 5): array
+    {
+        $response = Http::withoutVerifying()
+            ->timeout(10)
+            ->get('https://www.youtube.com/feeds/videos.xml', ['channel_id' => $channelId]);
+
+        if (! $response->successful()) {
+            throw new RuntimeException("RSS feed request failed with status {$response->status()}.");
+        }
+
+        preg_match_all('/<yt:videoId>([^<]+)<\/yt:videoId>/', $response->body(), $matches);
+
+        return array_slice($matches[1] ?? [], 0, $limit);
+    }
+
+    private function mapVideoItem(array $item, ?YouTubeChannel $channel): array
     {
         $channelTitle = data_get($item, 'snippet.channelTitle', '');
 
         return [
             'channel'     => $channel,
             'channel_name' => $channel?->name ?? $channelTitle,
-            'video_id'    => data_get($item, 'id.videoId'),
+            'video_id'    => data_get($item, 'id'),
             'title'       => data_get($item, 'snippet.title'),
             'thumbnail'   => data_get($item, 'snippet.thumbnails.high.url')
                 ?: data_get($item, 'snippet.thumbnails.medium.url')
                 ?: data_get($item, 'snippet.thumbnails.default.url'),
             'description' => data_get($item, 'snippet.description'),
         ];
-    }
-
-    private function searchLive(array $extra, string $apiKey): array
-    {
-        $response = $this->get('search', array_merge([
-            'part'       => 'snippet',
-            'eventType'  => 'live',
-            'type'       => 'video',
-            'maxResults' => 10,
-            'key'        => $apiKey,
-        ], $extra));
-
-        return $response['items'] ?? [];
     }
 
     private function resolveApiKey(): string
