@@ -431,7 +431,9 @@
         {!! BaseHelper::clean($post->content) !!}
     </div>
 
-    @php($shareUrl = urlencode($postUrl))
+    @php
+        $shareUrl = urlencode($postUrl);
+    @endphp
     <nav class="acm-post-share" aria-label="{{ __('Share this article') }}">
         <span class="acm-post-share-label">{{ __('Share this') }}</span>
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ $shareUrl }}" target="_blank" rel="noopener noreferrer">Facebook</a>
