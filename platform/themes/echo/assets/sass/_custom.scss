@@ -3325,7 +3325,8 @@ html {
                     }
 
                     input.contact-form-input, .form-control {
-                        padding: 0 20px !important;
+                        // Let the phone widget's inline padding accommodate the selected dial code.
+                        padding: 0 20px;
                         height: 50px !important;
                     }
 
