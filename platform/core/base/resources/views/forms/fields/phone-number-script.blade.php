@@ -32,9 +32,31 @@
         padding: 0 !important;
     }
 
+    .contact-form .iti {
+        --phone-menu-bg: #fff;
+        --phone-menu-text: #172b49;
+        --phone-menu-muted: #475569;
+        --phone-menu-border: #64748b;
+        --phone-menu-hover: #e2e8f0;
+        --phone-menu-scheme: light;
+    }
+
+    html[data-theme='dark'] .contact-form .iti,
+    .prayer-form-shell .contact-form .iti {
+        --phone-menu-bg: var(--background-color-dark, #181823);
+        --phone-menu-text: #e7eef7;
+        --phone-menu-muted: #a8b5c7;
+        --phone-menu-border: #475569;
+        --phone-menu-hover: #2b3548;
+        --phone-menu-scheme: dark;
+    }
+
     .contact-form .iti__country-list {
-        background: #fff;
-        color: #172b49;
+        background: var(--phone-menu-bg);
+        color: var(--phone-menu-text);
+        border-color: var(--phone-menu-border);
+        color-scheme: var(--phone-menu-scheme);
+        scrollbar-color: var(--phone-menu-muted) var(--phone-menu-bg);
         white-space: normal;
         width: min(300px, calc(100vw - 32px));
     }
@@ -44,22 +66,22 @@
         top: 0;
         z-index: 1;
         padding: 8px !important;
-        background: #fff;
+        background: var(--phone-menu-bg);
     }
 
     .contact-form .iti__country-search-row input[type="search"] {
         width: 100%;
         height: 40px !important;
         padding: 8px 10px !important;
-        border: 1px solid #64748b !important;
+        border: 1px solid var(--phone-menu-border) !important;
         border-radius: 4px !important;
-        background: #fff !important;
-        color: #172b49 !important;
+        background: var(--phone-menu-bg) !important;
+        color: var(--phone-menu-text) !important;
         font-size: 14px !important;
     }
 
     .contact-form .iti__country-search-row input::placeholder {
-        color: #475569 !important;
+        color: var(--phone-menu-muted) !important;
     }
 
     .contact-form .iti__country-list [hidden] {
@@ -68,7 +90,22 @@
 
     .contact-form .iti__country-empty {
         padding: 10px;
-        color: #475569;
+        color: var(--phone-menu-muted);
+    }
+
+    .contact-form .iti__country-list .iti__dial-code {
+        color: var(--phone-menu-muted);
+    }
+
+    .contact-form .iti__country-list .iti__country:hover,
+    .contact-form .iti__country-list .iti__country.iti__highlight {
+        background: var(--phone-menu-hover);
+        color: var(--phone-menu-text);
+    }
+
+    .contact-form .iti__country-search-row input[type="search"]:focus {
+        outline: 2px solid var(--phone-menu-muted);
+        outline-offset: -2px;
     }
 
     .iti__country-list li {
@@ -385,13 +422,25 @@
                         element.after(countryField);
                         element.inputMode = 'tel';
 
+                        const phoneError = document.createElement('div');
+                        phoneError.id = element.id + '-country-error';
+                        phoneError.className = 'invalid-feedback';
+                        phoneError.setAttribute('aria-live', 'polite');
+                        phoneError.style.display = 'none';
+                        element.closest('.iti').after(phoneError);
+                        const describedBy = element.getAttribute('aria-describedby');
+                        element.setAttribute('aria-describedby', [describedBy, phoneError.id].filter(Boolean).join(' '));
+
                         const validatePhone = function() {
                             const country = iti.getSelectedCountryData();
                             countryField.value = (country.iso2 || '').toUpperCase();
                             const value = element.value.trim();
                             const valid = !value || (/^\+?[0-9 () .-]+$/.test(value)
                                 && (!window.intlTelInputUtils || iti.isValidNumber()));
-                            element.setCustomValidity(valid ? '' : @json(__('Please enter a valid phone number for the selected country.')));
+                            phoneError.textContent = valid ? '' : @json(__('Please enter a valid phone number for the selected country.'));
+                            phoneError.style.display = valid ? 'none' : 'block';
+                            element.classList.toggle('is-invalid', !valid);
+                            element.setAttribute('aria-invalid', valid ? 'false' : 'true');
                             return valid;
                         };
                         element.addEventListener('input', validatePhone);
@@ -403,7 +452,11 @@
                             if (!validatePhone()) {
                                 event.preventDefault();
                                 event.stopImmediatePropagation();
-                                element.reportValidity();
+                                // Show the other field errors through the existing form validator too.
+                                const validator = window.jQuery && window.jQuery(element.form).data('validator');
+                                if (validator) validator.form();
+                                element.setAttribute('aria-invalid', 'true');
+                                element.focus();
                             }
                         }, true);
                         element.closest('form').addEventListener('reset', function() {
