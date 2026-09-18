@@ -20,9 +20,13 @@ use libphonenumber\PhoneNumberUtil;
  */
 class PhoneNumberRule implements ValidationRule
 {
+    public function __construct(protected ?string $region = null)
+    {
+    }
+
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        if (! is_string($value) || trim($value) === '') {
+        if (! is_string($value) || ! preg_match('/^\+?[0-9 () .-]+$/D', trim($value)) || strlen($value) > 40) {
             $fail(trans('validation.string'));
 
             return;
@@ -31,14 +35,15 @@ class PhoneNumberRule implements ValidationRule
         $phoneUtil = PhoneNumberUtil::getInstance();
 
         try {
-            $number = $phoneUtil->parse($value, $this->getDefaultRegion());
+            $number = $phoneUtil->parse($value, $this->region ? strtoupper($this->region) : $this->getDefaultRegion());
         } catch (NumberParseException) {
             $fail(trans('core/base::forms.phone_number_invalid'));
 
             return;
         }
 
-        if (! $phoneUtil->isValidNumber($number)) {
+        if ($number->hasExtension() || ! $phoneUtil->isValidNumber($number)
+            || ($this->region !== null && ! $phoneUtil->isValidNumberForRegion($number, strtoupper($this->region)))) {
             $fail(trans('core/base::forms.phone_number_invalid'));
         }
     }

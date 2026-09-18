@@ -561,26 +561,6 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const applyUsPhoneCountry = function () {
-        document.querySelectorAll('.prayer-request-page .js-phone-number-mask[data-country-code-selection="true"]').forEach(function (input) {
-            if (!window.intlTelInputGlobals) {
-                return;
-            }
-
-            const iti = window.intlTelInputGlobals.getInstance(input);
-
-            if (!iti) {
-                return;
-            }
-
-            iti.setCountry('us');
-            input.dispatchEvent(new Event('countrychange', { bubbles: true }));
-        });
-    };
-
-    applyUsPhoneCountry();
-    window.setTimeout(applyUsPhoneCountry, 300);
-
     // Force checkbox visual state via inline styles (beats any CSS specificity)
     var termsCheckbox = document.querySelector('.prayer-form-shell input[name="agree_terms_and_policy"][type="checkbox"]');
     if (termsCheckbox) {

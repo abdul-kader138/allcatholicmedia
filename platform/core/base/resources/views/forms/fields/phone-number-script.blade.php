@@ -32,6 +32,45 @@
         padding: 0 !important;
     }
 
+    .contact-form .iti__country-list {
+        background: #fff;
+        color: #172b49;
+        white-space: normal;
+        width: min(300px, calc(100vw - 32px));
+    }
+
+    .contact-form .iti__country-search-row {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        padding: 8px !important;
+        background: #fff;
+    }
+
+    .contact-form .iti__country-search-row input[type="search"] {
+        width: 100%;
+        height: 40px !important;
+        padding: 8px 10px !important;
+        border: 1px solid #64748b !important;
+        border-radius: 4px !important;
+        background: #fff !important;
+        color: #172b49 !important;
+        font-size: 14px !important;
+    }
+
+    .contact-form .iti__country-search-row input::placeholder {
+        color: #475569 !important;
+    }
+
+    .contact-form .iti__country-list [hidden] {
+        display: none !important;
+    }
+
+    .contact-form .iti__country-empty {
+        padding: 10px;
+        color: #475569;
+    }
+
     .iti__country-list li {
         list-style: none !important;
     }
@@ -129,6 +168,78 @@
 
         window.bbPhoneNumberFieldInitialized = true;
 
+        function addCountrySearch(element) {
+            const wrapper = element.closest('.iti');
+            const list = wrapper.querySelector('.iti__country-list');
+            if (!list) return;
+
+            const countries = Array.from(list.querySelectorAll('.iti__country'));
+            const dividers = Array.from(list.querySelectorAll('.iti__divider'));
+            const row = document.createElement('li');
+            row.className = 'iti__country-search-row';
+            row.setAttribute('role', 'presentation');
+            const search = document.createElement('input');
+            search.type = 'search';
+            search.placeholder = @json(__('Search country or dial code'));
+            search.setAttribute('aria-label', search.placeholder);
+            search.autocomplete = 'off';
+            row.appendChild(search);
+            list.prepend(row);
+            const empty = document.createElement('li');
+            empty.className = 'iti__country-empty';
+            empty.setAttribute('role', 'status');
+            empty.textContent = @json(__('No countries found'));
+            empty.hidden = true;
+            list.appendChild(empty);
+            let matches = countries;
+            let active = -1;
+
+            const filter = function() {
+                const query = search.value.trim().toLocaleLowerCase();
+                const seen = new Set();
+                matches = countries.filter(function(country) {
+                    const code = country.dataset.countryCode;
+                    const text = country.textContent.toLocaleLowerCase();
+                    const match = (!query || text.includes(query) || code.includes(query)) && !seen.has(code);
+                    country.hidden = !match;
+                    country.classList.remove('iti__highlight');
+                    if (match) seen.add(code);
+                    return match;
+                });
+                dividers.forEach(divider => { divider.hidden = true; });
+                empty.hidden = matches.length > 0;
+                active = -1;
+                list.scrollTop = 0;
+            };
+
+            // Keep typing/clicks in the search box away from the legacy dropdown handlers.
+            search.addEventListener('click', event => event.stopPropagation());
+            search.addEventListener('input', filter);
+            search.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') return;
+                event.stopPropagation();
+                if (event.key === 'Tab') {
+                    document.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape'}));
+                    wrapper.querySelector('.iti__selected-flag').focus();
+                } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+                    event.preventDefault();
+                    if (!matches.length) return;
+                    active = (active + (event.key === 'ArrowDown' ? 1 : -1) + matches.length) % matches.length;
+                    countries.forEach(country => country.classList.remove('iti__highlight'));
+                    matches[active].classList.add('iti__highlight');
+                    matches[active].scrollIntoView({block: 'nearest'});
+                } else if (event.key === 'Enter') {
+                    event.preventDefault();
+                    if (matches.length) matches[Math.max(0, active)].click();
+                }
+            });
+            element.addEventListener('open:countrydropdown', function() {
+                search.value = '';
+                filter();
+                search.focus({preventScroll: true});
+            });
+        }
+
         function initPhoneNumberFields() {
             document.querySelectorAll('.js-phone-number-mask[data-country-code-selection="true"]').forEach(function(element) {
                 if (element.dataset.itiInitialized === 'true') {
@@ -222,6 +333,10 @@
                 const iti = window.intlTelInput(element, config);
                 element.dataset.itiInitialized = 'true';
 
+                if (element.closest('.contact-form')) {
+                    addCountrySearch(element);
+                }
+
                 if (hasCountryCodeSelection && element.closest('.contact-form')) {
                     const wrapper = element.closest('.iti');
                     const selector = wrapper.querySelector('.iti__selected-flag');
@@ -263,6 +378,39 @@
                 }
 
                 if (hasCountryCodeSelection) {
+                    if (element.closest('.contact-form')) {
+                        const countryField = document.createElement('input');
+                        countryField.type = 'hidden';
+                        countryField.name = element.name.replace(/_display$/, '') + '_country';
+                        element.after(countryField);
+                        element.inputMode = 'tel';
+
+                        const validatePhone = function() {
+                            const country = iti.getSelectedCountryData();
+                            countryField.value = (country.iso2 || '').toUpperCase();
+                            const value = element.value.trim();
+                            const valid = !value || (/^\+?[0-9 () .-]+$/.test(value)
+                                && (!window.intlTelInputUtils || iti.isValidNumber()));
+                            element.setCustomValidity(valid ? '' : @json(__('Please enter a valid phone number for the selected country.')));
+                            return valid;
+                        };
+                        element.addEventListener('input', validatePhone);
+                        element.addEventListener('countrychange', validatePhone);
+                        element.addEventListener('blur', validatePhone);
+                        iti.promise.then(validatePhone);
+                        validatePhone();
+                        element.closest('form').addEventListener('submit', function(event) {
+                            if (!validatePhone()) {
+                                event.preventDefault();
+                                event.stopImmediatePropagation();
+                                element.reportValidity();
+                            }
+                        }, true);
+                        element.closest('form').addEventListener('reset', function() {
+                            setTimeout(validatePhone, 0);
+                        });
+                    }
+
                     const hiddenFieldId = element.id + '-full';
                     const hiddenField = document.getElementById(hiddenFieldId);
 

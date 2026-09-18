@@ -42,7 +42,7 @@ class ContactRequest extends Request
             'name' => ['required', 'string', 'max:40'],
             'email' => ['nullable', new EmailRule(), 'max:80'],
             'content' => ['required', 'string', 'max:10000'],
-            'phone' => ['nullable', new PhoneNumberRule()],
+            'phone' => ['nullable', new PhoneNumberRule(is_string($this->input('phone_country')) ? $this->input('phone_country') : null)],
             'address' => ['nullable', 'string', 'max:500'],
             'subject' => ['nullable', 'string', 'max:500'],
         ];
@@ -84,6 +84,14 @@ class ContactRequest extends Request
                 CustomFieldType::CHECKBOX => [new OnOffRule()],
                 default => $customFieldRules,
             };
+        }
+
+        if (isset($rules['phone']) && $this->has('phone_display')) {
+            $rules['phone_country'] = ['required_with:phone,phone_display', 'nullable', 'string', 'size:2',
+                \Illuminate\Validation\Rule::in(\libphonenumber\PhoneNumberUtil::getInstance()->getSupportedRegions())];
+            $rules['phone_display'] = ['nullable', new PhoneNumberRule(
+                is_string($this->input('phone_country')) ? $this->input('phone_country') : null
+            )];
         }
 
         return apply_filters('contact_request_rules', $rules, $this);
