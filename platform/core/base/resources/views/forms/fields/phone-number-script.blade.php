@@ -222,6 +222,46 @@
                 const iti = window.intlTelInput(element, config);
                 element.dataset.itiInitialized = 'true';
 
+                if (hasCountryCodeSelection && element.closest('.contact-form')) {
+                    const wrapper = element.closest('.iti');
+                    const selector = wrapper.querySelector('.iti__selected-flag');
+
+                    // Measure the actual selector, including the flag, dial code and arrow.
+                    // Inline priority also protects this spacing from theme padding shorthands.
+                    const updatePhoneSpacing = function() {
+                        if (!element.isConnected || !selector) {
+                            return;
+                        }
+
+                        const inputBounds = element.getBoundingClientRect();
+                        const selectorBounds = selector.getBoundingClientRect();
+                        if (!inputBounds.width || !selectorBounds.width) {
+                            return;
+                        }
+
+                        const onLeft = Math.abs(selectorBounds.left - inputBounds.left)
+                            <= Math.abs(inputBounds.right - selectorBounds.right);
+                        const reservedSpace = onLeft
+                            ? selectorBounds.right - inputBounds.left
+                            : inputBounds.right - selectorBounds.left;
+
+                        element.style.setProperty('padding-left', onLeft ? Math.ceil(reservedSpace + 12) + 'px' : '12px', 'important');
+                        element.style.setProperty('padding-right', onLeft ? '12px' : Math.ceil(reservedSpace + 12) + 'px', 'important');
+                    };
+
+                    updatePhoneSpacing();
+                    element.addEventListener('countrychange', updatePhoneSpacing);
+                    window.addEventListener('resize', updatePhoneSpacing);
+                    if (window.ResizeObserver && selector) {
+                        const spacingObserver = new ResizeObserver(updatePhoneSpacing);
+                        spacingObserver.observe(selector);
+                        spacingObserver.observe(element);
+                    }
+                    if (document.fonts) {
+                        document.fonts.ready.then(updatePhoneSpacing);
+                    }
+                }
+
                 if (hasCountryCodeSelection) {
                     const hiddenFieldId = element.id + '-full';
                     const hiddenField = document.getElementById(hiddenFieldId);
