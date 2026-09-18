@@ -52,14 +52,60 @@
 
 <style>
     .acm-post-wrap {
+        --post-heading: #0f172a;
+        --post-body: #334155;
+        --post-muted: #64748b;
+        --post-link: #046bd2;
+        --post-border: #cbd5e1;
+        --post-hover: #8a6d12;
         background: transparent !important;
         margin: 0 auto;
         max-width: 960px;
         padding: 32px 20px 64px;
     }
 
+    html[data-theme='dark'] .acm-post-wrap {
+        --post-heading: #f1f5f9;
+        --post-body: #e2e8f0;
+        --post-muted: #a8b5c7;
+        --post-link: #80bfff;
+        --post-border: #64748b;
+        --post-hover: #f3d46d;
+    }
+
+    .acm-post-wrap .breadcrumb-item,
+    .acm-post-wrap .breadcrumb-item.active,
+    .acm-post-wrap .breadcrumb-item + .breadcrumb-item::before {
+        color: var(--post-muted);
+    }
+
+    .acm-post-wrap .breadcrumb-item a {
+        color: var(--post-link);
+    }
+
+    .acm-post-wrap .breadcrumb-item {
+        overflow-wrap: anywhere;
+    }
+
+    .acm-post-tags {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 8px 12px;
+    }
+
+    .acm-post-wrap .breadcrumb-item a:hover,
+    .acm-post-meta a:hover {
+        color: var(--post-hover);
+        text-decoration: underline;
+    }
+
+    .acm-post-wrap a:focus-visible {
+        outline: 2px solid var(--post-link);
+        outline-offset: 4px;
+    }
+
     .acm-post-head h1 {
-        color: #0f172a;
+        color: var(--post-heading);
         font-family: var(--heading-font, 'Playfair Display', serif);
         font-size: clamp(2rem, 4vw, 3rem);
         line-height: 1.08;
@@ -67,7 +113,7 @@
     }
 
     .acm-post-meta {
-        color: #64748b;
+        color: var(--post-muted);
         display: flex;
         flex-wrap: wrap;
         gap: 12px 18px;
@@ -75,7 +121,7 @@
     }
 
     .acm-post-meta a {
-        color: #046bd2;
+        color: var(--post-link);
         text-decoration: none;
     }
 
@@ -95,7 +141,7 @@
     }
 
     .acm-post-content {
-        color: #334155;
+        color: var(--post-body);
     }
 
     .acm-post-brand { color: #c9a227; font-size: .72rem; font-weight: 800; letter-spacing: .16em; margin-bottom: 10px; text-transform: uppercase; }
@@ -116,9 +162,9 @@
     .acm-post-next-step a:hover { background: #c9a227; color: #07111d; }
 
     .acm-post-share { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 8px; }
-    .acm-post-share-label { color: #64748b; font-size: .8rem; font-weight: 700; margin-right: 4px; }
-    .acm-post-share a { border: 1px solid #cbd5e1; border-radius: 999px; color: #334155; font-size: .78rem; font-weight: 700; padding: 8px 12px; text-decoration: none; }
-    .acm-post-share a:hover { border-color: #c9a227; color: #8a6d12; }
+    .acm-post-share-label { color: var(--post-muted); font-size: 14px; font-weight: 700; margin-right: 4px; }
+    .acm-post-share a { border: 1px solid var(--post-border); border-radius: 999px; color: var(--post-body); font-size: 14px; font-weight: 700; padding: 8px 12px; text-decoration: none; }
+    .acm-post-share a:hover { border-color: #c9a227; color: var(--post-hover); }
 
     .acm-post-content img {
         border-radius: 14px;
@@ -130,7 +176,7 @@
 
     .acm-post-content h2,
     .acm-post-content h3 {
-        color: #0f172a;
+        color: var(--post-heading);
         line-height: 1.25 !important;
         margin: 32px 0 16px;
     }
@@ -146,6 +192,7 @@
     }
 
     .acm-post-related-card {
+        min-width: 0;
         text-decoration: none;
     }
 
@@ -158,9 +205,15 @@
     }
 
     .acm-post-related-card-title {
-        color: #0f172a;
+        color: var(--post-heading);
         font-weight: 700;
         margin-top: 10px;
+    }
+
+    .acm-post-related-card:hover .acm-post-related-card-title,
+    .acm-post-related-card:focus-visible .acm-post-related-card-title {
+        color: var(--post-hover);
+        text-decoration: underline;
     }
 
     /* ── Comment section — dark theme ────────────────── */
@@ -407,7 +460,7 @@
             </span>
 
             @if ($post->tags->isNotEmpty())
-                <span>
+                <span class="acm-post-tags">
                     @foreach ($post->tags as $tag)
                         <a href="{{ $tag->url }}">{{ $tag->name }}</a>
                     @endforeach
